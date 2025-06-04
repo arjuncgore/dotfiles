@@ -1,0 +1,34 @@
+{
+    "layer": "top",
+    "position": "top",
+    "modules-left": [
+        "sway/workspaces"
+    ],
+    "modules-center": [
+        "sway/window"
+    ],
+    "modules-right": [
+        "pulseaudio",
+        "network",
+        "clock"
+    ],
+    "clock": {
+        "format": "{:%a %b %d  %I:%M %p}"
+    },
+    "pulseaudio": {
+        "format": "{volume}% {icon}",
+        "format-muted": "",
+        "format-icons": {
+            "default": [
+                "",
+                "",
+                ""
+            ]
+        }
+    },
+    "network": {
+        "format-wifi": "  {essid} ({signalStrength}%)",
+        "format-ethernet": "  {ipaddr}",
+        "format-disconnected": "  Disconnected"
+    }
+}
