@@ -8,19 +8,153 @@ local config = {
         repeat_delay = 300,
         
         remaps = {
-		    ["MB4"] = "F3",
-		    ["MB5"] = "F6",
-            ["LEFTALT"] = "LEFTCTRL",
-            ["LEFTCTRL"] = "LEFTALT",
+		    ["MB4"] = "F3",                                             -- F3 with back button
+		    ["MB5"] = "F6",                                             -- Reset with forward button
+            ["LEFTALT"] = "LEFTCTRL",                                   -- LALT --> LCTRL
+            
+            ["T"] = "PAGEUP", ["PAGEUP"] = "T",                         -- PgUp <--> T
+            ["A"] = "PAGEDOWN", ["PAGEDOWN"] = "A",                     -- PgDn <--> A
+            ["RIGHTSHIFT"] = "H", ["H"] = "RIGHTSHIFT",                 -- RShift <--> H
+
         },
 
         sensitivity = 1.0,
         confine_pointer = false,
     },
     theme = {
-        background = "#303030ff",
+        background_png = "/home/arjungore/mcsr/resources/background.png",
+        -- background = "#EDE5DA",
+        ninb_anchor = "topright",
+    },
+    experimental = {
+        debug = false,
+        jit = false,
+        tearing = false,
     },
 }
+
+local is_ninb_running = function()
+	return os.execute("pgrep -f 'NinjaBrain'")
+end
+
+local exec_ninb = function()
+	helpers.toggle_floating()
+	if not is_ninb_running() then
+		waywall.exec("java -jar /home/arjungore/mcsr/Ninjabrain-Bot-1.5.1.jar")
+	end
+end
+
+local make_mirror = function(options)
+	local this = nil
+
+	return function(enable)
+		if enable and not this then
+			this = waywall.mirror(options)
+		elseif this and not enable then
+			this:close()
+			this = nil
+		end
+	end
+end
+
+local mirrors = {
+    e_counter = make_mirror({
+		src = {  x = 1, y = 28, w = 49, h = 18 },
+		dst = { x = 1500, y = 400, w = 343, h = 126 },
+		color_key = {
+			input = "#dddddd",
+			output = "#272420",
+		},
+	}),
+
+    thin_pie = make_mirror({
+		src = { x = 10, y = 694, w = 340, h = 178 },
+		dst = { x = 1500, y = 657, w = 400, h = 400 },
+    }),
+
+
+    thin_pie_entities = make_mirror({
+		src = { x = 10, y = 694, w = 340, h = 178 },
+		dst = { x = 1500, y = 657, w = 400, h = 400 },
+		color_key = {
+			input = "#E446C4",
+			output = "#9a774f",
+		},
+	}),
+
+    thin_pie_unspecified = make_mirror({
+		src = { x = 10, y = 694, w = 340, h = 178 },
+		dst = { x = 1500, y = 657, w = 400, h = 400 },
+		color_key = {
+			input = "#46CE66",
+			output = "#9a774f",
+		},
+	}),
+
+    thin_pie_blockentities = make_mirror({
+		src = { x = 10, y = 694, w = 340, h = 178 },
+		dst = { x = 1500, y = 657, w = 400, h = 400 },
+		color_key = {
+			input = "#ec6e4e",
+			output = "#272420",
+		},
+	}),
+
+	thin_pie_destroyProgress = make_mirror({
+		src = { x = 10, y = 694, w = 340, h = 178 },
+		dst = { x = 1500, y = 657, w = 400, h = 400 },
+		color_key = {
+			input = "#CC6C46",
+			output = "#9a774f",
+		},
+	}),
+
+	thin_pie_prepare = make_mirror({
+		src = { x = 10, y = 694, w = 340, h = 178 },
+		dst = { x = 1500, y = 657, w = 400, h = 400 },
+		color_key = {
+			input = "#464C46",
+			output = "#9a774f",
+		},
+	}),
+}
+
+local show_mirrors = function(eye, f3, tall, thin)
+
+    mirrors.e_counter(f3)
+
+    -- mirrors.thin_pie(thin)
+
+    mirrors.thin_pie_entities(thin)
+    mirrors.thin_pie_unspecified(thin)
+    mirrors.thin_pie_blockentities(thin)
+    mirrors.thin_pie_destroyProgress(thin)
+    mirrors.thin_pie_prepare(thin)
+
+end
+
+local thin_enable = function()
+    show_mirrors(false, true, false, true)
+end
+
+local tall_enable = function()
+	os.execute("ratbagctl $(ratbagctl list | grep 'Glorious Model O' | awk -F ':' '{print $1}') dpi set 100")
+	show_mirrors(true, true, true, false)
+end
+
+local wide_enable = function()
+	show_mirrors(false, false, false, false)
+end
+
+local tall_disable = function()
+	os.execute("ratbagctl $(ratbagctl list | grep 'Glorious Model O' | awk -F ':' '{print $1}') dpi set 3200")
+	show_mirrors(false, false, false, false)
+end
+
+local generic_disable = function()
+    show_mirrors(false, false, false, false)
+end
+
 
 local make_res = function(width, height, enable, disable)
 	return function()
@@ -36,19 +170,26 @@ local make_res = function(width, height, enable, disable)
 	end
 end
 
-
-
 local resolutions = {
 	thin = make_res(350, 1100, thin_enable, generic_disable),
-	tall = make_res(320, 16384, tall_enable, tall_disable),
+	tall = make_res(384, 16384, tall_enable, tall_disable),
 	wide = make_res(2560, 400, wide_enable, generic_disable),
 }
 
 
 config.actions = {
-    ["J"] = resolutions.thin,
-    ["K"] = resolutions.wide,
-    ["L"] = resolutions.tall,
+    ["l"] = exec_ninb,
+    
+    ["*-Alt_L"] = resolutions.thin,
+    ["*-Z"] = resolutions.wide,
+    ["F4"] = function()
+        if not waywall.get_key("F3") then
+            resolutions.tall()
+        else
+            return false
+        end
+    end,
+
 
 }
 
