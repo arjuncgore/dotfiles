@@ -24,6 +24,7 @@ local config = {
     theme = {
         background_png = "/home/arjungore/mcsr/resources/background.png",
         -- background = "#EDE5DA",
+		-- background = "#111111",
         ninb_anchor = "topright",
     },
     experimental = {
@@ -33,6 +34,7 @@ local config = {
     },
 }
 
+--=============================================================================================== NINJABRAIN
 local is_ninb_running = function()
 	return os.execute("pgrep -f 'NinjaBrain'")
 end
@@ -44,6 +46,7 @@ local exec_ninb = function()
 	end
 end
 
+--=============================================================================================== MIRRORS
 local make_mirror = function(options)
 	local this = nil
 
@@ -117,9 +120,37 @@ local mirrors = {
 			output = "#9a774f",
 		},
 	}),
+
+	eye_measure = make_mirror({
+		src = { x = 130, y = 7902, w = 60, h = 580 },
+		dst = { x = 0, y = 315, w = 800, h = 450 },
+	}),
+}
+
+--=============================================================================================== IMAGES
+local make_image = function(path, dst)
+	local this = nil
+
+	return function(enable)
+		if enable and not this then
+			this = waywall.image(path, dst)
+		elseif this and not enable then
+			this:close()
+			this = nil
+		end
+	end
+end
+
+local images = {
+	overlay = make_image("/home/arjungore/mcsr/resources/measuring_overlay.png", {
+		dst = { x = 0, y = 315, w = 800, h = 450 },
+	}),
 }
 
 local show_mirrors = function(eye, f3, tall, thin)
+	images.overlay(eye)
+	mirrors.eye_measure(eye)
+
 
     mirrors.e_counter(f3)
 
@@ -133,21 +164,41 @@ local show_mirrors = function(eye, f3, tall, thin)
 
 end
 
+local ratbag_device = io.popen("ratbagctl list | grep 'Glorious Model O' | awk -F ':' '{print $1}'"):read("*l")
+
+
+local reset_dpi = function()
+	if not ratbag_device then return end
+
+	local current_dpi_cmd = string.format("ratbagctl '%s' dpi get", ratbag_device)
+	local current_dpi = io.popen(current_dpi_cmd):read("*a")
+	current_dpi = current_dpi:gsub("^%s*(.-)%s*$", "%1")
+
+	if current_dpi == "100x100dpi" then
+		local set_dpi_cmd = string.format("ratbagctl '%s' dpi set 3200", ratbag_device)
+		os.execute(set_dpi_cmd)
+	end
+end
+
+--=============================================================================================== STATES
 local thin_enable = function()
+	reset_dpi()
     show_mirrors(false, true, false, true)
 end
 
 local tall_enable = function()
-	os.execute("ratbagctl $(ratbagctl list | grep 'Glorious Model O' | awk -F ':' '{print $1}') dpi set 100")
-	show_mirrors(true, true, true, false)
+	if ratbag_device then
+		os.execute(string.format("ratbagctl '%s' dpi set 100", ratbag_device))
+	end
+	show_mirrors(true, true, true, true)
 end
-
 local wide_enable = function()
 	show_mirrors(false, false, false, false)
 end
 
 local tall_disable = function()
-	os.execute("ratbagctl $(ratbagctl list | grep 'Glorious Model O' | awk -F ':' '{print $1}') dpi set 3200")
+	-- os.execute("ratbagctl $(ratbagctl list | grep 'Glorious Model O' | awk -F ':' '{print $1}') dpi set 3200")
+	reset_dpi()
 	show_mirrors(false, false, false, false)
 end
 
@@ -155,7 +206,7 @@ local generic_disable = function()
     show_mirrors(false, false, false, false)
 end
 
-
+--=============================================================================================== RESOLUTIONS
 local make_res = function(width, height, enable, disable)
 	return function()
 		local active_width, active_height = waywall.active_res()
@@ -172,7 +223,7 @@ end
 
 local resolutions = {
 	thin = make_res(350, 1100, thin_enable, generic_disable),
-	tall = make_res(384, 16384, tall_enable, tall_disable),
+	tall = make_res(320, 16384, tall_enable, tall_disable),
 	wide = make_res(2560, 400, wide_enable, generic_disable),
 }
 
