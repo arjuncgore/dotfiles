@@ -70,12 +70,10 @@ local mirrors = {
 		},
 	}),
 
-    thin_pie = make_mirror({
+    thin_pie_all = make_mirror({
 		src = { x = 10, y = 694, w = 340, h = 178 },
 		dst = { x = 1500, y = 657, w = 400, h = 400 },
     }),
-
-
     thin_pie_entities = make_mirror({
 		src = { x = 10, y = 694, w = 340, h = 178 },
 		dst = { x = 1500, y = 657, w = 400, h = 400 },
@@ -84,7 +82,6 @@ local mirrors = {
 			output = "#9a774f",
 		},
 	}),
-
     thin_pie_unspecified = make_mirror({
 		src = { x = 10, y = 694, w = 340, h = 178 },
 		dst = { x = 1500, y = 657, w = 400, h = 400 },
@@ -93,7 +90,6 @@ local mirrors = {
 			output = "#9a774f",
 		},
 	}),
-
     thin_pie_blockentities = make_mirror({
 		src = { x = 10, y = 694, w = 340, h = 178 },
 		dst = { x = 1500, y = 657, w = 400, h = 400 },
@@ -102,7 +98,6 @@ local mirrors = {
 			output = "#272420",
 		},
 	}),
-
 	thin_pie_destroyProgress = make_mirror({
 		src = { x = 10, y = 694, w = 340, h = 178 },
 		dst = { x = 1500, y = 657, w = 400, h = 400 },
@@ -111,7 +106,6 @@ local mirrors = {
 			output = "#9a774f",
 		},
 	}),
-
 	thin_pie_prepare = make_mirror({
 		src = { x = 10, y = 694, w = 340, h = 178 },
 		dst = { x = 1500, y = 657, w = 400, h = 400 },
@@ -121,13 +115,58 @@ local mirrors = {
 		},
 	}),
 
+	tall_pie_all = make_mirror({
+		src = { x = 44, y = 15978, w =340, h = 178 },
+        dst = { x = 1500, y = 657, w = 400, h = 400 },
+	}),
+	tall_pie_entities = make_mirror({
+		src = { x = 44, y = 15978, w =340, h = 178 },
+        dst = { x = 1500, y = 657, w = 400, h = 400 },
+		color_key = {
+			input = "#E446C4",
+			output = "#9a774f",
+		},
+	}),
+    tall_pie_unspecified = make_mirror({
+		src = { x = 44, y = 15978, w =340, h = 178 },
+        dst = { x = 1500, y = 657, w = 400, h = 400 },
+		color_key = {
+			input = "#46CE66",
+			output = "#9a774f",
+		},
+	}),
+    tall_pie_blockentities = make_mirror({
+		src = { x = 44, y = 15978, w =340, h = 178 },
+        dst = { x = 1500, y = 657, w = 400, h = 400 },
+		color_key = {
+			input = "#ec6e4e",
+			output = "#272420",
+		},
+	}),
+	tall_pie_destroyProgress = make_mirror({
+		src = { x = 44, y = 15978, w =340, h = 178 },
+        dst = { x = 1500, y = 657, w = 400, h = 400 },
+		color_key = {
+			input = "#CC6C46",
+			output = "#9a774f",
+		},
+	}),
+	tall_pie_prepare = make_mirror({
+		src = { x = 44, y = 15978, w =340, h = 178 },
+        dst = { x = 1500, y = 657, w = 400, h = 400 },
+		color_key = {
+			input = "#464C46",
+			output = "#9a774f",
+		},
+	}),
+
 	eye_measure = make_mirror({
-		src = { x = 130, y = 7902, w = 60, h = 580 },
-		dst = { x = 0, y = 315, w = 800, h = 450 },
+		src = { x = 162, y = 7902, w = 60, h = 580 },
+		dst = { x = 94, y = 470, w = 900, h = 500 },
 	}),
 }
 
---=============================================================================================== IMAGES
+--=============================================================================================== BOATEYE
 local make_image = function(path, dst)
 	local this = nil
 
@@ -143,29 +182,11 @@ end
 
 local images = {
 	overlay = make_image("/home/arjungore/mcsr/resources/measuring_overlay.png", {
-		dst = { x = 0, y = 315, w = 800, h = 450 },
+		dst = { x = 94, y = 470, w = 900, h = 500 },
 	}),
 }
 
-local show_mirrors = function(eye, f3, tall, thin)
-	images.overlay(eye)
-	mirrors.eye_measure(eye)
-
-
-    mirrors.e_counter(f3)
-
-    -- mirrors.thin_pie(thin)
-
-    mirrors.thin_pie_entities(thin)
-    mirrors.thin_pie_unspecified(thin)
-    mirrors.thin_pie_blockentities(thin)
-    mirrors.thin_pie_destroyProgress(thin)
-    mirrors.thin_pie_prepare(thin)
-
-end
-
 local ratbag_device = io.popen("ratbagctl list | grep 'Glorious Model O' | awk -F ':' '{print $1}'"):read("*l")
-
 
 local reset_dpi = function()
 	if not ratbag_device then return end
@@ -180,25 +201,47 @@ local reset_dpi = function()
 	end
 end
 
+local show_mirrors = function(eye, f3, tall, thin)
+	images.overlay(eye)
+	mirrors.eye_measure(eye)
+
+
+    mirrors.e_counter(f3)
+
+    -- mirrors.thin_pie_all(thin)
+    mirrors.thin_pie_entities(thin)
+    mirrors.thin_pie_unspecified(thin)
+    mirrors.thin_pie_blockentities(thin)
+    mirrors.thin_pie_destroyProgress(thin)
+    mirrors.thin_pie_prepare(thin)
+
+	-- mirrors.tall_pie_all(tall)
+    mirrors.tall_pie_entities(tall)
+    mirrors.tall_pie_unspecified(tall)
+    mirrors.tall_pie_blockentities(tall)
+    mirrors.tall_pie_destroyProgress(tall)
+    mirrors.tall_pie_prepare(tall)
+
+end
+
 --=============================================================================================== STATES
 local thin_enable = function()
-	reset_dpi()
+	-- reset_dpi()
     show_mirrors(false, true, false, true)
 end
 
 local tall_enable = function()
 	if ratbag_device then
-		os.execute(string.format("ratbagctl '%s' dpi set 100", ratbag_device))
+		-- os.execute(string.format("ratbagctl '%s' dpi set 100", ratbag_device))
 	end
-	show_mirrors(true, true, true, true)
+	show_mirrors(true, true, true, false)
 end
 local wide_enable = function()
 	show_mirrors(false, false, false, false)
 end
 
 local tall_disable = function()
-	-- os.execute("ratbagctl $(ratbagctl list | grep 'Glorious Model O' | awk -F ':' '{print $1}') dpi set 3200")
-	reset_dpi()
+	-- reset_dpi()
 	show_mirrors(false, false, false, false)
 end
 
@@ -223,17 +266,17 @@ end
 
 local resolutions = {
 	thin = make_res(350, 1100, thin_enable, generic_disable),
-	tall = make_res(320, 16384, tall_enable, tall_disable),
+	tall = make_res(384, 16384, tall_enable, tall_disable),
 	wide = make_res(2560, 400, wide_enable, generic_disable),
 }
 
-
+--=============================================================================================== KEYBINDS
 config.actions = {
     ["l"] = exec_ninb,
     
     ["*-Alt_L"] = resolutions.thin,
     ["*-Z"] = resolutions.wide,
-    ["F4"] = function()
+    ["*-F4"] = function()
         if not waywall.get_key("F3") then
             resolutions.tall()
         else
