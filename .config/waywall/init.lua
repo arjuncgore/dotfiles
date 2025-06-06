@@ -36,15 +36,21 @@ local config = {
 
 --=============================================================================================== NINJABRAIN
 local is_ninb_running = function()
-	return os.execute("pgrep -f 'NinjaBrain'")
+	local handle = io.popen("pgrep -f 'Ninjabrain.*jar'")
+	local result = handle:read("*l")
+	handle:close()
+	return result ~= nil
 end
 
 local exec_ninb = function()
-	helpers.toggle_floating()
 	if not is_ninb_running() then
 		waywall.exec("java -jar /home/arjungore/mcsr/Ninjabrain-Bot-1.5.1.jar")
 	end
 end
+
+-- local exec_ninb = function()
+-- 	waywall.exec("java -jar /home/arjungore/mcsr/Ninjabrain-Bot-1.5.1.jar")
+-- end
 
 --=============================================================================================== MIRRORS
 local make_mirror = function(options)
@@ -201,10 +207,10 @@ local reset_dpi = function()
 	end
 end
 
+--=============================================================================================== MANAGING MIRRORS
 local show_mirrors = function(eye, f3, tall, thin)
 	images.overlay(eye)
 	mirrors.eye_measure(eye)
-
 
     mirrors.e_counter(f3)
 
@@ -272,7 +278,6 @@ local resolutions = {
 
 --=============================================================================================== KEYBINDS
 config.actions = {
-    ["l"] = exec_ninb,
     
     ["*-Alt_L"] = resolutions.thin,
     ["*-Z"] = resolutions.wide,
@@ -283,6 +288,12 @@ config.actions = {
             return false
         end
     end,
+
+	["Shift-P"] = exec_ninb,
+	
+	["apostrophe"] = function()
+		helpers.toggle_floating()
+	end
 
 
 }
