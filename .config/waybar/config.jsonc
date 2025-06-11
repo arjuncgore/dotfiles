@@ -1,5 +1,5 @@
 {
-    "layer": "top",
+    "layer": "bottom",
     "position": "top",
     "modules-left": [
         "sway/workspaces"
@@ -13,7 +13,7 @@
         "clock"
     ],
     "clock": {
-        "format": "{:%a %b %d  %I:%M %p}"
+        "format": "{:%a %b%e  %I:%M %p}"
     },
     "pulseaudio": {
         "format": "{volume}% {icon}",
@@ -27,7 +27,7 @@
         }
     },
     "network": {
-        "format-wifi": "  {essid} ({signalStrength}%)",
+        "format-wifi": "   {essid} ({signalStrength}%)",
         "format-ethernet": "  {ipaddr}",
         "format-disconnected": "  Disconnected"
     }
