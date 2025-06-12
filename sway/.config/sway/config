@@ -14,12 +14,11 @@ set $down j
 set $up k
 set $right l
 # Your preferred terminal emulator
-set $term alacritty
+set $term ghostty
 # Your preferred application launcher
 set $menu wofi --show drun
 # Your preferred browsers
 set $browser google-chrome-stable
-set $browser2 firefox
 # Your preferred file manager
 set $filemanager thunar
 # Your preferred game manager
@@ -105,7 +104,6 @@ input "9610:54:Glorious_Model_O" {
     
     # Start your browsers
     bindsym $mod+b exec $browser
-    bindsym $mod+Shift+b exec $browser2
 
     # Start your file manager
     bindsym $mod+f exec $filemanager
