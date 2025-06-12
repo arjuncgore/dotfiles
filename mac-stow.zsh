@@ -3,7 +3,7 @@
 configs=(
 aerospace
 raycast
-alacritty
+ghostty
 nvim
 zsh
 )

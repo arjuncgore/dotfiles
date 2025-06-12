@@ -3,7 +3,7 @@
 configs=(
 thunar
 wofi
-alacritty
+ghostty
 waybar
 bash
 nvim
