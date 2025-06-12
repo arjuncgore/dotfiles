@@ -9,7 +9,8 @@ cursor-style = block
 cursor-style-blink=true
 
 mouse-hide-while-typing=true
-macos-titlebar-style=transparent
+macos-titlebar-style=hidden
+window-decoration=none
 
 background-opacity=0.8
 background-blur=true
