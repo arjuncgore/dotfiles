@@ -9,6 +9,7 @@ bash
 nvim
 sway
 waywall
+hypr
 )
 
 for config in "${configs[@]}"; do
