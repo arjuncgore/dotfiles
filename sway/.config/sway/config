@@ -23,6 +23,10 @@ set $browser google-chrome-stable
 set $filemanager thunar
 # Your preferred game manager
 set $gamemanager env GDK_BACKEND=x11 STEAM_FORCE_DESKTOPUI_MODE=1 steam
+# Your preferred code editor
+set $ide code
+# Your preferred music player
+set $music spotify
 
 ### Aesthetics
 #
@@ -110,6 +114,12 @@ input "9610:54:Glorious_Model_O" {
 
     # Start your game manager
     bindsym $mod+g exec $gamemanager
+
+    # Start your code editor
+    bindsym $mod+c exec $ide
+
+    # Start your music player
+    bindsym $mod+s exec $music
 
     # Take a screenshot
     bindsym $mod+Shift+p exec grim -g "$(slurp)" - | wl-copy
