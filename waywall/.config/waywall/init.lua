@@ -14,7 +14,8 @@ local config = {
             
             ["T"] = "PAGEUP", ["PAGEUP"] = "T",                         -- PgUp <--> T
             ["A"] = "PAGEDOWN", ["PAGEDOWN"] = "A",                     -- PgDn <--> A
-            ["RIGHTSHIFT"] = "H", ["H"] = "RIGHTSHIFT",                 -- RShift <--> H
+			["O"] = "Q", ["Q"] = "O",                     				-- PgDn <--> A
+            ["RIGHTSHIFT"] = "X", ["X"] = "RIGHTSHIFT",                 -- RShift <--> H
 
         },
 
@@ -237,9 +238,9 @@ local thin_enable = function()
 end
 
 local tall_enable = function()
-	if ratbag_device then
-		-- os.execute(string.format("ratbagctl '%s' dpi set 100", ratbag_device))
-	end
+	-- if ratbag_device then
+	-- 	os.execute(string.format("ratbagctl '%s' dpi set 100", ratbag_device))
+	-- end
 	show_mirrors(true, true, true, false)
 end
 local wide_enable = function()
@@ -278,7 +279,7 @@ local resolutions = {
 
 --=============================================================================================== KEYBINDS
 config.actions = {
-    
+
     ["*-Alt_L"] = resolutions.thin,
     ["*-Z"] = resolutions.wide,
     ["*-F4"] = function()
@@ -293,8 +294,11 @@ config.actions = {
 	
 	["apostrophe"] = function()
 		helpers.toggle_floating()
-	end
-
+	end,
+	
+	["Shift-O"] = function()
+		waywall.toggle_fullscreen()
+	end,
 
 }
 
