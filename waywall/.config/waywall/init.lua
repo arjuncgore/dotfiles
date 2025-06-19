@@ -1,6 +1,14 @@
 local waywall = require("waywall")
 local helpers = require("waywall.helpers")
 
+local primary_col = "#272420"
+local secondary_col = "#9a774f"
+
+local background_path = "/home/arjungore/mcsr/resources/background.png"
+local nb_path = "/home/arjungore/mcsr/Ninjabrain-Bot-1.5.1.jar"
+local overlay_path = "/home/arjungore/mcsr/resources/measuring_overlay.png"
+
+
 local config = {
     input = {
         layout = "us",
@@ -23,9 +31,7 @@ local config = {
         confine_pointer = false,
     },
     theme = {
-        background_png = "/home/arjungore/mcsr/resources/background.png",
-        -- background = "#EDE5DA",
-		-- background = "#111111",
+        background_png = background_path,
         ninb_anchor = "topright",
     },
     experimental = {
@@ -34,6 +40,7 @@ local config = {
         tearing = false,
     },
 }
+
 
 --=============================================================================================== NINJABRAIN
 local is_ninb_running = function()
@@ -45,13 +52,9 @@ end
 
 local exec_ninb = function()
 	if not is_ninb_running() then
-		waywall.exec("java -jar /home/arjungore/mcsr/Ninjabrain-Bot-1.5.1.jar")
+		waywall.exec("java -jar " .. nb_path)
 	end
 end
-
--- local exec_ninb = function()
--- 	waywall.exec("java -jar /home/arjungore/mcsr/Ninjabrain-Bot-1.5.1.jar")
--- end
 
 --=============================================================================================== MIRRORS
 local make_mirror = function(options)
@@ -73,7 +76,7 @@ local mirrors = {
 		dst = { x = 1500, y = 400, w = 343, h = 126 },
 		color_key = {
 			input = "#dddddd",
-			output = "#272420",
+			output = primary_col,
 		},
 	}),
 
@@ -86,7 +89,7 @@ local mirrors = {
 		dst = { x = 1500, y = 657, w = 400, h = 400 },
 		color_key = {
 			input = "#E446C4",
-			output = "#9a774f",
+			output = secondary_col,
 		},
 	}),
     thin_pie_unspecified = make_mirror({
@@ -94,7 +97,7 @@ local mirrors = {
 		dst = { x = 1500, y = 657, w = 400, h = 400 },
 		color_key = {
 			input = "#46CE66",
-			output = "#9a774f",
+			output = secondary_col,
 		},
 	}),
     thin_pie_blockentities = make_mirror({
@@ -102,7 +105,7 @@ local mirrors = {
 		dst = { x = 1500, y = 657, w = 400, h = 400 },
 		color_key = {
 			input = "#ec6e4e",
-			output = "#272420",
+			output = primary_col,
 		},
 	}),
 	thin_pie_destroyProgress = make_mirror({
@@ -110,7 +113,7 @@ local mirrors = {
 		dst = { x = 1500, y = 657, w = 400, h = 400 },
 		color_key = {
 			input = "#CC6C46",
-			output = "#9a774f",
+			output = secondary_col,
 		},
 	}),
 	thin_pie_prepare = make_mirror({
@@ -118,7 +121,7 @@ local mirrors = {
 		dst = { x = 1500, y = 657, w = 400, h = 400 },
 		color_key = {
 			input = "#464C46",
-			output = "#9a774f",
+			output = secondary_col,
 		},
 	}),
 
@@ -131,7 +134,7 @@ local mirrors = {
         dst = { x = 1500, y = 657, w = 400, h = 400 },
 		color_key = {
 			input = "#E446C4",
-			output = "#9a774f",
+			output = secondary_col,
 		},
 	}),
     tall_pie_unspecified = make_mirror({
@@ -139,7 +142,7 @@ local mirrors = {
         dst = { x = 1500, y = 657, w = 400, h = 400 },
 		color_key = {
 			input = "#46CE66",
-			output = "#9a774f",
+			output = secondary_col,
 		},
 	}),
     tall_pie_blockentities = make_mirror({
@@ -147,7 +150,7 @@ local mirrors = {
         dst = { x = 1500, y = 657, w = 400, h = 400 },
 		color_key = {
 			input = "#ec6e4e",
-			output = "#272420",
+			output = primary_col,
 		},
 	}),
 	tall_pie_destroyProgress = make_mirror({
@@ -155,7 +158,7 @@ local mirrors = {
         dst = { x = 1500, y = 657, w = 400, h = 400 },
 		color_key = {
 			input = "#CC6C46",
-			output = "#9a774f",
+			output = secondary_col,
 		},
 	}),
 	tall_pie_prepare = make_mirror({
@@ -163,7 +166,7 @@ local mirrors = {
         dst = { x = 1500, y = 657, w = 400, h = 400 },
 		color_key = {
 			input = "#464C46",
-			output = "#9a774f",
+			output = secondary_col,
 		},
 	}),
 
@@ -188,7 +191,7 @@ local make_image = function(path, dst)
 end
 
 local images = {
-	overlay = make_image("/home/arjungore/mcsr/resources/measuring_overlay.png", {
+	overlay = make_image(overlay_path, {
 		dst = { x = 94, y = 470, w = 900, h = 500 },
 	}),
 }
