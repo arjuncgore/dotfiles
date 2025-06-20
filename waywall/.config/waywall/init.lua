@@ -314,12 +314,7 @@ config.actions = {
 	end,
 
 	["Shift-I"] = function()
-        -- if waywall.get_key("F3") then
-			os.execute(string.format("python ~/.config/waywall/updater.py"))
-			-- return false
-        -- else
-            -- return false
-        -- end
+		os.execute(string.format("python ~/.config/waywall/updater.py"))
     end,
 
 	["*-C"] = function()
