@@ -42,7 +42,7 @@ local config = {
 }
 
 
---=============================================================================================== NINJABRAIN
+--*********************************************************************************************** NINJABRAIN
 local is_ninb_running = function()
 	local handle = io.popen("pgrep -f 'Ninjabrain.*jar'")
 	local result = handle:read("*l")
@@ -56,7 +56,27 @@ local exec_ninb = function()
 	end
 end
 
---=============================================================================================== MIRRORS
+local nether_info = dofile("/home/arjungore/.config/waywall/nether_info.lua")
+
+local text_dist = nil
+local text_coord = nil
+
+local trigger_overlay = function()
+	local dist_text = "Distance:" .. tostring(nether_info.Distance)
+	local coord_text = "(" .. tostring(nether_info.X) .. "," .. tostring(nether_info.Z) .. ")"
+	
+	if not waywall.floating_shown() then
+		text_dist = waywall.text(dist_text, 900, 1370, "#FFFFFF", 2)
+		text_coord = waywall.text(coord_text, 900, 1405, "#FFFFFF", 2)
+	elseif text_coord and text_dist then
+		text_dist:close()
+		text_dist = nil
+		text_coord:close()
+		text_coord = nil
+	end
+end
+
+--*********************************************************************************************** MIRRORS
 local make_mirror = function(options)
 	local this = nil
 
@@ -126,11 +146,11 @@ local mirrors = {
 	}),
 
 	tall_pie_all = make_mirror({
-		src = { x = 44, y = 15978, w =340, h = 178 },
+		src = { x = 44, y = 15978, w = 340, h = 178 },
         dst = { x = 1500, y = 657, w = 400, h = 400 },
 	}),
 	tall_pie_entities = make_mirror({
-		src = { x = 44, y = 15978, w =340, h = 178 },
+		src = { x = 44, y = 15978, w = 340, h = 178 },
         dst = { x = 1500, y = 657, w = 400, h = 400 },
 		color_key = {
 			input = "#E446C4",
@@ -138,7 +158,7 @@ local mirrors = {
 		},
 	}),
     tall_pie_unspecified = make_mirror({
-		src = { x = 44, y = 15978, w =340, h = 178 },
+		src = { x = 44, y = 15978, w = 340, h = 178 },
         dst = { x = 1500, y = 657, w = 400, h = 400 },
 		color_key = {
 			input = "#46CE66",
@@ -146,7 +166,7 @@ local mirrors = {
 		},
 	}),
     tall_pie_blockentities = make_mirror({
-		src = { x = 44, y = 15978, w =340, h = 178 },
+		src = { x = 44, y = 15978, w = 340, h = 178 },
         dst = { x = 1500, y = 657, w = 400, h = 400 },
 		color_key = {
 			input = "#ec6e4e",
@@ -154,7 +174,7 @@ local mirrors = {
 		},
 	}),
 	tall_pie_destroyProgress = make_mirror({
-		src = { x = 44, y = 15978, w =340, h = 178 },
+		src = { x = 44, y = 15978, w = 340, h = 178 },
         dst = { x = 1500, y = 657, w = 400, h = 400 },
 		color_key = {
 			input = "#CC6C46",
@@ -162,7 +182,7 @@ local mirrors = {
 		},
 	}),
 	tall_pie_prepare = make_mirror({
-		src = { x = 44, y = 15978, w =340, h = 178 },
+		src = { x = 44, y = 15978, w = 340, h = 178 },
         dst = { x = 1500, y = 657, w = 400, h = 400 },
 		color_key = {
 			input = "#464C46",
@@ -176,7 +196,8 @@ local mirrors = {
 	}),
 }
 
---=============================================================================================== BOATEYE
+
+--*********************************************************************************************** BOATEYE
 local make_image = function(path, dst)
 	local this = nil
 
@@ -196,22 +217,8 @@ local images = {
 	}),
 }
 
-local ratbag_device = io.popen("ratbagctl list | grep 'Glorious Model O' | awk -F ':' '{print $1}'"):read("*l")
 
-local reset_dpi = function()
-	if not ratbag_device then return end
-
-	local current_dpi_cmd = string.format("ratbagctl '%s' dpi get", ratbag_device)
-	local current_dpi = io.popen(current_dpi_cmd):read("*a")
-	current_dpi = current_dpi:gsub("^%s*(.-)%s*$", "%1")
-
-	if current_dpi == "100x100dpi" then
-		local set_dpi_cmd = string.format("ratbagctl '%s' dpi set 3200", ratbag_device)
-		os.execute(set_dpi_cmd)
-	end
-end
-
---=============================================================================================== MANAGING MIRRORS
+--*********************************************************************************************** MANAGING MIRRORS
 local show_mirrors = function(eye, f3, tall, thin)
 	images.overlay(eye)
 	mirrors.eye_measure(eye)
@@ -234,7 +241,8 @@ local show_mirrors = function(eye, f3, tall, thin)
 
 end
 
---=============================================================================================== STATES
+
+--*********************************************************************************************** STATES
 local thin_enable = function()
 	-- reset_dpi()
     show_mirrors(false, true, false, true)
@@ -259,7 +267,8 @@ local generic_disable = function()
     show_mirrors(false, false, false, false)
 end
 
---=============================================================================================== RESOLUTIONS
+
+--*********************************************************************************************** RESOLUTIONS
 local make_res = function(width, height, enable, disable)
 	return function()
 		local active_width, active_height = waywall.active_res()
@@ -280,7 +289,8 @@ local resolutions = {
 	wide = make_res(2560, 400, wide_enable, generic_disable),
 }
 
---=============================================================================================== KEYBINDS
+
+--*********************************************************************************************** KEYBINDS
 config.actions = {
 
     ["*-Alt_L"] = resolutions.thin,
@@ -298,11 +308,28 @@ config.actions = {
 	["apostrophe"] = function()
 		helpers.toggle_floating()
 	end,
-	
+
 	["Shift-O"] = function()
 		waywall.toggle_fullscreen()
 	end,
 
+	["Shift-I"] = function()
+        -- if waywall.get_key("F3") then
+			os.execute(string.format("python ~/.config/waywall/updater.py"))
+			-- return false
+        -- else
+            -- return false
+        -- end
+    end,
+
+	["*-C"] = function()
+        if waywall.get_key("F3") then
+            trigger_overlay()
+			return false
+        else
+            return false
+        end
+    end,
 }
 
 return config
