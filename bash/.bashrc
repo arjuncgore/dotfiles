@@ -28,3 +28,12 @@ export SDKMAN_DIR="$HOME/.sdkman"
 
 export PATH="$HOME/bin:$PATH"
 
+# Wayland + Electron + AMD compat
+export XDG_SESSION_TYPE=wayland
+export QT_QPA_PLATFORM=wayland
+export GDK_BACKEND=wayland,x11
+export MOZ_ENABLE_WAYLAND=1
+export WLR_NO_HARDWARE_CURSORS=1
+export LIBVA_DRIVER_NAME=radeonsi
+export ELECTRON_OZONE_PLATFORM_HINT=auto
+

@@ -13,7 +13,7 @@
         "clock"
     ],
     "clock": {
-        "format": "{:%a %b%e  %I:%M %p}"
+        "format": "{:%a %b %e  %I:%M %p}"
     },
     "pulseaudio": {
         "format": "{volume}% {icon}",
