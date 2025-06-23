@@ -1,12 +1,17 @@
 local waywall = require("waywall")
 local helpers = require("waywall.helpers")
 
-local primary_col = "#272420"
-local secondary_col = "#9a774f"
+local primary_col = "#d08e2b"
+local secondary_col = "#48b0af"
 
-local background_path = "/home/arjungore/mcsr/resources/background.png"
+-- local background_path = "/home/arjungore/mcsr/resources/background.png"
+local background_path = "/home/arjungore/mcsr/resources/bg_final.png"
+local screen_overlay_path = "/home/arjungore/mcsr/resources/overlay_final.png"
+
+local pacem_path = "/home/arjungore/mcsr/paceman-tracker-0.7.0.jar"
 local nb_path = "/home/arjungore/mcsr/Ninjabrain-Bot-1.5.1.jar"
 local overlay_path = "/home/arjungore/mcsr/resources/measuring_overlay.png"
+local nb_background_path = "/home/arjungore/mcsr/resources/nb_background.png"
 
 
 local config = {
@@ -22,8 +27,10 @@ local config = {
             
             ["T"] = "PAGEUP", ["PAGEUP"] = "T",                         -- PgUp <--> T
             ["A"] = "PAGEDOWN", ["PAGEDOWN"] = "A",                     -- PgDn <--> A
-			["O"] = "Q", ["Q"] = "O",                     				-- PgDn <--> A
+			["O"] = "Q", ["Q"] = "O",                     				-- O <--> Q
             ["RIGHTSHIFT"] = "X", ["X"] = "RIGHTSHIFT",                 -- RShift <--> H
+			-- ["GRAVE"] = "0", ["0"] = "GRAVE",							-- Grave <--> 0
+			["F1"] = "Y",												-- F1 --> L
 
         },
 
@@ -33,6 +40,7 @@ local config = {
     theme = {
         background_png = background_path,
         ninb_anchor = "topright",
+		ninb_opacity = 0.8,
     },
     experimental = {
         debug = false,
@@ -40,6 +48,21 @@ local config = {
         tearing = false,
     },
 }
+
+
+--*********************************************************************************************** PACEMAN
+local is_pacem_running = function()
+	local handle = io.popen("pgrep -f 'paceman..*'")
+	local result = handle:read("*l")
+	handle:close()
+	return result ~= nil
+end
+
+local exec_pacem = function()
+	if not is_pacem_running() then
+		waywall.exec("java -jar " .. pacem_path .. " --nogui")
+	end
+end
 
 
 --*********************************************************************************************** NINJABRAIN
@@ -52,29 +75,12 @@ end
 
 local exec_ninb = function()
 	if not is_ninb_running() then
-		waywall.exec("java -jar " .. nb_path)
+		waywall.exec("java -Dawt.useSystemAAFontSettings=on -jar " .. nb_path)
 	end
 end
 
-local nether_info = dofile("/home/arjungore/.config/waywall/nether_info.lua")
+local nb_overlay = require("nb_overlay")
 
-local text_dist = nil
-local text_coord = nil
-
-local trigger_overlay = function()
-	local dist_text = "Distance:" .. tostring(nether_info.Distance)
-	local coord_text = "(" .. tostring(nether_info.X) .. "," .. tostring(nether_info.Z) .. ")"
-	
-	if not waywall.floating_shown() then
-		text_dist = waywall.text(dist_text, 900, 1370, "#FFFFFF", 2)
-		text_coord = waywall.text(coord_text, 900, 1405, "#FFFFFF", 2)
-	elseif text_coord and text_dist then
-		text_dist:close()
-		text_dist = nil
-		text_coord:close()
-		text_coord = nil
-	end
-end
 
 --*********************************************************************************************** MIRRORS
 local make_mirror = function(options)
@@ -100,13 +106,14 @@ local mirrors = {
 		},
 	}),
 
+
     thin_pie_all = make_mirror({
 		src = { x = 10, y = 694, w = 340, h = 178 },
-		dst = { x = 1500, y = 657, w = 400, h = 400 },
+		dst = { x = 1490, y = 645, w = 420, h = 423 },
     }),
     thin_pie_entities = make_mirror({
 		src = { x = 10, y = 694, w = 340, h = 178 },
-		dst = { x = 1500, y = 657, w = 400, h = 400 },
+		dst = { x = 1490, y = 645, w = 420, h = 423 },
 		color_key = {
 			input = "#E446C4",
 			output = secondary_col,
@@ -114,7 +121,7 @@ local mirrors = {
 	}),
     thin_pie_unspecified = make_mirror({
 		src = { x = 10, y = 694, w = 340, h = 178 },
-		dst = { x = 1500, y = 657, w = 400, h = 400 },
+		dst = { x = 1490, y = 645, w = 420, h = 423 },
 		color_key = {
 			input = "#46CE66",
 			output = secondary_col,
@@ -122,7 +129,7 @@ local mirrors = {
 	}),
     thin_pie_blockentities = make_mirror({
 		src = { x = 10, y = 694, w = 340, h = 178 },
-		dst = { x = 1500, y = 657, w = 400, h = 400 },
+		dst = { x = 1490, y = 645, w = 420, h = 423 },
 		color_key = {
 			input = "#ec6e4e",
 			output = primary_col,
@@ -130,7 +137,7 @@ local mirrors = {
 	}),
 	thin_pie_destroyProgress = make_mirror({
 		src = { x = 10, y = 694, w = 340, h = 178 },
-		dst = { x = 1500, y = 657, w = 400, h = 400 },
+		dst = { x = 1490, y = 645, w = 420, h = 423 },
 		color_key = {
 			input = "#CC6C46",
 			output = secondary_col,
@@ -138,20 +145,43 @@ local mirrors = {
 	}),
 	thin_pie_prepare = make_mirror({
 		src = { x = 10, y = 694, w = 340, h = 178 },
-		dst = { x = 1500, y = 657, w = 400, h = 400 },
+		dst = { x = 1490, y = 645, w = 420, h = 423 },
 		color_key = {
 			input = "#464C46",
 			output = secondary_col,
 		},
 	}),
 
+
+	thin_percent_all = make_mirror({
+		src = { x = 257, y = 879, w = 33, h = 25 },
+		dst = { x = 1568, y = 1050, w = 264, h = 200 },
+    }),
+	thin_percent_blockentities = make_mirror({
+		src = { x = 257, y = 879, w = 33, h = 25 },
+		dst = { x = 1568, y = 1050, w = 264, h = 200 },
+		color_key = {
+			input = "#e96d4d",
+			output = secondary_col,
+		},
+    }),
+	thin_percent_unspecified = make_mirror({
+		src = { x = 257, y = 879, w = 33, h = 25 },
+		dst = { x = 1568, y = 1050, w = 264, h = 200 },
+		color_key = {
+			input = "#45cb65",
+			output = secondary_col,
+		},
+    }),
+
+
 	tall_pie_all = make_mirror({
 		src = { x = 44, y = 15978, w = 340, h = 178 },
-        dst = { x = 1500, y = 657, w = 400, h = 400 },
+        dst = { x = 1490, y = 645, w = 420, h = 423 },
 	}),
 	tall_pie_entities = make_mirror({
 		src = { x = 44, y = 15978, w = 340, h = 178 },
-        dst = { x = 1500, y = 657, w = 400, h = 400 },
+        dst = { x = 1490, y = 645, w = 420, h = 423 },
 		color_key = {
 			input = "#E446C4",
 			output = secondary_col,
@@ -159,7 +189,7 @@ local mirrors = {
 	}),
     tall_pie_unspecified = make_mirror({
 		src = { x = 44, y = 15978, w = 340, h = 178 },
-        dst = { x = 1500, y = 657, w = 400, h = 400 },
+        dst = { x = 1490, y = 645, w = 420, h = 423 },
 		color_key = {
 			input = "#46CE66",
 			output = secondary_col,
@@ -167,7 +197,7 @@ local mirrors = {
 	}),
     tall_pie_blockentities = make_mirror({
 		src = { x = 44, y = 15978, w = 340, h = 178 },
-        dst = { x = 1500, y = 657, w = 400, h = 400 },
+        dst = { x = 1490, y = 645, w = 420, h = 423 },
 		color_key = {
 			input = "#ec6e4e",
 			output = primary_col,
@@ -175,7 +205,7 @@ local mirrors = {
 	}),
 	tall_pie_destroyProgress = make_mirror({
 		src = { x = 44, y = 15978, w = 340, h = 178 },
-        dst = { x = 1500, y = 657, w = 400, h = 400 },
+        dst = { x = 1490, y = 645, w = 420, h = 423 },
 		color_key = {
 			input = "#CC6C46",
 			output = secondary_col,
@@ -183,12 +213,35 @@ local mirrors = {
 	}),
 	tall_pie_prepare = make_mirror({
 		src = { x = 44, y = 15978, w = 340, h = 178 },
-        dst = { x = 1500, y = 657, w = 400, h = 400 },
+        dst = { x = 1490, y = 645, w = 420, h = 423 },
 		color_key = {
 			input = "#464C46",
 			output = secondary_col,
 		},
 	}),
+
+
+	tall_percent_all = make_mirror({
+		src = { x = 291, y = 16163, w = 33, h = 25 },
+		dst = { x = 1568, y = 1050, w = 264, h = 200 },
+    }),
+	tall_percent_blockentities = make_mirror({
+		src = { x = 291, y = 16163, w = 33, h = 25 },
+		dst = { x = 1568, y = 1050, w = 264, h = 200 },
+		color_key = {
+			input = "#e96d4d",
+			output = secondary_col,
+		},
+    }),
+	tall_percent_unspecified = make_mirror({
+		src = { x = 291, y = 16163, w = 33, h = 25 },
+		dst = { x = 1568, y = 1050, w = 264, h = 200 },
+		color_key = {
+			input = "#45cb65",
+			output = secondary_col,
+		},
+    }),
+
 
 	eye_measure = make_mirror({
 		src = { x = 162, y = 7902, w = 60, h = 580 },
@@ -212,15 +265,29 @@ local make_image = function(path, dst)
 end
 
 local images = {
-	overlay = make_image(overlay_path, {
+	measuring_overlay = make_image(overlay_path, {
 		dst = { x = 94, y = 470, w = 900, h = 500 },
+	}),
+	screen_overlay = make_image(screen_overlay_path, {
+		dst = { x = 0, y = 0, w = 2560, h = 1440 },
+	}),
+	full_nb_background = make_image(nb_background_path, {
+		dst = { x = 498, y = 10, w = 390, h = 161},
+	}),
+	partial_nb_background = make_image(nb_background_path, {
+		dst = { x = 498, y = 10, w = 390, h = 65},
 	}),
 }
 
+nb_overlay.set_full_background(images.full_nb_background)
+
+nb_overlay.set_partial_background(images.partial_nb_background)
 
 --*********************************************************************************************** MANAGING MIRRORS
 local show_mirrors = function(eye, f3, tall, thin)
-	images.overlay(eye)
+	images.screen_overlay(f3)
+
+	images.measuring_overlay(eye)
 	mirrors.eye_measure(eye)
 
     mirrors.e_counter(f3)
@@ -232,12 +299,22 @@ local show_mirrors = function(eye, f3, tall, thin)
     mirrors.thin_pie_destroyProgress(thin)
     mirrors.thin_pie_prepare(thin)
 
+	-- mirrors.thin_percent_all(thin)
+	mirrors.thin_percent_blockentities(thin)
+	mirrors.thin_percent_unspecified(thin)
+
+
 	-- mirrors.tall_pie_all(tall)
     mirrors.tall_pie_entities(tall)
     mirrors.tall_pie_unspecified(tall)
     mirrors.tall_pie_blockentities(tall)
     mirrors.tall_pie_destroyProgress(tall)
     mirrors.tall_pie_prepare(tall)
+
+	-- mirrors.tall_percent_all(tall)
+	mirrors.tall_percent_blockentities(tall)
+	mirrors.tall_percent_unspecified(tall)
+
 
 end
 
@@ -294,7 +371,15 @@ local resolutions = {
 config.actions = {
 
     ["*-Alt_L"] = resolutions.thin,
-    ["*-Z"] = resolutions.wide,
+
+	["*-B"] = function()
+        if not waywall.get_key("F3") then
+            resolutions.wide()
+        else
+            return false
+        end
+    end,
+
     ["*-F4"] = function()
         if not waywall.get_key("F3") then
             resolutions.tall()
@@ -303,7 +388,10 @@ config.actions = {
         end
     end,
 
-	["Shift-P"] = exec_ninb,
+	["Shift-P"] = function()
+		exec_ninb()
+		exec_pacem()
+	end,
 	
 	["apostrophe"] = function()
 		helpers.toggle_floating()
@@ -313,23 +401,17 @@ config.actions = {
 		waywall.toggle_fullscreen()
 	end,
 
-	["Shift-I"] = function()
-        -- if waywall.get_key("F3") then
-			os.execute(string.format("python ~/.config/waywall/updater.py"))
-			-- return false
-        -- else
-            -- return false
-        -- end
-    end,
-
-	["*-C"] = function()
+    ["*-C"] = function()
         if waywall.get_key("F3") then
-            trigger_overlay()
-			return false
+            nb_overlay.enable_overlay()
+			
+            return false
         else
             return false
         end
     end,
+	
+	["9"] = nb_overlay.disable_overlay,
 }
 
 return config
