@@ -14,18 +14,43 @@ local look = {
     X = 500,
     Y = 10,
     fill = '#000000',
-    outline = '#000000',
+    bold = false,
     size = 2
 }
 
-local full_background_toggle = nil
-function NB_OVERLAY.set_full_background(func)
-    full_background_toggle = func
+local nb_background_path = "/home/arjungore/.config/waywall/nb_background.png"
+
+local make_image = function(path, dst)
+	local this = nil
+
+	return function(enable)
+		if enable and not this then
+			this = waywall.image(path, dst)
+		elseif this and not enable then
+			this:close()
+			this = nil
+		end
+	end
 end
 
-local partial_background_toggle = nil
-function NB_OVERLAY.set_partial_background(func)
-    partial_background_toggle = func
+local nb_background = {
+	full = make_image(nb_background_path, {
+		dst = { x = 498, y = 10, w = 1+24*8*look.size, h = 1+5*16*look.size},
+	}),
+	partial = make_image(nb_background_path, {
+		dst = { x = 498, y = 10, w = 1+24*8*look.size, h = 1+2*16*look.size},
+	}),
+}
+
+local full_background_toggle = nb_background.full
+local partial_background_toggle = nb_background.partial
+
+function set_full_background(toggle_func)
+    full_background_toggle = toggle_func
+end
+
+function set_partial_background(toggle_func)
+    partial_background_toggle = toggle_func
 end
 
 
@@ -110,6 +135,7 @@ local function update_overlay()
     local layout =
     "Status:" .. nb_mode() .. "\n" ..
     "Boat? :" .. boat_status() .. "\n"
+
     full_background_toggle(false)
     partial_background_toggle(true)
 
@@ -123,6 +149,7 @@ local function update_overlay()
         layout =
         "Status   :" .. nb_mode() .. "\n" ..
         "Certainty:" .. cert .. "%\n"
+
         full_background_toggle(false)
         partial_background_toggle(true)
 
@@ -161,6 +188,7 @@ local function update_overlay()
             "Distance:" .. distance .. " blocks\n" ..
             "Angle   :" .. string.format("%.2f", angle) .. " deg\n" ..
             "Turn    :" .. turn .. "(" .. math.floor(math.abs(diff)) .. " deg)\n"
+            
         full_background_toggle(true)
         partial_background_toggle(false)
 
@@ -168,8 +196,10 @@ local function update_overlay()
 
     local state = waywall.state()
     if state and state.screen == "inworld" then
-        text_handle = waywall.text(layout, look.X, look.Y, look.fill, look.size)
-        text_handle_bold = waywall.text(layout, look.X+1, look.Y, look.outline, look.size)
+        text_handle = waywall.text(layout, look.X, look.Y, look.color, look.size)
+        if look.bold then
+            text_handle_bold = waywall.text(layout, look.X+1, look.Y, look.color, look.size)
+        end
     end
 end
 

@@ -10,6 +10,7 @@ nvim
 sway
 waywall
 hypr
+fastfetch
 )
 
 for config in "${configs[@]}"; do

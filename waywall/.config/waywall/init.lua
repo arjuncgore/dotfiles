@@ -1,17 +1,17 @@
 local waywall = require("waywall")
 local helpers = require("waywall.helpers")
 
+local nb_overlay = require("nb_overlay")
+
 local primary_col = "#d08e2b"
 local secondary_col = "#48b0af"
 
--- local background_path = "/home/arjungore/mcsr/resources/background.png"
 local background_path = "/home/arjungore/mcsr/resources/bg_final.png"
 local screen_overlay_path = "/home/arjungore/mcsr/resources/overlay_final.png"
 
 local pacem_path = "/home/arjungore/mcsr/paceman-tracker-0.7.0.jar"
 local nb_path = "/home/arjungore/mcsr/Ninjabrain-Bot-1.5.1.jar"
 local overlay_path = "/home/arjungore/mcsr/resources/measuring_overlay.png"
-local nb_background_path = "/home/arjungore/mcsr/resources/nb_background.png"
 
 
 local config = {
@@ -41,6 +41,7 @@ local config = {
         background_png = background_path,
         ninb_anchor = "topright",
 		ninb_opacity = 0.8,
+		font_path = "/usr/share/fonts/TTF/MesloLGSNerdFont-Regular.ttf",
     },
     experimental = {
         debug = false,
@@ -78,8 +79,6 @@ local exec_ninb = function()
 		waywall.exec("java -Dawt.useSystemAAFontSettings=on -jar " .. nb_path)
 	end
 end
-
-local nb_overlay = require("nb_overlay")
 
 
 --*********************************************************************************************** MIRRORS
@@ -271,17 +270,8 @@ local images = {
 	screen_overlay = make_image(screen_overlay_path, {
 		dst = { x = 0, y = 0, w = 2560, h = 1440 },
 	}),
-	full_nb_background = make_image(nb_background_path, {
-		dst = { x = 498, y = 10, w = 390, h = 161},
-	}),
-	partial_nb_background = make_image(nb_background_path, {
-		dst = { x = 498, y = 10, w = 390, h = 65},
-	}),
 }
 
-nb_overlay.set_full_background(images.full_nb_background)
-
-nb_overlay.set_partial_background(images.partial_nb_background)
 
 --*********************************************************************************************** MANAGING MIRRORS
 local show_mirrors = function(eye, f3, tall, thin)
@@ -401,17 +391,16 @@ config.actions = {
 		waywall.toggle_fullscreen()
 	end,
 
-    ["*-C"] = function()
-        if waywall.get_key("F3") then
-            nb_overlay.enable_overlay()
-			
-            return false
-        else
-            return false
-        end
-    end,
+    -- ["*-C"] = function()
+    --     if waywall.get_key("F3") then
+    --         nb_overlay.enable_overlay()			
+    --         return false
+    --     else
+    --         return false
+    --     end
+    -- end,
 	
-	["9"] = nb_overlay.disable_overlay,
+	-- ["9"] = nb_overlay.disable_overlay,
 }
 
 return config
