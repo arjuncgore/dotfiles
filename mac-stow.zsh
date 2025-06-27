@@ -6,6 +6,7 @@ raycast
 ghostty
 nvim
 zsh
+fastfetch
 )
 
 for config in "${configs[@]}"; do
