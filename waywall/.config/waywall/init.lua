@@ -1,7 +1,7 @@
 local waywall = require("waywall")
 local helpers = require("waywall.helpers")
 
-local nb_overlay = require("nb_overlay")
+-- local nb_overlay = require("nb_overlay")
 
 local primary_col = "#d08e2b"
 local secondary_col = "#48b0af"
@@ -13,6 +13,8 @@ local pacem_path = "/home/arjungore/mcsr/paceman-tracker-0.7.0.jar"
 local nb_path = "/home/arjungore/mcsr/Ninjabrain-Bot-1.5.1.jar"
 local overlay_path = "/home/arjungore/mcsr/resources/measuring_overlay.png"
 
+local hotkeys_on = true
+
 
 local config = {
     input = {
@@ -20,19 +22,36 @@ local config = {
         repeat_rate = 40,
         repeat_delay = 300,
         
-        remaps = {
-		    ["MB4"] = "F3",                                             -- F3 with back button
-		    ["MB5"] = "F6",                                             -- Reset with forward button
-            ["LEFTALT"] = "LEFTCTRL",                                   -- LALT --> LCTRL
-            
-            ["T"] = "PAGEUP", ["PAGEUP"] = "T",                         -- PgUp <--> T
-            ["A"] = "PAGEDOWN", ["PAGEDOWN"] = "A",                     -- PgDn <--> A
-			["O"] = "Q", ["Q"] = "O",                     				-- O <--> Q
-            ["RIGHTSHIFT"] = "X", ["X"] = "RIGHTSHIFT",                 -- RShift <--> H
-			-- ["GRAVE"] = "0", ["0"] = "GRAVE",							-- Grave <--> 0
-			["F1"] = "Y",												-- F1 --> L
+		remaps = hotkeys_on and {
+			["MB4"] = "F3",
+			["MB5"] = "F6",
+			["LEFTALT"] = "LEFTCTRL",
+			["T"] = "BACKSPACE", ["BACKSPACE"] = "T",
+			["A"] = "PAGEDOWN", ["PAGEDOWN"] = "A",
+			["O"] = "Q", ["Q"] = "O",
+			["D"] = "X", ["X"] = "RIGHTSHIFT", ["RIGHTSHIFT"] = "D",
+			["F1"] = "Y",
+		} or {
+			["MB4"] = "F3",
+			["MB5"] = "F6",
+			["LEFTALT"] = "LEFTCTRL",
+		},
 
-        },
+
+
+        -- remaps = {
+		--     ["MB4"] = "F3",                                             -- F3 with back button
+		--     ["MB5"] = "F6",                                             -- Reset with forward button
+        --     ["LEFTALT"] = "LEFTCTRL",                                   -- LALT --> LCTRL
+            
+        --     ["T"] = "PAGEUP", ["PAGEUP"] = "T",                         -- PgUp <--> T
+        --     ["A"] = "PAGEDOWN", ["PAGEDOWN"] = "A",                     -- PgDn <--> A
+		-- 	["O"] = "Q", ["Q"] = "O",                     				-- O <--> Q
+        --     ["RIGHTSHIFT"] = "X", ["X"] = "RIGHTSHIFT",                 -- RShift <--> H
+		-- 	-- ["GRAVE"] = "0", ["0"] = "GRAVE",							-- Grave <--> 0
+		-- 	["F1"] = "Y",												-- F1 --> L
+
+        -- },
 
         sensitivity = 1.0,
         confine_pointer = false,
@@ -356,6 +375,7 @@ local resolutions = {
 	wide = make_res(2560, 400, wide_enable, generic_disable),
 }
 
+local hotkey_text = nil
 
 --*********************************************************************************************** KEYBINDS
 config.actions = {
@@ -401,6 +421,16 @@ config.actions = {
     -- end,
 	
 	-- ["9"] = nb_overlay.disable_overlay,
+
+	["Home"] = function()
+		toggle_hotkeys()
+		if hotkey_text then
+			print("no text")
+			hotkey_text:close()
+			hotkey_text = nil
+		end
+		hotkey_text = waywall.text((hotkeys_on and "" or "hotkeys off"), 10, 1400, "#FFFFFF", 1)
+	end,
 }
 
 return config
