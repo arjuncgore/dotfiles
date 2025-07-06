@@ -43,6 +43,7 @@ default_floating_border none
 # Example configuration:
 #
 #   output HDMI-A-1 resolution 1920x1080 position 1920,0
+output DP-1 resolution 2560x1440@179.999Hz
 #
 # You can get the names of your outputs by running: swaymsg -t get_outputs
 
@@ -90,7 +91,7 @@ input * {
 input "9610:54:Glorious_Model_O" {
     natural_scroll enabled
     accel_profile "flat"
-    pointer_accel -0.75
+    pointer_accel -0.875
 }
 
 ### Key bindings
