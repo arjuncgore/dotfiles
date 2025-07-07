@@ -13,7 +13,7 @@ local pacem_path = "/home/arjungore/mcsr/paceman-tracker-0.7.0.jar"
 local nb_path = "/home/arjungore/mcsr/Ninjabrain-Bot-1.5.1.jar"
 local overlay_path = "/home/arjungore/mcsr/resources/measuring_overlay.png"
 
-local hotkeys_on = true
+local hotkeys_on = require("hotkeys_state")
 
 
 local config = {
@@ -23,35 +23,21 @@ local config = {
         repeat_delay = 300,
         
 		remaps = hotkeys_on and {
-			["MB4"] = "F3",
-			["MB5"] = "F6",
-			["LEFTALT"] = "LEFTCTRL",
-			["T"] = "BACKSPACE", ["BACKSPACE"] = "T",
-			["A"] = "PAGEDOWN", ["PAGEDOWN"] = "A",
-			["O"] = "Q", ["Q"] = "O",
-			["D"] = "X", ["X"] = "RIGHTSHIFT", ["RIGHTSHIFT"] = "D",
-			["F1"] = "Y",
+			["MB4"] = "F3",                                             	-- F3 with back button
+			["MB5"] = "F6",                                             	-- Reset with forward button
+			["LEFTALT"] = "LEFTCTRL",                                   	-- LALT --> LCTRL
+			
+			["T"] = "BACKSPACE", ["BACKSPACE"] = "T",						-- Backspace <--> T
+			["A"] = "K", ["K"] = "Z", ["Z"] = "A",							-- A --> K --> Z --> A
+			["O"] = "Q", ["Q"] = "O",	                     				-- O <--> Q
+			["D"] = "X", ["X"] = "RIGHTSHIFT", ["RIGHTSHIFT"] = "D",		-- D --> X --> RSHIFT --> D
+			["F1"] = "Y",													-- F1 --> Y
+
 		} or {
-			["MB4"] = "F3",
-			["MB5"] = "F6",
-			["LEFTALT"] = "LEFTCTRL",
+			["MB4"] = "F3",                                             	-- F3 with back button
+			["MB5"] = "F6",                                             	-- Reset with forward button
+			["LEFTALT"] = "LEFTCTRL",                                   	-- LALT --> LCTRL
 		},
-
-
-
-        -- remaps = {
-		--     ["MB4"] = "F3",                                             -- F3 with back button
-		--     ["MB5"] = "F6",                                             -- Reset with forward button
-        --     ["LEFTALT"] = "LEFTCTRL",                                   -- LALT --> LCTRL
-            
-        --     ["T"] = "PAGEUP", ["PAGEUP"] = "T",                         -- PgUp <--> T
-        --     ["A"] = "PAGEDOWN", ["PAGEDOWN"] = "A",                     -- PgDn <--> A
-		-- 	["O"] = "Q", ["Q"] = "O",                     				-- O <--> Q
-        --     ["RIGHTSHIFT"] = "X", ["X"] = "RIGHTSHIFT",                 -- RShift <--> H
-		-- 	-- ["GRAVE"] = "0", ["0"] = "GRAVE",							-- Grave <--> 0
-		-- 	["F1"] = "Y",												-- F1 --> L
-
-        -- },
 
         sensitivity = 1.0,
         confine_pointer = false,
@@ -353,6 +339,11 @@ local generic_disable = function()
     show_mirrors(false, false, false, false)
 end
 
+-- if hotkey_text then
+-- 	hotkey_text:close()
+-- 	hotkey_text = nil
+-- end
+-- hotkey_text = waywall.text((hotkeys_on and "" or "hotkeys off"), 10, 1400, "#FFFFFF", 1)
 
 --*********************************************************************************************** RESOLUTIONS
 local make_res = function(width, height, enable, disable)
@@ -378,31 +369,30 @@ local resolutions = {
 local hotkey_text = nil
 
 --*********************************************************************************************** KEYBINDS
-config.actions = {
-
-    ["*-Alt_L"] = resolutions.thin,
+config.actions = hotkeys_on and {
+	["*-Alt_L"] = resolutions.thin,
 
 	["*-B"] = function()
-        if not waywall.get_key("F3") then
-            resolutions.wide()
-        else
-            return false
-        end
-    end,
+		if not waywall.get_key("F3") then
+			resolutions.wide()
+		else
+			return false
+		end
+	end,
 
-    ["*-F4"] = function()
-        if not waywall.get_key("F3") then
-            resolutions.tall()
-        else
-            return false
-        end
-    end,
+	["*-F4"] = function()
+		if not waywall.get_key("F3") then
+			resolutions.tall()
+		else
+			return false
+		end
+	end,
 
 	["Shift-P"] = function()
 		exec_ninb()
 		exec_pacem()
 	end,
-	
+
 	["apostrophe"] = function()
 		helpers.toggle_floating()
 	end,
@@ -411,27 +401,37 @@ config.actions = {
 		waywall.toggle_fullscreen()
 	end,
 
-    -- ["*-C"] = function()
-    --     if waywall.get_key("F3") then
-    --         nb_overlay.enable_overlay()			
-    --         return false
-    --     else
-    --         return false
-    --     end
-    -- end,
-	
-	-- ["9"] = nb_overlay.disable_overlay,
+	["Home"] = function()
+		if hotkeys_on then
+			os.execute("echo return false > ~/.config/waywall/hotkeys_state.lua")
+		else
+			os.execute("echo return true > ~/.config/waywall/hotkeys_state.lua")
+		end
+	end,
+} or {
+	-- Minimal fallback actions when hotkeys are off
+	["Shift-P"] = function()
+		exec_ninb()
+		exec_pacem()
+	end,
+
+	["apostrophe"] = function()
+		helpers.toggle_floating()
+	end,
+
+	["Shift-O"] = function()
+		waywall.toggle_fullscreen()
+	end,
 
 	["Home"] = function()
-		toggle_hotkeys()
-		if hotkey_text then
-			print("no text")
-			hotkey_text:close()
-			hotkey_text = nil
+		if hotkeys_on then
+			os.execute("echo return false > ~/.config/waywall/hotkeys_state.lua")
+		else
+			os.execute("echo return true > ~/.config/waywall/hotkeys_state.lua")
 		end
-		hotkey_text = waywall.text((hotkeys_on and "" or "hotkeys off"), 10, 1400, "#FFFFFF", 1)
 	end,
 }
+
 
 return config
 
