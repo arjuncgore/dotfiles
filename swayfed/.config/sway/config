@@ -76,14 +76,14 @@ exec_always swaybg -i ~/Pictures/Wallpaper.png -m fill
 # Read `man 5 sway-input` for more information about this section.
 
 ### Startup Apps
-exec waybar
+exec waybar -c ~/.config/waybar/config_fedora.jsonc -s ~/.config/waybar/style.css &
 
 ### Inputs
 input * {
     repeat_delay 200
     repeat_rate 20
-    xkb_layout custommac
-    xkb_variant custom
+    xkb_layout "custommac"
+    xkb_variant "custom"
 }
 # Swap caps and escape with caps:swapescape
 
