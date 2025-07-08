@@ -141,6 +141,9 @@ input "1452:850:Apple_MTP_multi-touch" {
     # Exit sway (logs you out of your Wayland session)
     bindsym $mod+Shift+e exec ~/.config/sway/exit-menu.sh
 
+    # Shutdown
+    bindsym $mod+Shift+s exec ~/.config/sway/shutdown-menu.sh
+
 #
 # Moving around:
 #

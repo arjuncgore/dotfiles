@@ -138,6 +138,9 @@ input "9610:54:Glorious_Model_O" {
     # Exit sway (logs you out of your Wayland session)
     bindsym $mod+Shift+e exec ~/.config/sway/exit-menu.sh
 
+    # Shutdown
+    bindsym $mod+Shift+s exec ~/.config/sway/shutdown-menu.sh
+
 #
 # Moving around:
 #
