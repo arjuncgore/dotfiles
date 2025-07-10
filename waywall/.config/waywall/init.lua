@@ -32,6 +32,9 @@ local config = {
 			["O"] = "Q", ["Q"] = "O",	                     				-- O <--> Q
 			["D"] = "X", ["X"] = "RIGHTSHIFT", ["RIGHTSHIFT"] = "D",		-- D --> X --> RSHIFT --> D
 			["F1"] = "Y",													-- F1 --> Y
+			["CAPSLOCK"] = "Z",												-- CAPSLOCK --> Z
+			["6"] = "F4",													-- 6 --> F4
+
 
 		} or {
 			["MB4"] = "F3",                                             	-- F3 with back button
@@ -380,7 +383,7 @@ config.actions = hotkeys_on and {
 		end
 	end,
 
-	["*-F4"] = function()
+	["*-6"] = function()
 		if not waywall.get_key("F3") then
 			resolutions.tall()
 		else
@@ -401,7 +404,7 @@ config.actions = hotkeys_on and {
 		waywall.toggle_fullscreen()
 	end,
 
-	["Home"] = function()
+	["Insert"] = function()
 		if hotkeys_on then
 			os.execute("echo return false > ~/.config/waywall/hotkeys_state.lua")
 		else
@@ -423,7 +426,7 @@ config.actions = hotkeys_on and {
 		waywall.toggle_fullscreen()
 	end,
 
-	["Home"] = function()
+	["Insert"] = function()
 		if hotkeys_on then
 			os.execute("echo return false > ~/.config/waywall/hotkeys_state.lua")
 		else
