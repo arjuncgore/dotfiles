@@ -100,6 +100,12 @@ input "4341:20484:Turtle_Beach_Burst_II_Air_dongle_Mouse" {
     pointer_accel -0.875
 }
 
+input "4341:20482:Turtle_Beach_Burst_II_Air_Mouse" {
+    natural_scroll enabled
+    accel_profile "flat"
+    pointer_accel -0.875
+}
+
 
 ### Key bindings
 #
