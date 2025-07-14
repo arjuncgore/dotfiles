@@ -11,7 +11,7 @@ local secondary_col = "#48b0af"
 
 local pacem_path = "/home/arjungore/mcsr/paceman-tracker-0.7.0.jar"
 local nb_path = "/home/arjungore/mcsr/Ninjabrain-Bot-1.5.1.jar"
-local overlay_path = "/home/arjungore/mcsr/resources/measuring_overlay.png"
+-- local overlay_path = "/home/arjungore/mcsr/resources/measuring_overlay.png"
 
 local hotkeys_on = true
 
@@ -57,10 +57,11 @@ local config = {
         confine_pointer = false,
     },
     theme = {
-        background_png = background_path,
+        -- background_png = background_path,
+		backgound = "#EDE5DA",
         ninb_anchor = "topright",
 		ninb_opacity = 0.8,
-		font_path = "/usr/share/fonts/TTF/MesloLGSNerdFont-Regular.ttf",
+		-- font_path = "/usr/share/fonts/TTF/MesloLGSNerdFont-Regular.ttf",
     },
     experimental = {
         debug = false,
@@ -282,21 +283,21 @@ local make_image = function(path, dst)
 	end
 end
 
-local images = {
-	measuring_overlay = make_image(overlay_path, {
-		dst = { x = 94, y = 470, w = 900, h = 500 },
-	}),
-	screen_overlay = make_image(screen_overlay_path, {
-		dst = { x = 0, y = 0, w = 2560, h = 1440 },
-	}),
-}
+-- local images = {
+-- 	measuring_overlay = make_image(overlay_path, {
+-- 		dst = { x = 94, y = 470, w = 900, h = 500 },
+-- 	}),
+-- 	screen_overlay = make_image(screen_overlay_path, {
+-- 		dst = { x = 0, y = 0, w = 2560, h = 1440 },
+-- 	}),
+-- }
 
 
 --*********************************************************************************************** MANAGING MIRRORS
 local show_mirrors = function(eye, f3, tall, thin)
-	images.screen_overlay(f3)
+	-- images.screen_overlay(f3)
 
-	images.measuring_overlay(eye)
+	-- images.measuring_overlay(eye)
 	mirrors.eye_measure(eye)
 
     mirrors.e_counter(f3)
