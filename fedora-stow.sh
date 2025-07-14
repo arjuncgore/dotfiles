@@ -8,7 +8,7 @@ waybar
 bash
 nvim
 swayfed
-waywall
+waywallfed
 )
 
 for config in "${configs[@]}"; do
