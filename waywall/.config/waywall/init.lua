@@ -13,7 +13,24 @@ local pacem_path = "/home/arjungore/mcsr/paceman-tracker-0.7.0.jar"
 local nb_path = "/home/arjungore/mcsr/Ninjabrain-Bot-1.5.1.jar"
 local overlay_path = "/home/arjungore/mcsr/resources/measuring_overlay.png"
 
-local hotkeys_on = require("hotkeys_state")
+local remaps_active = true
+
+local remaps_enabled = {
+	["MB4"] = "F3",
+	["7"] = "F6",
+	["LEFTALT"] = "LEFTCTRL",
+
+	["T"] = "BACKSPACE", ["BACKSPACE"] = "T",
+	["A"] = "K", ["Z"] = "A",
+	["O"] = "Q", ["Q"] = "O",
+	["D"] = "X", ["X"] = "RIGHTSHIFT", ["RIGHTSHIFT"] = "D",
+	["F1"] = "Y", ["CAPSLOCK"] = "Z",
+}
+
+local remaps_disabled = {
+	["MB4"] = "F3",
+	["LEFTALT"] = "LEFTCTRL",
+}
 
 
 local config = {
@@ -21,27 +38,7 @@ local config = {
         layout = "us",
         repeat_rate = 40,
         repeat_delay = 300,
-        
-		remaps = hotkeys_on and {
-			["MB4"] = "F3",                                             	-- F3 with back button
-			["MB5"] = "F6",                                             	-- Reset with forward button
-			["LEFTALT"] = "LEFTCTRL",                                   	-- LALT --> LCTRL
-			
-			["T"] = "BACKSPACE", ["BACKSPACE"] = "T",						-- Backspace <--> T
-			["A"] = "K", ["K"] = "Z", ["Z"] = "A",							-- A --> K --> Z --> A
-			["O"] = "Q", ["Q"] = "O",	                     				-- O <--> Q
-			["D"] = "X", ["X"] = "RIGHTSHIFT", ["RIGHTSHIFT"] = "D",		-- D --> X --> RSHIFT --> D
-			["F1"] = "Y",													-- F1 --> Y
-			["CAPSLOCK"] = "Z",												-- CAPSLOCK --> Z
-			["6"] = "F4",													-- 6 --> F4
-
-
-		} or {
-			["MB4"] = "F3",                                             	-- F3 with back button
-			["MB5"] = "F6",                                             	-- Reset with forward button
-			["LEFTALT"] = "LEFTCTRL",                                   	-- LALT --> LCTRL
-		},
-
+		remaps = remaps_enabled,
         sensitivity = 1.0,
         confine_pointer = false,
     },
@@ -55,6 +52,7 @@ local config = {
         debug = false,
         jit = false,
         tearing = false,
+		scene_add_text = true,
     },
 }
 
@@ -342,11 +340,6 @@ local generic_disable = function()
     show_mirrors(false, false, false, false)
 end
 
--- if hotkey_text then
--- 	hotkey_text:close()
--- 	hotkey_text = nil
--- end
--- hotkey_text = waywall.text((hotkeys_on and "" or "hotkeys off"), 10, 1400, "#FFFFFF", 1)
 
 --*********************************************************************************************** RESOLUTIONS
 local make_res = function(width, height, enable, disable)
@@ -354,14 +347,19 @@ local make_res = function(width, height, enable, disable)
 		local active_width, active_height = waywall.active_res()
 
 		if active_width == width and active_height == height then
+			os.execute('echo "0x0" > ~/.resetti_state')
+			waywall.sleep(17)  -- small delay for smooth animation
 			waywall.set_resolution(0, 0)
 			disable()
 		else
+			os.execute(string.format('echo "%dx%d" > ~/.resetti_state', width, height))
+			waywall.sleep(17)  -- small delay for smooth animation
 			waywall.set_resolution(width, height)
 			enable()
 		end
 	end
 end
+
 
 local resolutions = {
 	thin = make_res(350, 1100, thin_enable, generic_disable),
@@ -369,72 +367,62 @@ local resolutions = {
 	wide = make_res(2560, 400, wide_enable, generic_disable),
 }
 
-local hotkey_text = nil
+local rebind_text = nil
 
 --*********************************************************************************************** KEYBINDS
-config.actions = hotkeys_on and {
-	["*-Alt_L"] = resolutions.thin,
+config.actions = {
+	["*-Alt_L"] = function()
+		if remaps_active then
+			resolutions.thin()
+		end
+	end,
 
 	["*-B"] = function()
-		if not waywall.get_key("F3") then
-			resolutions.wide()
-		else
-			return false
+		if remaps_active then
+			if not waywall.get_key("F3") then
+				resolutions.wide()
+			else
+				return false
+			end
 		end
 	end,
 
 	["*-6"] = function()
-		if not waywall.get_key("F3") then
-			resolutions.tall()
-		else
-			return false
+		if remaps_active then
+			if not waywall.get_key("F3") then
+				resolutions.tall()
+			else
+				return false
+			end
 		end
 	end,
+
+	["apostrophe"] = function()
+		if remaps_active then
+			helpers.toggle_floating()
+		end
+	end,
+
+	["Shift-O"] = waywall.toggle_fullscreen,
 
 	["Shift-P"] = function()
 		exec_ninb()
 		exec_pacem()
 	end,
 
-	["apostrophe"] = function()
-		helpers.toggle_floating()
-	end,
-
-	["Shift-O"] = function()
-		waywall.toggle_fullscreen()
-	end,
-
 	["Insert"] = function()
-		if hotkeys_on then
-			os.execute("echo return false > ~/.config/waywall/hotkeys_state.lua")
-		else
-			os.execute("echo return true > ~/.config/waywall/hotkeys_state.lua")
+		if rebind_text then
+			rebind_text:close()
+			rebind_text = nil
+		end
+		remaps_active = not remaps_active
+		waywall.set_remaps(remaps_active and remaps_enabled or remaps_disabled)
+		if not remaps_active then
+			rebind_text = waywall.text("REBINDS OFF", 30, 1380, "#FFFFFF", 3)
 		end
 	end,
-} or {
-	-- Minimal fallback actions when hotkeys are off
-	["Shift-P"] = function()
-		exec_ninb()
-		exec_pacem()
-	end,
 
-	["apostrophe"] = function()
-		helpers.toggle_floating()
-	end,
-
-	["Shift-O"] = function()
-		waywall.toggle_fullscreen()
-	end,
-
-	["Insert"] = function()
-		if hotkeys_on then
-			os.execute("echo return false > ~/.config/waywall/hotkeys_state.lua")
-		else
-			os.execute("echo return true > ~/.config/waywall/hotkeys_state.lua")
-		end
-	end,
 }
 
 
 return config
-
