@@ -37,6 +37,11 @@ gaps outer 1
 default_border none
 default_floating_border none
 
+# Smart behavior for single window workspaces
+smart_gaps on
+smart_borders on
+hide_edge_borders smart
+
 ### Output configuration
 #
 #
