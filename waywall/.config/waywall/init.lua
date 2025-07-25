@@ -14,21 +14,33 @@ local nb_path = "/home/arjungore/mcsr/Ninjabrain-Bot-1.5.1.jar"
 local overlay_path = "/home/arjungore/mcsr/resources/measuring_overlay.png"
 
 local remaps_active = true
+local current_remap = "resetting"
+
+local keymaps_resetting = {
+	["MB4"] = "F3",
+	["LEFTALT"] = "LEFTCTRL",
+
+	["Q"] = "O",
+	["D"] = "X",
+	["CAPSLOCK"] = "Z",
+}
 
 local remaps_enabled = {
 	["MB4"] = "F3",
-	["7"] = "F6",
+	["MB5"] = "F6", ["F6"] = "MB5",
 	["LEFTALT"] = "LEFTCTRL",
 
 	["T"] = "BACKSPACE", ["BACKSPACE"] = "T",
-	["A"] = "K", ["Z"] = "A",
+	["A"] = "K", ["Z"] = "A", ["K"] = "CAPSLOCK",
 	["O"] = "Q", ["Q"] = "O",
 	["D"] = "X", ["X"] = "RIGHTSHIFT", ["RIGHTSHIFT"] = "D",
-	["F1"] = "Y", ["CAPSLOCK"] = "Z",
+	["F1"] = "I", ["I"] = "F1",
+	["CAPSLOCK"] = "Z",
 }
 
 local remaps_disabled = {
 	["MB4"] = "F3",
+	["MB5"] = "F6", ["F6"] = "MB5",
 	["LEFTALT"] = "LEFTCTRL",
 }
 
@@ -372,9 +384,19 @@ local rebind_text = nil
 --*********************************************************************************************** KEYBINDS
 config.actions = {
 	["*-Alt_L"] = function()
+		if current_remap ~= "enabled" then
+			current_remap = "enabled"
+			waywall.set_remaps(remaps_enabled)
+		end
 		if remaps_active then
 			resolutions.thin()
 		end
+	end,
+
+	["F6"] = function()
+		current_remap = "resetting"
+		waywall.set_remaps(keymaps_resetting)
+		return false
 	end,
 
 	["*-B"] = function()
@@ -384,10 +406,12 @@ config.actions = {
 			else
 				return false
 			end
+		else
+			return false
 		end
 	end,
 
-	["*-6"] = function()
+	["*-F4"] = function()
 		if remaps_active then
 			if not waywall.get_key("F3") then
 				resolutions.tall()
