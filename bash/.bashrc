@@ -37,3 +37,13 @@ export WLR_NO_HARDWARE_CURSORS=1
 export LIBVA_DRIVER_NAME=radeonsi
 export ELECTRON_OZONE_PLATFORM_HINT=auto
 
+# Yazi Setup
+
+function y() {
+	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+	yazi "$@" --cwd-file="$tmp"
+	if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+		builtin cd -- "$cwd"
+	fi
+	rm -f -- "$tmp"
+}
