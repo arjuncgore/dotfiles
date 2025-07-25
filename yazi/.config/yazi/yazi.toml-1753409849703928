@@ -1,0 +1,6 @@
+[preview]
+image = "~/.config/yazi/scripts/image_preview.sh"
+
+[manager]
+show_preview = true
+

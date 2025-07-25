@@ -11,6 +11,7 @@ sway
 waywall
 hypr
 fastfetch
+yazi
 )
 
 for config in "${configs[@]}"; do

@@ -9,6 +9,7 @@ bash
 nvim
 swayfed
 waywall
+yazi
 )
 
 for config in "${configs[@]}"; do

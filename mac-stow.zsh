@@ -7,6 +7,7 @@ ghostty
 nvim
 zsh
 fastfetch
+yazi
 )
 
 for config in "${configs[@]}"; do
