@@ -98,7 +98,6 @@ local exec_ninb = function()
 	end
 end
 
-
 --*********************************************************************************************** MIRRORS
 local make_mirror = function(options)
 	local this = nil
@@ -359,13 +358,13 @@ local make_res = function(width, height, enable, disable)
 		local active_width, active_height = waywall.active_res()
 
 		if active_width == width and active_height == height then
-			os.execute('echo "0x0" > ~/.resetti_state')
-			waywall.sleep(17)  -- small delay for smooth animation
+			os.execute('echo "0x0" > ~/.resize_state')
+			waywall.sleep(17)
 			waywall.set_resolution(0, 0)
 			disable()
 		else
-			os.execute(string.format('echo "%dx%d" > ~/.resetti_state', width, height))
-			waywall.sleep(17)  -- small delay for smooth animation
+			os.execute(string.format('echo "%dx%d" > ~/.resize_state', width, height))
+			waywall.sleep(17)
 			waywall.set_resolution(width, height)
 			enable()
 		end
@@ -381,8 +380,56 @@ local resolutions = {
 
 local rebind_text = nil
 
+-- Timer state
+local timer_active = false
+local start_time = nil
+local timer_text_obj = nil
+
+-- Function to reset and close previous text
+local function clear_timer_text()
+	if timer_text_obj then
+		timer_text_obj.close()
+		timer_text_obj = nil
+	end
+end
+
+-- Function to show updated timer
+local function show_timer()
+	if not timer_active then return end
+
+	clear_timer_text()
+
+	local now = waywall.current_time()
+	local elapsed = now - start_time
+	local mins = math.floor(elapsed / 60)
+	local secs = math.floor(elapsed % 60)
+
+	timer_text_obj = waywall.text(
+		string.format("Timer: %02d:%02d", mins, secs),
+		100, 100, "#FFFFFF", 3
+	)
+
+	-- Call this function again after 1000ms
+	waywall.sleep(1000)
+	show_timer()
+end
 --*********************************************************************************************** KEYBINDS
 config.actions = {
+
+	["Shift-9"] = function()
+		if timer_active then return end
+		timer_active = true
+		start_time = waywall.current_time()
+		show_timer()
+	end,
+
+	["Shift-0"] = function()
+		timer_active = false
+		clear_timer_text()
+	end,
+
+
+
 	["*-Alt_L"] = function()
 		if current_remap ~= "enabled" then
 			current_remap = "enabled"
@@ -396,7 +443,17 @@ config.actions = {
 	["F6"] = function()
 		current_remap = "resetting"
 		waywall.set_remaps(keymaps_resetting)
+		os.execute("echo $(( $(cat ~/.reset_state) + 1 )) > ~/.reset_state")
 		return false
+	end,
+
+	["*-MB5"] = function()
+		print("\n\n\n" .. waywall.state().screen .. "\n\n\n")
+
+		if (current_remap == "resetting") then
+			os.execute("echo $(( $(cat ~/.reset_state) + 1 )) > ~/.reset_state")
+			waywall.press_key("F6")
+		end
 	end,
 
 	["*-B"] = function()
