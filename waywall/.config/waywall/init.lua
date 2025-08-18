@@ -5,13 +5,14 @@ local helpers = require("waywall.helpers")
 
 local primary_col = "#d08e2b"
 local secondary_col = "#48b0af"
+local shadow_col = "#CCCCCC"
 
 local background_path = "/home/arjungore/mcsr/resources/bg_final.png"
 local screen_overlay_path = "/home/arjungore/mcsr/resources/overlay_final.png"
 
 local pacem_path = "/home/arjungore/mcsr/paceman-tracker-0.7.0.jar"
 local nb_path = "/home/arjungore/mcsr/Ninjabrain-Bot-1.5.1.jar"
-local overlay_path = "/home/arjungore/mcsr/resources/measuring_overlay.png"
+local overlay_path = "/home/arjungore/mcsr/resources/stretched_overlay.png"
 
 local remaps_active = true
 local current_remap = "resetting"
@@ -52,13 +53,12 @@ local config = {
         repeat_delay = 300,
 		remaps = remaps_enabled,
         sensitivity = 1.0,
-        confine_pointer = false,
+        confine_pointer = true,
     },
     theme = {
         background_png = background_path,
         ninb_anchor = "topright",
 		ninb_opacity = 0.8,
-		font_path = "/usr/share/fonts/TTF/MesloLGSNerdFont-Regular.ttf",
     },
     experimental = {
         debug = false,
@@ -98,6 +98,7 @@ local exec_ninb = function()
 	end
 end
 
+
 --*********************************************************************************************** MIRRORS
 local make_mirror = function(options)
 	local this = nil
@@ -114,11 +115,20 @@ end
 
 local mirrors = {
     e_counter = make_mirror({
-		src = {  x = 1, y = 28, w = 49, h = 18 },
+		src = { x = 1, y = 28, w = 49, h = 18 },
 		dst = { x = 1500, y = 400, w = 343, h = 126 },
 		color_key = {
 			input = "#dddddd",
-			output = primary_col,
+			output = secondary_col,
+		},
+	}),
+
+	e_counter_bg = make_mirror({
+		src = { x = 1, y = 28, w = 49, h = 18 },
+		dst = { x = 1507, y = 407, w = 343, h = 126 },
+		color_key = {
+			input = "#dddddd",
+			output = shadow_col,
 		},
 	}),
 
@@ -190,6 +200,23 @@ local mirrors = {
 		},
     }),
 
+	thin_percent_blockentities_bg = make_mirror({
+		src = { x = 257, y = 879, w = 33, h = 25 },
+		dst = { x = 1576, y = 1058, w = 264, h = 200 },
+		color_key = {
+			input = "#e96d4d",
+			output = shadow_col,
+		},
+    }),
+	thin_percent_unspecified_bg = make_mirror({
+		src = { x = 257, y = 879, w = 33, h = 25 },
+		dst = { x = 1576, y = 1058, w = 264, h = 200 },
+		color_key = {
+			input = "#45cb65",
+			output = shadow_col,
+		},
+    }),
+
 
 	tall_pie_all = make_mirror({
 		src = { x = 44, y = 15978, w = 340, h = 178 },
@@ -258,15 +285,32 @@ local mirrors = {
 		},
     }),
 
+	tall_percent_blockentities_bg = make_mirror({
+		src = { x = 291, y = 16163, w = 33, h = 25 },
+		dst = { x = 1576, y = 1058, w = 264, h = 200 },
+		color_key = {
+			input = "#e96d4d",
+			output = shadow_col,
+		},
+    }),
+	tall_percent_unspecified_bg = make_mirror({
+		src = { x = 291, y = 16163, w = 33, h = 25 },
+		dst = { x = 1576, y = 1058, w = 264, h = 200 },
+		color_key = {
+			input = "#45cb65",
+			output = shadow_col,
+		},
+    }),
+
 
 	eye_measure = make_mirror({
-		src = { x = 162, y = 7902, w = 60, h = 580 },
+		src = { x = 177, y = 7902, w = 30, h = 580 },
 		dst = { x = 94, y = 470, w = 900, h = 500 },
 	}),
 }
 
 
---*********************************************************************************************** BOATEYE
+--*********************************************************************************************** IMAGES
 local make_image = function(path, dst)
 	local this = nil
 
@@ -298,6 +342,7 @@ local show_mirrors = function(eye, f3, tall, thin)
 	mirrors.eye_measure(eye)
 
     mirrors.e_counter(f3)
+	mirrors.e_counter_bg(f3)
 
     -- mirrors.thin_pie_all(thin)
     mirrors.thin_pie_entities(thin)
@@ -309,7 +354,8 @@ local show_mirrors = function(eye, f3, tall, thin)
 	-- mirrors.thin_percent_all(thin)
 	mirrors.thin_percent_blockentities(thin)
 	mirrors.thin_percent_unspecified(thin)
-
+	mirrors.thin_percent_blockentities_bg(thin)
+	mirrors.thin_percent_unspecified_bg(thin)
 
 	-- mirrors.tall_pie_all(tall)
     mirrors.tall_pie_entities(tall)
@@ -321,6 +367,8 @@ local show_mirrors = function(eye, f3, tall, thin)
 	-- mirrors.tall_percent_all(tall)
 	mirrors.tall_percent_blockentities(tall)
 	mirrors.tall_percent_unspecified(tall)
+	mirrors.tall_percent_blockentities_bg(tall)
+	mirrors.tall_percent_unspecified_bg(tall)
 
 
 end
@@ -328,14 +376,10 @@ end
 
 --*********************************************************************************************** STATES
 local thin_enable = function()
-	-- reset_dpi()
     show_mirrors(false, true, false, true)
 end
 
 local tall_enable = function()
-	-- if ratbag_device then
-	-- 	os.execute(string.format("ratbagctl '%s' dpi set 100", ratbag_device))
-	-- end
 	show_mirrors(true, true, true, false)
 end
 local wide_enable = function()
@@ -343,7 +387,6 @@ local wide_enable = function()
 end
 
 local tall_disable = function()
-	-- reset_dpi()
 	show_mirrors(false, false, false, false)
 end
 
@@ -380,56 +423,9 @@ local resolutions = {
 
 local rebind_text = nil
 
--- Timer state
-local timer_active = false
-local start_time = nil
-local timer_text_obj = nil
 
--- Function to reset and close previous text
-local function clear_timer_text()
-	if timer_text_obj then
-		timer_text_obj.close()
-		timer_text_obj = nil
-	end
-end
-
--- Function to show updated timer
-local function show_timer()
-	if not timer_active then return end
-
-	clear_timer_text()
-
-	local now = waywall.current_time()
-	local elapsed = now - start_time
-	local mins = math.floor(elapsed / 60)
-	local secs = math.floor(elapsed % 60)
-
-	timer_text_obj = waywall.text(
-		string.format("Timer: %02d:%02d", mins, secs),
-		100, 100, "#FFFFFF", 3
-	)
-
-	-- Call this function again after 1000ms
-	waywall.sleep(1000)
-	show_timer()
-end
 --*********************************************************************************************** KEYBINDS
 config.actions = {
-
-	["Shift-9"] = function()
-		if timer_active then return end
-		timer_active = true
-		start_time = waywall.current_time()
-		show_timer()
-	end,
-
-	["Shift-0"] = function()
-		timer_active = false
-		clear_timer_text()
-	end,
-
-
-
 	["*-Alt_L"] = function()
 		if current_remap ~= "enabled" then
 			current_remap = "enabled"
@@ -443,7 +439,6 @@ config.actions = {
 	["F6"] = function()
 		current_remap = "resetting"
 		waywall.set_remaps(keymaps_resetting)
-		os.execute("echo $(( $(cat ~/.reset_state) + 1 )) > ~/.reset_state")
 		return false
 	end,
 
@@ -451,7 +446,6 @@ config.actions = {
 		print("\n\n\n" .. waywall.state().screen .. "\n\n\n")
 
 		if (current_remap == "resetting") then
-			os.execute("echo $(( $(cat ~/.reset_state) + 1 )) > ~/.reset_state")
 			waywall.press_key("F6")
 		end
 	end,
