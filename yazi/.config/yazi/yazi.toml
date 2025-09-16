@@ -3,4 +3,5 @@ image = "~/.config/yazi/scripts/image_preview.sh"
 
 [mgr]
 show_preview = true
+show_hidden = true
 
