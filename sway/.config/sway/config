@@ -27,6 +27,8 @@ set $gamemanager env GDK_BACKEND=x11 STEAM_FORCE_DESKTOPUI_MODE=1 steam
 set $ide code
 # Your preferred music player
 set $music spotify
+# Your preferred discord emulator
+set $discord discord
 
 ### Aesthetics
 #
@@ -154,6 +156,9 @@ input "4341:20482:Turtle_Beach_Burst_II_Air_Mouse" {
 
     # Start your music player
     bindsym $mod+s exec $music
+
+    # Start your discord
+    bindsym $mod+d exec $discord
 
     # Take a screenshot
     bindsym $mod+Shift+p exec grim -g "$(slurp)" - | wl-copy
