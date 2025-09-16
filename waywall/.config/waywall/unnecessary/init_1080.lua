@@ -5,9 +5,9 @@ local secondary_col = "#E446C4"
 local ninbot_anchor = "topright" -- topleft, top, topright, left, right, bottomleft, bottomright
 local ninbot_opacity = 1 -- 0 to 1
 
-local pacem_path = "/home/arjungore/mcsr/paceman-tracker-0.7.0.jar"
-local nb_path = "/home/arjungore/mcsr/Ninjabrain-Bot-1.5.1.jar"
-local overlay_path = "/home/arjungore/mcsr/resources/measuring_overlay.png"
+-- local pacem_path = "/home/<username>/paceman-tracker-0.7.0.jar"
+local nb_path = "/home/<username>/Ninjabrain-Bot-1.5.1.jar"
+local overlay_path = "/home/<username>/.config/waywall/measuring_overlay.png"
 
 local e_count = 		{ enabled = true, x = 1340, y = 300, size = 4} 
 local thin_pie = 		{ enabled = true, x = 1250, y = 500, size = 0.75} 
@@ -18,12 +18,12 @@ local tall_percent =	{ enabled = true, x = 1300, y = 850, size = 6} -- Leave sam
 local thin_key = "*-Alt_L"
 local wide_key = "*-B"
 local tall_key = "*-F4"
-local toggle_ninbot_key = "*-apostrophe"
+local show_ninbot_key = "*-apostrophe"
 local toggle_fullscreen_key = "Shift-O"
-local enable_paceman_and_ninbot_key = "Shift-P"
+local open_ninbot_key = "Shift-P"
 
 local keyboard_remaps = {
-	["MB4"] = "F3", -- (example)
+	-- ["MB4"] = "F3", -- (example)
 }
 
 -- DON'T CHANGE ANYTHING AFTER THIS UNLESS YOU KNOW WHAT YOU"RE DOING
@@ -109,11 +109,11 @@ local mirrors = {
 
 
     thin_pie_all = make_mirror({
-		src = { x = 10, y = 694, w = 340, h = 178 },
+		src = { x = 0, y = 674, w = 340, h = 178 },
 		dst = { x = thin_pie.x, y = thin_pie.y, w = 420*thin_pie.size, h = 423*thin_pie.size },
     }),
     thin_pie_entities = make_mirror({
-		src = { x = 10, y = 694, w = 340, h = 178 },
+		src = { x = 0, y = 674, w = 340, h = 178 },
 		dst = { x = thin_pie.x, y = thin_pie.y, w = 420*thin_pie.size, h = 423*thin_pie.size },
 		color_key = {
 			input = "#E446C4",
@@ -121,7 +121,7 @@ local mirrors = {
 		},
 	}),
     thin_pie_unspecified = make_mirror({
-		src = { x = 10, y = 694, w = 340, h = 178 },
+		src = { x = 0, y = 674, w = 340, h = 178 },
 		dst = { x = thin_pie.x, y = thin_pie.y, w = 420*thin_pie.size, h = 423*thin_pie.size },
 		color_key = {
 			input = "#46CE66",
@@ -129,7 +129,7 @@ local mirrors = {
 		},
 	}),
     thin_pie_blockentities = make_mirror({
-		src = { x = 10, y = 694, w = 340, h = 178 },
+		src = { x = 0, y = 674, w = 340, h = 178 },
 		dst = { x = thin_pie.x, y = thin_pie.y, w = 420*thin_pie.size, h = 423*thin_pie.size },
 		color_key = {
 			input = "#ec6e4e",
@@ -137,7 +137,7 @@ local mirrors = {
 		},
 	}),
 	thin_pie_destroyProgress = make_mirror({
-		src = { x = 10, y = 694, w = 340, h = 178 },
+		src = { x = 0, y = 674, w = 340, h = 178 },
 		dst = { x = thin_pie.x, y = thin_pie.y, w = 420*thin_pie.size, h = 423*thin_pie.size },
 		color_key = {
 			input = "#CC6C46",
@@ -145,7 +145,7 @@ local mirrors = {
 		},
 	}),
 	thin_pie_prepare = make_mirror({
-		src = { x = 10, y = 694, w = 340, h = 178 },
+		src = { x = 0, y = 674, w = 340, h = 178 },
 		dst = { x = thin_pie.x, y = thin_pie.y, w = 420*thin_pie.size, h = 423*thin_pie.size },
 		color_key = {
 			input = "#464C46",
@@ -155,11 +155,11 @@ local mirrors = {
 
 
 	thin_percent_all = make_mirror({
-		src = { x = 257, y = 879, w = 33, h = 25 },
+		src = { x = 247, y = 859, w = 33, h = 25 },
 		dst = { x = thin_percent.x, y = thin_percent.y, w = 33*thin_percent.size, h = 25*thin_percent.size },
     }),
 	thin_percent_blockentities = make_mirror({
-		src = { x = 257, y = 879, w = 33, h = 25 },
+		src = { x = 247, y = 859, w = 33, h = 25 },
 		dst = { x = thin_percent.x, y = thin_percent.y, w = 33*thin_percent.size, h = 25*thin_percent.size },
 		color_key = {
 			input = "#e96d4d",
@@ -167,7 +167,7 @@ local mirrors = {
 		},
     }),
 	thin_percent_unspecified = make_mirror({
-		src = { x = 257, y = 879, w = 33, h = 25 },
+		src = { x = 247, y = 859, w = 33, h = 25 },
 		dst = { x = thin_percent.x, y = thin_percent.y, w = 33*thin_percent.size, h = 25*thin_percent.size },
 		color_key = {
 			input = "#45cb65",
@@ -350,9 +350,9 @@ end
 
 
 local resolutions = {
-	thin = make_res(350, 1100, thin_enable, res_disable),
+	thin = make_res(340, 1080, thin_enable, res_disable),
 	tall = make_res(384, 16384, tall_enable, res_disable),
-	wide = make_res(2560, 400, wide_enable, res_disable),
+	wide = make_res(1920, 300, wide_enable, res_disable),
 }
 
 local rebind_text = nil
@@ -371,15 +371,15 @@ config.actions = {
 		resolutions.tall()
 	end,
 
-	[toggle_ninbot_key] = function()
+	[show_ninbot_key] = function()
 		helpers.toggle_floating()
 	end,
 
 	[toggle_fullscreen_key] = waywall.toggle_fullscreen,
 
-	[enable_paceman_and_ninbot_key] = function()
+	[open_ninbot_key] = function()
 		exec_ninb()
-		exec_pacem()
+		-- exec_pacem()
 	end,
 
 }

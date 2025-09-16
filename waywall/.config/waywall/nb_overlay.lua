@@ -1,9 +1,10 @@
 local waywall = require("waywall")
+local requests = require("requests")
 local json = require("dkjson")
 
 local NB_OVERLAY = {}
 
-local data_stronghold = nil
+local data_sh = nil
 local data_blind = nil
 local data_boat = nil
 
@@ -13,8 +14,8 @@ local text_handle_bold = nil
 local look = {
     X = 500,
     Y = 10,
-    fill = '#000000',
-    bold = false,
+    color = '#000000',
+    bold = true,
     size = 2
 }
 
@@ -82,11 +83,11 @@ local function getdirection(player_angle, target_angle)
 end
 
 local function nb_mode()
-    if not data_stronghold or not data_stronghold.playerPosition then
+    if not data_sh or not data_sh.playerPosition then
         return "NB Ready"
-    elseif data_stronghold.resultType == "BLIND" then
+    elseif data_sh.resultType == "BLIND" then
         return "Blinding"
-    elseif data_stronghold.predictions and data_stronghold.predictions[1] and data_stronghold.predictions[1].certainty >= 0.95 then
+    elseif data_sh.predictions and data_sh.predictions[1] and data_sh.predictions[1].certainty >= 0.95 then
         return "Nether Travel"
     else
         return "Measuring"
@@ -120,13 +121,13 @@ local function update_overlay()
         return
     end
 
-    local player = data_stronghold.playerPosition or {
+    local player = data_sh.playerPosition or {
         xInOverworld = 0,
         zInOverworld = 0,
         horizontalAngle = 0
     }
 
-    local sh = data_stronghold.predictions and data_stronghold.predictions[1] or {
+    local sh = data_sh.predictions and data_sh.predictions[1] or {
         chunkX = 0,
         chunkZ = 0,
         overworldDistance = 0
@@ -140,12 +141,12 @@ local function update_overlay()
     partial_background_toggle(true)
 
 
-    if data_stronghold and data_stronghold.predictions
-    and data_stronghold.predictions[1]
-    and data_stronghold.predictions[1].certainty
-    and data_stronghold.predictions[1].certainty < 0.95
+    if data_sh and data_sh.predictions
+    and data_sh.predictions[1]
+    and data_sh.predictions[1].certainty
+    and data_sh.predictions[1].certainty < 0.95
     then
-        local cert = math.floor(data_stronghold.predictions[1].certainty * 100)
+        local cert = math.floor(data_sh.predictions[1].certainty * 100)
         layout =
         "Status   :" .. nb_mode() .. "\n" ..
         "Certainty:" .. cert .. "%\n"
@@ -204,31 +205,22 @@ local function update_overlay()
 end
 
 NB_OVERLAY.trigger_http_send = function()
-    local sh_idx = waywall.http_request("http://localhost:52533/api/v1/stronghold", 150)
-    waywall.listen("http", function()
-        local sh_data = waywall.http_retrieve(sh_idx)
-        if sh_data then
-            data_stronghold = json.decode(tostring(sh_data))
+    local sh = requests.get("http://localhost:52533/api/v1/stronghold")
+    local blind = requests.get("http://localhost:52533/api/v1/blind")
+    local boat = requests.get("http://localhost:52533/api/v1/boat")
 
-            local blind_idx = waywall.http_request("http://localhost:52533/api/v1/blind", 150)
-            waywall.listen("http", function()
-                local blind_data = waywall.http_retrieve(blind_idx)
-                if blind_data then
-                    data_blind = json.decode(tostring(blind_data))
+    -- Prefer the library’s decoder
+    local ok1, sh_tbl = pcall(sh.json)
+    local ok2, blind_tbl = pcall(blind.json)
+    local ok3, boat_tbl = pcall(boat.json)
 
-                    local boat_idx = waywall.http_request("http://localhost:52533/api/v1/boat", 150)
-                    waywall.listen("http", function()
-                        local boat_data = waywall.http_retrieve(boat_idx)
-                        if boat_data then
-                            data_boat = json.decode(tostring(boat_data))
-                            update_overlay()
-                        end
-                    end)
-                end
-            end)
-        end
-    end)
+    data_sh = ok1 and sh_tbl or nil
+    data_blind = ok2 and blind_tbl or nil
+    data_boat = ok3 and boat_tbl or nil
+
+    update_overlay()
 end
+
 
 NB_OVERLAY.enable_overlay = function()
     NB_OVERLAY.trigger_http_send()

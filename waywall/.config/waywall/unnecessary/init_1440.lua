@@ -5,9 +5,9 @@ local secondary_col = "#E446C4"
 local ninbot_anchor = "topright" -- topleft, top, topright, left, right, bottomleft, bottomright
 local ninbot_opacity = 1 -- 0 to 1
 
-local pacem_path = "/home/arjungore/mcsr/paceman-tracker-0.7.0.jar"
-local nb_path = "/home/arjungore/mcsr/Ninjabrain-Bot-1.5.1.jar"
-local overlay_path = "/home/arjungore/mcsr/resources/measuring_overlay.png"
+-- local pacem_path = "/home/<username>/paceman-tracker-0.7.0.jar"
+local nb_path = "/home/<username>/Ninjabrain-Bot-1.5.1.jar"
+local overlay_path = "/home/<username>/.config/waywall/measuring_overlay.png"
 
 local e_count = 		{ enabled = true, x = 1500, y = 400, size = 7} 
 local thin_pie = 		{ enabled = true, x = 1490, y = 645, size = 1} 
@@ -18,12 +18,12 @@ local tall_percent =	{ enabled = true, x = 1568, y = 1050, size = 8} -- Leave sa
 local thin_key = "*-Alt_L"
 local wide_key = "*-B"
 local tall_key = "*-F4"
-local toggle_ninbot_key = "*-apostrophe"
+local show_ninbot_key = "*-apostrophe"
 local toggle_fullscreen_key = "Shift-O"
-local enable_paceman_and_ninbot_key = "Shift-P"
+local open_ninbot_key = "Shift-P"
 
 local keyboard_remaps = {
-	["MB4"] = "F3", -- (example)
+	-- ["MB4"] = "F3", -- (example)
 }
 
 -- DON'T CHANGE ANYTHING AFTER THIS UNLESS YOU KNOW WHAT YOU"RE DOING
@@ -371,15 +371,15 @@ config.actions = {
 		resolutions.tall()
 	end,
 
-	[toggle_ninbot_key] = function()
+	[show_ninbot_key] = function()
 		helpers.toggle_floating()
 	end,
 
 	[toggle_fullscreen_key] = waywall.toggle_fullscreen,
 
-	[enable_paceman_and_ninbot_key] = function()
+	[open_ninbot_key] = function()
 		exec_ninb()
-		exec_pacem()
+		-- exec_pacem()
 	end,
 
 }

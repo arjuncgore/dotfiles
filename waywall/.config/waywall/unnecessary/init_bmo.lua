@@ -3,19 +3,16 @@ local helpers = require("waywall.helpers")
 
 -- local nb_overlay = require("nb_overlay")
 
-local primary_col = "#272420"
-local secondary_col = "#877665"
+local primary_col = "#d08e2b"
+local secondary_col = "#48b0af"
 local shadow_col = "#CCCCCC"
 
-local background_path = "/home/arjungore/mcsr/resources/simon_marcy/background.png"
-local tall_overlay_path = "/home/arjungore/mcsr/resources/simon_marcy/overlay_tall.png"
-local thin_overlay_path = "/home/arjungore/mcsr/resources/simon_marcy/overlay_thin.png"
-local wide_overlay_path = "/home/arjungore/mcsr/resources/simon_marcy/overlay_wide.png"
+local background_path = "/home/arjungore/mcsr/resources/bmo/background.png"
+local screen_overlay_path = "/home/arjungore/mcsr/resources/bmo/overlay.png"
 
 local pacem_path = "/home/arjungore/mcsr/paceman-tracker-0.7.0.jar"
 local nb_path = "/home/arjungore/mcsr/Ninjabrain-Bot-1.5.1.jar"
-local overlay_path = "/home/arjungore/mcsr/resources/simon_marcy/measuring_overlay.png"
-
+local overlay_path = "/home/arjungore/mcsr/resources/bmo/measuring_overlay.png"
 
 local remaps_active = true
 local current_remap = "resetting"
@@ -122,7 +119,7 @@ local mirrors = {
 		dst = { x = 1500, y = 400, w = 343, h = 126 },
 		color_key = {
 			input = "#dddddd",
-			output = primary_col,
+			output = secondary_col,
 		},
 	}),
 
@@ -137,44 +134,44 @@ local mirrors = {
 
 
     thin_pie_all = make_mirror({
-		src = { x = 21, y = 700, w = 318, h = 160 },
-		dst = { x = 1517, y = 665, w = 367, h = 367 },
+		src = { x = 10, y = 694, w = 340, h = 178 },
+		dst = { x = 1490, y = 645, w = 420, h = 423 },
     }),
     thin_pie_entities = make_mirror({
-		src = { x = 21, y = 700, w = 318, h = 160 },
-		dst = { x = 1517, y = 665, w = 367, h = 367 },
+		src = { x = 10, y = 694, w = 340, h = 178 },
+		dst = { x = 1490, y = 645, w = 420, h = 423 },
 		color_key = {
 			input = "#E446C4",
 			output = secondary_col,
 		},
 	}),
     thin_pie_unspecified = make_mirror({
-		src = { x = 21, y = 700, w = 318, h = 160 },
-		dst = { x = 1517, y = 665, w = 367, h = 367 },
+		src = { x = 10, y = 694, w = 340, h = 178 },
+		dst = { x = 1490, y = 645, w = 420, h = 423 },
 		color_key = {
 			input = "#46CE66",
 			output = secondary_col,
 		},
 	}),
     thin_pie_blockentities = make_mirror({
-		src = { x = 21, y = 700, w = 318, h = 160 },
-		dst = { x = 1517, y = 665, w = 367, h = 367 },
+		src = { x = 10, y = 694, w = 340, h = 178 },
+		dst = { x = 1490, y = 645, w = 420, h = 423 },
 		color_key = {
 			input = "#ec6e4e",
 			output = primary_col,
 		},
 	}),
 	thin_pie_destroyProgress = make_mirror({
-		src = { x = 21, y = 700, w = 318, h = 160 },
-		dst = { x = 1517, y = 665, w = 367, h = 367 },
+		src = { x = 10, y = 694, w = 340, h = 178 },
+		dst = { x = 1490, y = 645, w = 420, h = 423 },
 		color_key = {
 			input = "#CC6C46",
 			output = secondary_col,
 		},
 	}),
 	thin_pie_prepare = make_mirror({
-		src = { x = 21, y = 700, w = 318, h = 160 },
-		dst = { x = 1517, y = 665, w = 367, h = 367 },
+		src = { x = 10, y = 694, w = 340, h = 178 },
+		dst = { x = 1490, y = 645, w = 420, h = 423 },
 		color_key = {
 			input = "#464C46",
 			output = secondary_col,
@@ -222,44 +219,44 @@ local mirrors = {
 
 
 	tall_pie_all = make_mirror({
-		src = { x = 54, y = 15984, w = 320, h = 160 },
-        dst = { x = 1517, y = 665, w = 367, h = 367 },
+		src = { x = 44, y = 15978, w = 340, h = 178 },
+        dst = { x = 1490, y = 645, w = 420, h = 423 },
 	}),
 	tall_pie_entities = make_mirror({
-		src = { x = 54, y = 15984, w = 320, h = 160 },
-        dst = { x = 1517, y = 665, w = 367, h = 367 },
+		src = { x = 44, y = 15978, w = 340, h = 178 },
+        dst = { x = 1490, y = 645, w = 420, h = 423 },
 		color_key = {
 			input = "#E446C4",
 			output = secondary_col,
 		},
 	}),
     tall_pie_unspecified = make_mirror({
-		src = { x = 54, y = 15984, w = 320, h = 160 },
-        dst = { x = 1517, y = 665, w = 367, h = 367 },
+		src = { x = 44, y = 15978, w = 340, h = 178 },
+        dst = { x = 1490, y = 645, w = 420, h = 423 },
 		color_key = {
 			input = "#46CE66",
 			output = secondary_col,
 		},
 	}),
     tall_pie_blockentities = make_mirror({
-		src = { x = 54, y = 15984, w = 320, h = 160 },
-        dst = { x = 1517, y = 665, w = 367, h = 367 },
+		src = { x = 44, y = 15978, w = 340, h = 178 },
+        dst = { x = 1490, y = 645, w = 420, h = 423 },
 		color_key = {
 			input = "#ec6e4e",
 			output = primary_col,
 		},
 	}),
 	tall_pie_destroyProgress = make_mirror({
-		src = { x = 54, y = 15984, w = 320, h = 160 },
-        dst = { x = 1517, y = 665, w = 367, h = 367 },
+		src = { x = 44, y = 15978, w = 340, h = 178 },
+        dst = { x = 1490, y = 645, w = 420, h = 423 },
 		color_key = {
 			input = "#CC6C46",
 			output = secondary_col,
 		},
 	}),
 	tall_pie_prepare = make_mirror({
-		src = { x = 54, y = 15984, w = 320, h = 160 },
-        dst = { x = 1517, y = 665, w = 367, h = 367 },
+		src = { x = 44, y = 15978, w = 340, h = 178 },
+        dst = { x = 1490, y = 645, w = 420, h = 423 },
 		color_key = {
 			input = "#464C46",
 			output = secondary_col,
@@ -305,41 +302,6 @@ local mirrors = {
 		},
     }),
 
-	thin_chat = make_mirror({
-		src = { x = 54, y = 1052, w = 79, h = 7 },
-		dst = { x = 300, y = 1200, w = 454, h = 42 },
-		color_key = {
-			input = "#fbfbfb",
-			output = secondary_col,
-		},
-    }),
-
-	thin_chat_bg = make_mirror({
-		src = { x = 54, y = 1052, w = 79, h = 7 },
-		dst = { x = 306, y = 1206, w = 454, h = 42 },
-		color_key = {
-			input = "#fbfbfb",
-			output = shadow_col,
-		},
-    }),
-
-	tall_chat = make_mirror({
-		src = { x = 54, y = 16336, w = 79, h = 7 },
-		dst = { x = 306, y = 1206, w = 454, h = 42 },
-		color_key = {
-			input = "#fbfbfb",
-			output = secondary_col,
-		},
-    }),
-
-	tall_chat_bg = make_mirror({
-		src = { x = 54, y = 16336, w = 79, h = 7 },
-		dst = { x = 306, y = 1206, w = 454, h = 42 },
-		color_key = {
-			input = "#fbfbfb",
-			output = shadow_col,
-		},
-    }),
 
 	eye_measure = make_mirror({
 		src = { x = 177, y = 7902, w = 30, h = 580 },
@@ -366,26 +328,18 @@ local images = {
 	measuring_overlay = make_image(overlay_path, {
 		dst = { x = 94, y = 470, w = 900, h = 500 },
 	}),
-	tall_overlay = make_image(tall_overlay_path, {
-		dst = { x = 0, y = 0, w = 2560, h = 1440 },
-	}),
-	thin_overlay = make_image(thin_overlay_path, {
-		dst = { x = 0, y = 0, w = 2560, h = 1440 },
-	}),
-	wide_overlay = make_image(wide_overlay_path, {
+	screen_overlay = make_image(screen_overlay_path, {
 		dst = { x = 0, y = 0, w = 2560, h = 1440 },
 	}),
 }
 
 
 --*********************************************************************************************** MANAGING MIRRORS
-local show_mirrors = function(wide, f3, tall, thin)
-	images.tall_overlay(tall)
-	images.thin_overlay(thin)
-	images.wide_overlay(wide)
+local show_mirrors = function(eye, f3, tall, thin)
+	images.screen_overlay(f3)
 
-	images.measuring_overlay(tall)
-	mirrors.eye_measure(tall)
+	images.measuring_overlay(eye)
+	mirrors.eye_measure(eye)
 
     mirrors.e_counter(f3)
 	mirrors.e_counter_bg(f3)
@@ -403,9 +357,6 @@ local show_mirrors = function(wide, f3, tall, thin)
 	mirrors.thin_percent_blockentities_bg(thin)
 	mirrors.thin_percent_unspecified_bg(thin)
 
-	mirrors.thin_chat(thin)
-	mirrors.thin_chat_bg(thin)
-
 	-- mirrors.tall_pie_all(tall)
     mirrors.tall_pie_entities(tall)
     mirrors.tall_pie_unspecified(tall)
@@ -419,8 +370,6 @@ local show_mirrors = function(wide, f3, tall, thin)
 	mirrors.tall_percent_blockentities_bg(tall)
 	mirrors.tall_percent_unspecified_bg(tall)
 
-	mirrors.tall_chat(tall)
-	mirrors.tall_chat_bg(thin)
 
 end
 
@@ -431,10 +380,10 @@ local thin_enable = function()
 end
 
 local tall_enable = function()
-	show_mirrors(false, true, true, false)
+	show_mirrors(true, true, true, false)
 end
 local wide_enable = function()
-	show_mirrors(true, false, false, false)
+	show_mirrors(false, false, false, false)
 end
 
 local tall_disable = function()
@@ -488,15 +437,14 @@ config.actions = {
 	end,
 
 	["F6"] = function()
-		if (waywall.active_res() == 350) then resolutions.thin()
-		end
-
 		current_remap = "resetting"
 		waywall.set_remaps(keymaps_resetting)
-		waywall.press_key("F6")
+		return false
 	end,
 
 	["*-MB5"] = function()
+		print("\n\n\n" .. waywall.state().screen .. "\n\n\n")
+
 		if (current_remap == "resetting") then
 			waywall.press_key("F6")
 		end
@@ -569,9 +517,7 @@ config.actions = {
 	-- 	end
 	-- end,
 
-	-- ["grave"] = nb_overlay.enable_overlay,
-
-	-- ["Shift-grave"] = nb_overlay.disable_overlay,
+	-- ["Shift-L"] = nb_overlay.disable_overlay,
 
 }
 
