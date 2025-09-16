@@ -1,0 +1,3 @@
+[submodule "waywall/.config/waywall/Waywall-Ninjabrain-Overla"]
+	path = waywall/.config/waywall/Waywall-Ninjabrain-Overla
+	url = https://github.com/arjuncgore/Waywall-Ninjabrain-Overlay.git

@@ -8,7 +8,9 @@
   "contributors": [
     "stelo",
     "thomaslombart",
-    "Rob"
+    "Rob",
+    "syh",
+    "erayack"
   ],
   "pastContributors": [
     "Elliot67"
@@ -123,7 +125,7 @@
       "input": {
         "type": "object",
         "properties": {
-          "channelId": {
+          "text": {
             "type": "string",
             "description": "The id of the channel to fetch history (eg. messages) for. Use `getChannels` to get the list of channels with their ids."
           },
@@ -132,9 +134,7 @@
             "description": "Only messages after this ISO 8601 timestamp will be included in results. If ommited, the last 30 messages of the channel will be returned.\n\n@example \"2025-03-26T00:00:00Z\""
           }
         },
-        "required": [
-          "channelId"
-        ]
+        "required": []
       },
       "confirmation": false
     },
@@ -176,6 +176,30 @@
       "name": "get-emojis",
       "description": "List all custom emojis in the Slack team",
       "confirmation": false
+    },
+    {
+      "title": "Search Messages",
+      "name": "search-messages",
+      "description": "Search all Messages in the Slack team",
+      "input": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string"
+          },
+          "sort": {
+            "type": "string",
+            "enum": [
+              "timestamp",
+              "score"
+            ]
+          }
+        },
+        "required": [
+          "query"
+        ]
+      },
+      "confirmation": false
     }
   ],
   "ai": {
@@ -210,6 +234,25 @@
         "mocks": {
           "get-channels": []
         }
+      },
+      {
+        "input": "@ask summary the #product-team-issue-notification channel yesterday",
+        "expected": [
+          {
+            "callsTool": {
+              "name": "get-channels"
+            }
+          },
+          {
+            "callsTool": {
+              "name": "get-channel-history",
+              "arguments": {
+                "text": "C12345678",
+                "after": "2025-05-19T15:00:00Z"
+              }
+            }
+          }
+        ]
       }
     ]
   },
