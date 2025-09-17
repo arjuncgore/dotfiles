@@ -2,7 +2,6 @@ local waywall = require("waywall")
 local helpers = require("waywall.helpers")
 
 -- local nb_overlay = require("waywall_ninbot_overlay.nb_overlay")
--- local enable_nb_overlay = false
 
 local primary_col = "#272420"
 local secondary_col = "#877665"
