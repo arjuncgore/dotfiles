@@ -14,11 +14,12 @@ set $down j
 set $up k
 set $right l
 # Your preferred terminal emulator
-set $term ghostty
+set $term wezterm
 # Your preferred application launcher
 set $menu wofi --show drun
 # Your preferred browsers
-set $browser google-chrome-stable
+set $browser zen-browser
+set $browser2 google-chrome-stable
 # Your preferred file manager
 set $filemanager thunar
 # Your preferred game manager
@@ -144,6 +145,9 @@ input "4341:20482:Turtle_Beach_Burst_II_Air_Mouse" {
     
     # Start your browsers
     bindsym $mod+b exec $browser
+
+    # Start your 2nd browser
+    bindsym $mod+Shift+b exec $browser2
 
     # Start your file manager
     bindsym $mod+f exec $filemanager

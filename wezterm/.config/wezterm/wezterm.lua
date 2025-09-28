@@ -23,5 +23,6 @@ config.window_background_opacity = 0.8
 config.macos_window_background_blur = 26
 
 config.automatically_reload_config = true
+config.default_prog = { "/bin/bash" }
 
 return config
