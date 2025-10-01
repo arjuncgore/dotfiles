@@ -67,28 +67,27 @@ require('neo-tree').setup({
     filesystem = {
         filtered_items = {
             visible = false,
-            hide_dotfiles = false,
-            hide_gitignored = false,
+            hide_dotfiles = true,
+            hide_gitignored = true,
         },
         follow_current_file = { enabled = true},
         group_empty_dirs = true,
         hijack_netrw_behavior = "open_default",
         use_libuv_file_watcher = true,
+    },
 
+    buffers = {
+        follow_current_file = { enabled = true},
+        group_empty_dirs = true,
+    },
+
+    git_status = {
+        window = {
+            position = "float",
         },
+    },
+})
 
-        buffers = {
-            follow_current_file = { enabled = true},
-            group_empty_dirs = true,
-        },
-
-        git_status = {
-            window = {
-                position = "float",
-            },
-        },
-    })
-
-    -- Keymap to toggle Neo-tree
-    vim.keymap.set('n', '<leader>e', ':Neotree toggle<CR>', { noremap = true, silent = true })
+-- Keymap to toggle Neo-tree
+vim.keymap.set('n', '<leader>e', ':Neotree toggle<CR>', { noremap = true, silent = true })
 

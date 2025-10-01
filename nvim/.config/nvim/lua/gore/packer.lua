@@ -37,8 +37,11 @@ return require('packer').startup(function(use)
 	-- Git integration
 	use 'tpope/vim-fugitive'
 
-	-- Git integration
+	-- Noice visuals
 	use 'folke/noice.nvim'
+
+    -- Whichkey integration
+    use "folke/which-key.nvim"
 
 	-- === LSP + Completion ===
 	use {
