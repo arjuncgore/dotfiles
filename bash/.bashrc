@@ -8,7 +8,8 @@ alias ls='ls --color=auto'
 alias ll='ls -lF'
 alias la='ls -A'
 alias l='ls -CF'
-alias update='sudo pacman -Syu'
+alias update='yay'
+alias connect='ssh -i key hacker@pwn.college'
 
 alias connect='ssh -i ~/key hacker@dojo.pwn.college'
 

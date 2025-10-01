@@ -58,3 +58,8 @@ function y() {
 	[ -n "$cwd" ] && [ "$cwd" != "$PWD" ] && builtin cd -- "$cwd"
 	rm -f -- "$tmp"
 }
+
+# Connect to pwn.college
+alias connect='ssh -i ~/key hacker@pwn.college'
+
+export PATH=$PATH:/Users/arjungore/.spicetify
