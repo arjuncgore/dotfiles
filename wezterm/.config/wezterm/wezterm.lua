@@ -24,6 +24,11 @@ config.macos_window_background_blur = 26
 
 config.window_close_confirmation = "NeverPrompt"
 config.automatically_reload_config = true
-config.default_prog = { "/bin/bash" }
+
+if wezterm.target_triple:find("apple") then
+  config.default_prog = { "/bin/zsh", "-l" }   -- macOS
+elseif wezterm.target_triple:find("linux") then
+  config.default_prog = { "/bin/bash", "-l" }  -- Linux
+end
 
 return config
