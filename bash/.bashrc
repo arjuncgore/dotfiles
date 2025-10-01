@@ -8,7 +8,8 @@ alias ls='ls --color=auto'
 alias ll='ls -lF'
 alias la='ls -A'
 alias l='ls -CF'
-alias update='sudo pacman -Syu'
+alias update='yay'
+alias connect='ssh -i key hacker@pwn.college'
 
 # Set editor
 export EDITOR=nvim
@@ -18,9 +19,8 @@ eval "$(starship init bash)"
 
 # Enable bash completion if available
 if [ -f /usr/share/bash-completion/bash_completion ]; then
-    . /usr/share/bash-completion/bash_completion
+  . /usr/share/bash-completion/bash_completion
 fi
-
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"
@@ -40,10 +40,10 @@ export ELECTRON_OZONE_PLATFORM_HINT=auto
 # Yazi Setup
 
 function y() {
-	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
-	yazi "$@" --cwd-file="$tmp"
-	if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
-		builtin cd -- "$cwd"
-	fi
-	rm -f -- "$tmp"
+  local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+  yazi "$@" --cwd-file="$tmp"
+  if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+    builtin cd -- "$cwd"
+  fi
+  rm -f -- "$tmp"
 }
