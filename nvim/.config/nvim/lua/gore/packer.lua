@@ -37,6 +37,9 @@ return require('packer').startup(function(use)
 	-- Git integration
 	use 'tpope/vim-fugitive'
 
+	-- Git integration
+	use 'folke/noice.nvim'
+
 	-- === LSP + Completion ===
 	use {
 		'VonHeikemen/lsp-zero.nvim',
