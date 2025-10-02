@@ -63,3 +63,4 @@ function y() {
 alias connect='ssh -i ~/key hacker@pwn.college'
 
 export PATH=$PATH:/Users/arjungore/.spicetify
+export PATH="/usr/local/texlive/2025basic/bin/universal-darwin:$PATH"
