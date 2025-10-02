@@ -1,6 +1,6 @@
 # ~/.bashrc
 
-# Exit if not running interactively
+# Exit if not interactive
 [[ $- != *i* ]] && return
 
 # Aliases
@@ -9,25 +9,21 @@ alias ll='ls -lF'
 alias la='ls -A'
 alias l='ls -CF'
 alias update='yay'
-alias connect='ssh -i key hacker@pwn.college'
+alias n='nvim .'
 
-alias connect='ssh -i ~/key hacker@dojo.pwn.college'
-
-# Set editor
+# Editor
 export EDITOR=nvim
 
-# Enable bash completion if available
+# Bash completion
 if [ -f /usr/share/bash-completion/bash_completion ]; then
   . /usr/share/bash-completion/bash_completion
 fi
 
-#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+# SDKMAN!
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
 
-export PATH="$HOME/bin:$PATH"
-
-# Wayland + Electron + AMD compat
+# Wayland + Electron + AMD tweaks
 export XDG_SESSION_TYPE=wayland
 export QT_QPA_PLATFORM=wayland
 export GDK_BACKEND=wayland,x11
@@ -36,10 +32,13 @@ export WLR_NO_HARDWARE_CURSORS=1
 export LIBVA_DRIVER_NAME=radeonsi
 export ELECTRON_OZONE_PLATFORM_HINT=auto
 
-# Yazi Setup
+# Add spicetify (keep here too if you sometimes start non-login shells)
+export PATH="$HOME/.spicetify:$PATH"
+export PATH="$HOME/bin:$PATH"
 
-function y() {
-  local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+# yazi helper
+y() {
+  local tmp="$(mktemp -t 'yazi-cwd.XXXXXX')" cwd
   yazi "$@" --cwd-file="$tmp"
   if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
     builtin cd -- "$cwd"
@@ -47,7 +46,5 @@ function y() {
   rm -f -- "$tmp"
 }
 
-#Enable Starship
+# Starship (run once)
 eval "$(starship init bash)"
-
-export PATH="$HOME/.spicetify:$PATH"
