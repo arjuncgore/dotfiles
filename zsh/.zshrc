@@ -61,6 +61,7 @@ function y() {
 
 # Connect to pwn.college
 alias connect='ssh -i ~/key hacker@pwn.college'
+alias n='nvim .'
 
 export PATH=$PATH:/Users/arjungore/.spicetify
 export PATH="/usr/local/texlive/2025basic/bin/universal-darwin:$PATH"
