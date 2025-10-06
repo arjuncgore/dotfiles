@@ -9,7 +9,7 @@ alias ll='ls -lF'
 alias la='ls -A'
 alias l='ls -CF'
 alias update='yay'
-alias n='nvim .'
+alias n='nvim'
 
 # Editor
 export EDITOR=nvim
