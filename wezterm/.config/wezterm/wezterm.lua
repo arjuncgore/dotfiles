@@ -4,7 +4,6 @@ local config = wezterm.config_builder()
 config.initial_cols = 120
 config.initial_rows = 58
 
-config.font_size = 12
 config.font = wezterm.font_with_fallback({
     "MesloLGS Nerd Font",
     "JetBrainsMono Nerd Font",
@@ -27,11 +26,18 @@ config.window_background_opacity = 0.8
 config.window_close_confirmation = "NeverPrompt"
 config.automatically_reload_config = true
 
-if wezterm.target_triple:find("apple") then
-    config.default_prog = { "/bin/zsh", "-l" }   -- macOS → zsh
+if wezterm.target_triple:find("apple") then -- Mac
+    config.font_size = 16
+    config.default_prog = { "/bin/zsh", "-l" }   -- Linux
     config.macos_window_background_blur = 26
+    config.max_fps = 120
 else
+    config.font_size = 12
     config.default_prog = { "/bin/bash" }
+    config.front_end = "WebGpu"
+    config.webgpu_power_preference = "HighPerformance"
+    config.prefer_egl = true
+    config.max_fps = 190
 end
 
 return config
