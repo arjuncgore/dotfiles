@@ -4,64 +4,77 @@
 vim.cmd [[packadd packer.nvim]]
 
 return require('packer').startup(function(use)
-	-- Packer can manage itself
-	use 'wbthomason/packer.nvim'
+    -- Packer can manage itself
+    use 'wbthomason/packer.nvim'
 
-	-- Telescope
-	use {
-		'nvim-telescope/telescope.nvim', tag = '0.1.8',
-		requires = { { 'nvim-lua/plenary.nvim' } }
-	}
+    -- Telescope
+    use {
+        'nvim-telescope/telescope.nvim',
+        tag = '0.1.6', -- or latest
+        requires = { 'nvim-lua/plenary.nvim' },
+        config = function()
+            require('telescope').setup {
+                defaults = {
+                    file_ignore_patterns = {
+                        "node_modules",
+                        "%.git/",
+                        "dist/",
+                        "build/",
+                    },
+                },
+            }
+        end,
+    }
 
-	-- Colorscheme
-	use { "catppuccin/nvim", as = "catppuccin" }
+    -- Colorscheme
+    use { "catppuccin/nvim", as = "catppuccin" }
 
-	-- Treesitter
-	use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
-	use 'nvim-treesitter/playground'
+    -- Treesitter
+    use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
+    use 'nvim-treesitter/playground'
 
-	-- Neo-tree
-	use {
-		"nvim-neo-tree/neo-tree.nvim",
-		branch = "v3.x",
-		requires = {
-			"nvim-lua/plenary.nvim",
-			"MunifTanjim/nui.nvim",
-			"nvim-tree/nvim-web-devicons", -- optional, but recommended
-		}
-	}
+    -- Neo-tree
+    use {
+        "nvim-neo-tree/neo-tree.nvim",
+        branch = "v3.x",
+        requires = {
+            "nvim-lua/plenary.nvim",
+            "MunifTanjim/nui.nvim",
+            "nvim-tree/nvim-web-devicons", -- optional, but recommended
+        }
+    }
 
-	-- Undo history
-	use 'mbbill/undotree'
+    -- Undo history
+    use 'mbbill/undotree'
 
-	-- Git integration
-	use 'tpope/vim-fugitive'
+    -- Git integration
+    use 'tpope/vim-fugitive'
 
-	-- Noice visuals
-	use 'folke/noice.nvim'
+    -- Noice visuals
+    use 'folke/noice.nvim'
 
-    -- Whichkey integration
+    -- Which-key help message
     use "folke/which-key.nvim"
 
-	-- === LSP + Completion ===
-	use {
-		'VonHeikemen/lsp-zero.nvim',
-		requires = {
-			-- LSP Support
-			{ 'neovim/nvim-lspconfig' },
-			{ 'williamboman/mason.nvim' },
-			{ 'williamboman/mason-lspconfig.nvim' },
+    -- === LSP + Completion ===
+    use {
+        'VonHeikemen/lsp-zero.nvim',
+        requires = {
+            -- LSP Support
+            { 'neovim/nvim-lspconfig' },
+            { 'williamboman/mason.nvim' },
+            { 'williamboman/mason-lspconfig.nvim' },
 
-			-- Autocompletion
-			{ 'hrsh7th/nvim-cmp' },
-			{ 'hrsh7th/cmp-nvim-lsp' },
-			{ 'hrsh7th/cmp-buffer' },
-			{ 'hrsh7th/cmp-path' },
-			{ 'hrsh7th/cmp-cmdline' },
+            -- Autocompletion
+            { 'hrsh7th/nvim-cmp' },
+            { 'hrsh7th/cmp-nvim-lsp' },
+            { 'hrsh7th/cmp-buffer' },
+            { 'hrsh7th/cmp-path' },
+            { 'hrsh7th/cmp-cmdline' },
 
-			-- Snippets (optional but recommended)
-			{ 'L3MON4D3/LuaSnip' },
-			{ 'saadparwaiz1/cmp_luasnip' },
-		}
-	}
+            -- Snippets (optional but recommended)
+            { 'L3MON4D3/LuaSnip' },
+            { 'saadparwaiz1/cmp_luasnip' },
+        }
+    }
 end)
