@@ -32,7 +32,7 @@ if wezterm.target_triple:find("apple") then -- Mac
     config.macos_window_background_blur = 26
     config.max_fps = 120
 else
-    config.font_size = 12
+    config.font_size = 14
     config.default_prog = { "/bin/bash" }
     config.front_end = "WebGpu"
     config.webgpu_power_preference = "HighPerformance"
