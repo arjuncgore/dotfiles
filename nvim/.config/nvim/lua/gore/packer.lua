@@ -56,6 +56,9 @@ return require('packer').startup(function(use)
     -- Which-key help message
     use "folke/which-key.nvim"
 
+    -- Harpoon file switching
+    use "theprimeagen/harpoon"
+
     -- === LSP + Completion ===
     use {
         'VonHeikemen/lsp-zero.nvim',

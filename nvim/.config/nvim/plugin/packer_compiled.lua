@@ -109,6 +109,11 @@ _G.packer_plugins = {
     path = "/Users/arjungore/.local/share/nvim/site/pack/packer/start/cmp_luasnip",
     url = "https://github.com/saadparwaiz1/cmp_luasnip"
   },
+  harpoon = {
+    loaded = true,
+    path = "/Users/arjungore/.local/share/nvim/site/pack/packer/start/harpoon",
+    url = "https://github.com/theprimeagen/harpoon"
+  },
   ["lsp-zero.nvim"] = {
     loaded = true,
     path = "/Users/arjungore/.local/share/nvim/site/pack/packer/start/lsp-zero.nvim",
