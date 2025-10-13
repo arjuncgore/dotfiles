@@ -75,7 +75,7 @@ return {
             require('cmp_nvim_lsp').default_capabilities()
         )
 
-        -- LSP: buffer-local keymaps with which-key descriptions
+        -- LSP: buffer-local keymaps
         vim.api.nvim_create_autocmd('LspAttach', {
             group = vim.api.nvim_create_augroup('UserLspKeys', { clear = true }),
             callback = function(event)
