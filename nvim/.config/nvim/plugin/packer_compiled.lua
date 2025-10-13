@@ -129,6 +129,12 @@ _G.packer_plugins = {
     path = "/Users/arjungore/.local/share/nvim/site/pack/packer/start/mason.nvim",
     url = "https://github.com/williamboman/mason.nvim"
   },
+  ["mini.icons"] = {
+    config = { "\27LJ\2\n8\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\15mini.icons\frequire\0" },
+    loaded = true,
+    path = "/Users/arjungore/.local/share/nvim/site/pack/packer/start/mini.icons",
+    url = "https://github.com/echasnovski/mini.icons"
+  },
   ["neo-tree.nvim"] = {
     loaded = true,
     path = "/Users/arjungore/.local/share/nvim/site/pack/packer/start/neo-tree.nvim",
@@ -207,6 +213,10 @@ time([[Defining packer_plugins]], false)
 time([[Config for telescope.nvim]], true)
 try_loadstring("\27LJ\2\n´\1\0\0\5\0\b\0\v6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\6\0005\3\4\0005\4\3\0=\4\5\3=\3\a\2B\0\2\1K\0\1\0\rdefaults\1\0\1\rdefaults\0\25file_ignore_patterns\1\0\1\25file_ignore_patterns\0\1\5\0\0\17node_modules\v%.git/\ndist/\vbuild/\nsetup\14telescope\frequire\0", "config", "telescope.nvim")
 time([[Config for telescope.nvim]], false)
+-- Config for: mini.icons
+time([[Config for mini.icons]], true)
+try_loadstring("\27LJ\2\n8\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\15mini.icons\frequire\0", "config", "mini.icons")
+time([[Config for mini.icons]], false)
 
 _G._packer.inside_compile = false
 if _G._packer.needs_bufread == true then

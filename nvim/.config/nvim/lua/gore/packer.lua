@@ -59,6 +59,14 @@ return require('packer').startup(function(use)
     -- Harpoon file switching
     use "theprimeagen/harpoon"
 
+    -- Mini Icons
+    use {
+        'echasnovski/mini.icons',
+        config = function()
+            require('mini.icons').setup()
+        end
+    }
+
     -- === LSP + Completion ===
     use {
         'VonHeikemen/lsp-zero.nvim',
