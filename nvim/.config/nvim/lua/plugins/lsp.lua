@@ -50,6 +50,10 @@ return {
 
         -- Configure error/warnings interface
         vim.diagnostic.config({
+            globals = {
+                'vim',
+                'require'
+            },
             virtual_text = true,
             severity_sort = true,
             float = {
@@ -67,6 +71,8 @@ return {
                 },
             },
         })
+
+        require("neodev").setup({})
 
         local lspconfig_defaults = require('lspconfig').util.default_config
         lspconfig_defaults.capabilities = vim.tbl_deep_extend(
