@@ -28,7 +28,7 @@
     },
     "network": {
         "format-wifi": "   ({signalStrength}%)",
-        "format-ethernet": "  {ipaddr}",
+        "format-ethernet": " ",
         "format-disconnected": "  Disconnected"
     }
 }
