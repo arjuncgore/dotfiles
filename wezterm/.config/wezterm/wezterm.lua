@@ -10,7 +10,7 @@ config.font = wezterm.font_with_fallback({
     "FiraCode Nerd Font",
 })
 
-config.color_scheme = "catppuccin-mocha"
+config.color_scheme = "Gruvbox Dark (Gogh)"
 config.window_padding = { left = 20, right = 20, top = 20, bottom = 20 }
 
 config.default_cursor_style = "BlinkingBar"
@@ -26,9 +26,9 @@ config.window_background_opacity = 0.8
 config.window_close_confirmation = "NeverPrompt"
 config.automatically_reload_config = true
 
-if wezterm.target_triple:find("apple") then -- Mac
-    config.font_size = 16
-    config.default_prog = { "/bin/zsh", "-l" }   -- Linux
+if wezterm.target_triple:find("apple") then    -- Mac
+    config.font_size = 18
+    config.default_prog = { "/bin/zsh", "-l" } -- Linux
     config.macos_window_background_blur = 26
     config.max_fps = 120
 else
@@ -41,4 +41,3 @@ else
 end
 
 return config
-
