@@ -15,7 +15,7 @@ alias mongo_start='mongod --dbpath ~/.local/share/mongodb/ --bind_ip 127.0.0.1 -
 # close from personal github
 clone() {
   if [ -z "$1" ]; then
-    echo "Usage: clone_personal <repo-name>"
+    echo "Usage: clone <repo-name>"
     return 1
   fi
   git clone "git@github.com:arjuncgore/$1.git"
