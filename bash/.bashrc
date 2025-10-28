@@ -10,6 +10,16 @@ alias la='ls -A'
 alias l='ls -CF'
 alias update='yay'
 alias n='nvim'
+alias mongo_start='mongod --dbpath ~/.local/share/mongodb/ --bind_ip 127.0.0.1 --port 27017'
+
+# close from personal github
+clone() {
+  if [ -z "$1" ]; then
+    echo "Usage: clone <repo-name>"
+    return 1
+  fi
+  git clone "git@github.com:arjuncgore/$1.git"
+}
 
 # Editor
 export EDITOR=nvim
