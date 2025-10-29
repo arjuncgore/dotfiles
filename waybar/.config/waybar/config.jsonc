@@ -1,34 +1,74 @@
+// Waybar (Sway) — minimal layout
 {
-    "layer": "bottom",
-    "position": "top",
-    "modules-left": [
-        "sway/workspaces"
-    ],
-    "modules-center": [
-        "sway/window"
-    ],
-    "modules-right": [
-        "pulseaudio",
-        "network",
-        "clock"
-    ],
-    "clock": {
-        "format": "{:%a %b %e  %I:%M %p}"
+  // "layer": "top",
+  // "position": "top",
+  "height": 30,
+  "spacing": 4,
+
+  // ── Layout ────────────────────────────────────────────────────────────────
+  "modules-left": [
+      "sway/workspaces"
+  ],
+  "modules-center": [
+      "sway/window"
+  ],
+  "modules-right": [
+      "pulseaudio", 
+      "network",
+      "cpu",
+      "memory",
+      "clock"
+  ],
+
+  // ── Modules ───────────────────────────────────────────────────────────────
+  "sway/workspaces": {
+      "disable-scroll": true,
+      "warp-on-scroll": false,
+      "format": "{name}"          // just the workspace number/name
+  },
+
+  "sway/window": {
+      "max-length": 80,
+      "rewrite": {
+          " - Mozilla Firefox$": "" // example cleanup; remove if you like
+      }
+  },
+
+  "pulseaudio": {
+    // "scroll-step": 1,
+    "format": "{volume}% {icon}",
+    "format-muted": "",
+    "format-icons": {
+        "headphone": "",
+        "default": ["", "", ""]
     },
-    "pulseaudio": {
-        "format": "{volume}% {icon}",
-        "format-muted": "",
-        "format-icons": {
-            "default": [
-                "",
-                "",
-                ""
-            ]
-        }
-    },
-    "network": {
-        "format-wifi": "   ({signalStrength}%)",
-        "format-ethernet": " ",
-        "format-disconnected": "  Disconnected"
-    }
+    "on-click": "pavucontrol"
+  },
+
+  "network": {
+    // "interface": "wlp2*", // optionally force an interface
+    "format-wifi": "({signalStrength}%) ",
+    "format-ethernet": "",
+    "format-disconnected": "Disconnected ⚠"
+  },
+
+  "cpu": {
+      "interval": 2,
+      "format": "{usage}% ",
+      "tooltip": false
+  },
+
+  "memory": {
+    // use {percentage} for reliability across versions
+    "interval": 5,
+    "format": "{percentage}% "
+  },
+  "clock": {
+      "interval": 1,
+      "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+      "format": "  {:%a %b %d  %H:%M}",
+      "format-alt": "{:%Y-%m-%d}"
+  }
+
 }
+

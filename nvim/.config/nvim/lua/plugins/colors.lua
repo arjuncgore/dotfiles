@@ -21,11 +21,12 @@ end
 --     },
 -- }
 
+
 return {
     {
-        'ellisonleao/gruvbox.nvim',
+        'rose-pine/neovim',
         config = function()
-            vim.cmd.colorscheme 'gruvbox'
+            vim.cmd.colorscheme 'rose-pine'
             -- enable_transparency()
         end
     },
@@ -35,7 +36,7 @@ return {
             'nvim-tree/nvim-web-devicons',
         },
         opts = {
-            theme = 'gruvbox',
+            theme = 'rose-pine',
         }
     },
 }
