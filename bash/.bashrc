@@ -58,3 +58,5 @@ y() {
 
 # Starship (run once)
 eval "$(starship init bash)"
+
+export PATH=$PATH:/home/arjungore/.spicetify
