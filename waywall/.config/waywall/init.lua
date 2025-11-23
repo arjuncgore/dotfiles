@@ -12,16 +12,20 @@ local tall_overlay_path = "/home/arjungore/mcsr/resources/simon_marcy/overlay_ta
 local thin_overlay_path = "/home/arjungore/mcsr/resources/simon_marcy/overlay_thin.png"
 local wide_overlay_path = "/home/arjungore/mcsr/resources/simon_marcy/overlay_wide.png"
 
-local pacem_path = "/home/arjungore/mcsr/paceman-tracker-0.7.0.jar"
+local pacem_path = "/home/arjungore/mcsr/paceman-tracker-0.7.1.jar"
 local nb_path = "/home/arjungore/mcsr/Ninjabrain-Bot-1.5.1.jar"
 local overlay_path = "/home/arjungore/mcsr/resources/simon_marcy/measuring_overlay.png"
+
+local thin_active = false
+local tall_sens = 0.7220668274200729
+local normal_sens = 8.02844218054619
 
 local remaps_active = true
 local current_remap = "resetting"
 
 local keymaps_resetting = {
-	["MB4"] = "F3",
-	["LEFTALT"] = "LEFTCTRL",
+    ["MB4"] = "F3",
+    ["LEFTALT"] = "LEFTCTRL",
 
     ["Q"] = "O",
     ["D"] = "X",
@@ -30,10 +34,19 @@ local keymaps_resetting = {
 
 local remaps_enabled = {
     ["MB4"] = "F3",
-    ["MB5"] = "F6",
     ["F6"] = "MB5",
     ["LEFTALT"] = "LEFTCTRL",
+    --[[
+    ["MB5"] = "Home",
+    ["Q"] = "O",
+    ["A"] = "N",
+    ["D"] = "X" ,
+    ["CAPSLOCK"] = "0",
+    ["X"] = "RIGHTSHIFT",
+    ["O"] = "Q",
+ ]]
 
+    ["MB5"] = "Home",
     ["T"] = "BACKSPACE",
     ["BACKSPACE"] = "T",
     ["A"] = "K",
@@ -48,6 +61,7 @@ local remaps_enabled = {
     ["I"] = "F1",
     ["CAPSLOCK"] = "0",
     ["0"] = "Z",
+
 }
 
 local remaps_disabled = {
@@ -63,7 +77,7 @@ local config = {
         repeat_rate = 40,
         repeat_delay = 300,
         remaps = remaps_enabled,
-        sensitivity = 1.0,
+        sensitivity = normal_sens,
         confine_pointer = true,
     },
     theme = {
@@ -379,10 +393,6 @@ local images = {
 
 --*********************************************************************************************** MANAGING MIRRORS
 local show_mirrors = function(wide, f3, tall, thin)
-    images.tall_overlay(tall)
-    images.thin_overlay(thin)
-    images.wide_overlay(wide)
-
     images.measuring_overlay(tall)
     mirrors.eye_measure(tall)
 
@@ -420,26 +430,40 @@ local show_mirrors = function(wide, f3, tall, thin)
 
     mirrors.tall_chat(tall)
     mirrors.tall_chat_bg(thin)
+
+    images.tall_overlay(tall)
+    images.thin_overlay(thin)
+    images.wide_overlay(wide)
 end
 
 --*********************************************************************************************** STATES
 local thin_enable = function()
     show_mirrors(false, true, false, true)
+    waywall.set_sensitivity(normal_sens)
+    thin_active = true
 end
-
 local tall_enable = function()
     show_mirrors(false, true, true, false)
 end
+local eye_enable = function()
+    show_mirrors(false, true, true, false)
+    waywall.set_sensitivity(tall_sens)
+    thin_active = false
+end
 local wide_enable = function()
     show_mirrors(true, false, false, false)
+    thin_active = false
 end
 
-local tall_disable = function()
+local eye_disable = function()
     show_mirrors(false, false, false, false)
+    waywall.set_sensitivity(normal_sens)
+    thin_active = false
 end
 
 local generic_disable = function()
     show_mirrors(false, false, false, false)
+    thin_active = false
 end
 
 --*********************************************************************************************** RESOLUTIONS
@@ -463,7 +487,8 @@ end
 
 local resolutions = {
     thin = make_res(350, 1100, thin_enable, generic_disable),
-    tall = make_res(384, 16384, tall_enable, tall_disable),
+    tall = make_res(384, 16384, tall_enable, generic_disable),
+    eye = make_res(384, 16384, eye_enable, eye_disable),
     wide = make_res(2560, 400, wide_enable, generic_disable),
 }
 
@@ -494,6 +519,8 @@ config.actions = {
     ["*-MB5"] = function()
         if current_remap == "resetting" then
             waywall.press_key("F6")
+        else
+            return false
         end
     end,
 
@@ -512,7 +539,11 @@ config.actions = {
     ["*-F4"] = function()
         if remaps_active then
             if not waywall.get_key("F3") then
-                resolutions.tall()
+                if thin_active then
+                    resolutions.tall()
+                else
+                    resolutions.eye()
+                end
             else
                 return false
             end
@@ -551,6 +582,10 @@ config.actions = {
         else
             return false
         end
+    end,
+
+    ["End"] = function()
+        waywall.exec("/home/arjungore/mcsr/scripts/adw.sh")
     end,
 
     -- ["*-C"] = function()
