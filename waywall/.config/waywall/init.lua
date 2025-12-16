@@ -2,9 +2,12 @@ local waywall = require("waywall")
 local helpers = require("waywall.helpers")
 
 -- local nb_overlay = require("waywall_ninbot_overlay.nb_overlay")
+local pm_overlay = require("waywall_paceman_overlay.pm_overlay")
+local requests = require("requests")
 
 local primary_col = "#272420"
 local secondary_col = "#877665"
+local tertiary_col = "#574D43"
 local shadow_col = "#CCCCCC"
 
 local background_path = "/home/arjungore/mcsr/resources/simon_marcy/background.png"
@@ -84,6 +87,7 @@ local config = {
         background_png = background_path,
         ninb_anchor = "topright",
         ninb_opacity = 0.8,
+        font_path = "/home/arjungore/mcsr/resources/Minecraftia-Regular.ttf",
     },
     experimental = {
         debug = false,
@@ -92,6 +96,7 @@ local config = {
         scene_add_text = true,
     },
 }
+
 
 --*********************************************************************************************** PACEMAN
 local is_pacem_running = function()
@@ -171,7 +176,7 @@ local mirrors = {
         dst = { x = 1517, y = 665, w = 367, h = 367 },
         color_key = {
             input = "#46CE66",
-            output = secondary_col,
+            output = tertiary_col,
         },
     }),
     thin_pie_blockentities = make_mirror({
@@ -187,7 +192,7 @@ local mirrors = {
         dst = { x = 1517, y = 665, w = 367, h = 367 },
         color_key = {
             input = "#CC6C46",
-            output = secondary_col,
+            output = tertiary_col,
         },
     }),
     thin_pie_prepare = make_mirror({
@@ -195,7 +200,7 @@ local mirrors = {
         dst = { x = 1517, y = 665, w = 367, h = 367 },
         color_key = {
             input = "#464C46",
-            output = secondary_col,
+            output = tertiary_col,
         },
     }),
 
@@ -254,7 +259,7 @@ local mirrors = {
         dst = { x = 1517, y = 665, w = 367, h = 367 },
         color_key = {
             input = "#46CE66",
-            output = secondary_col,
+            output = tertiary_col,
         },
     }),
     tall_pie_blockentities = make_mirror({
@@ -270,7 +275,7 @@ local mirrors = {
         dst = { x = 1517, y = 665, w = 367, h = 367 },
         color_key = {
             input = "#CC6C46",
-            output = secondary_col,
+            output = tertiary_col,
         },
     }),
     tall_pie_prepare = make_mirror({
@@ -278,7 +283,7 @@ local mirrors = {
         dst = { x = 1517, y = 665, w = 367, h = 367 },
         color_key = {
             input = "#464C46",
-            output = secondary_col,
+            output = tertiary_col,
         },
     }),
 
@@ -463,6 +468,7 @@ end
 
 local generic_disable = function()
     show_mirrors(false, false, false, false)
+    waywall.set_sensitivity(normal_sens)
     thin_active = false
 end
 
@@ -501,7 +507,7 @@ config.actions = {
             current_remap = "enabled"
             waywall.set_remaps(remaps_enabled)
         end
-        if remaps_active then
+        if remaps_active and waywall.state().inworld == "unpaused" then
             resolutions.thin()
         end
     end,
@@ -525,7 +531,7 @@ config.actions = {
     end,
 
     ["*-B"] = function()
-        if remaps_active then
+        if remaps_active and waywall.state().inworld == "unpaused" then
             if not waywall.get_key("F3") then
                 resolutions.wide()
             else
@@ -537,7 +543,7 @@ config.actions = {
     end,
 
     ["*-F4"] = function()
-        if remaps_active then
+        if remaps_active and waywall.state().inworld == "unpaused" then
             if not waywall.get_key("F3") then
                 if thin_active then
                     resolutions.tall()
@@ -571,7 +577,8 @@ config.actions = {
         remaps_active = not remaps_active
         waywall.set_remaps(remaps_active and remaps_enabled or remaps_disabled)
         if not remaps_active then
-            rebind_text = waywall.text("REBINDS OFF", 30, 1380, "#FFFFFF", 3)
+            rebind_text = waywall.text("<" .. primary_col .. "FF>REBINDS OFF",
+                { x = 90, y = 1440 - 90, color = "#FFFFFFF", size = 40 })
         end
     end,
 
@@ -602,6 +609,10 @@ config.actions = {
     -- ["grave"] = nb_overlay.enable_overlay,
 
     -- ["Shift-grave"] = nb_overlay.disable_overlay,
+
 }
+
+local media_keys = require("media_keys")
+media_keys(config)
 
 return config
