@@ -127,7 +127,7 @@ input "4341:20484:Turtle_Beach_Burst_II_Air_dongle_Mouse" {
 input "4341:20482:Turtle_Beach_Burst_II_Air_Mouse" {
     natural_scroll enabled
     accel_profile "flat"
-    pointer_accel -0.875
+    pointer_accel 0
 }
 
 ### Key bindings
@@ -164,8 +164,10 @@ input "4341:20482:Turtle_Beach_Burst_II_Air_Mouse" {
     # Start your discord
     bindsym $mod+d exec $discord
 
-    # Take a screenshot
-    bindsym $mod+Shift+p exec grim -g "$(slurp)" - | wl-copy
+    # Screenshots
+    bindsym $mod+Shift+p exec bash -c 'wayfreeze & PID=$!; sleep 0.1; grim -g "$(slurp)" - | wl-copy; kill $PID'
+    bindsym $mod+Shift+o exec bash -c 'wayfreeze & PID=$!; sleep 0.1; grim -g "$(slurp)" - | swappy -f -; kill $PID'
+
 
     # Drag floating windows by holding down $mod and left mouse button.
     # Resize them with right mouse button + $mod.
@@ -309,5 +311,14 @@ bindsym $mod+r mode "resize"
     bindsym --locked XF86MonBrightnessUp exec brightnessctl set 5%+
     # Special key to take a screenshot with grim
     bindsym Print exec grim
+
+    # Spotify-only media controls
+    bindsym $mod+F10 exec playerctl -p spotify previous
+    bindsym $mod+F11 exec playerctl -p spotify play-pause
+    bindsym $mod+F12 exec playerctl -p spotify next
+
+
+# Window/Display Rules
+
 
 include /etc/sway/config.d/*

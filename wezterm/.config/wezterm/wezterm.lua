@@ -28,14 +28,14 @@ config.window_background_opacity = 0.8
 config.window_close_confirmation = "NeverPrompt"
 config.automatically_reload_config = true
 
-if wezterm.target_triple:find("apple") then    -- Mac
+if wezterm.target_triple:find("apple") then -- Mac
     config.font_size = 18
-    config.default_prog = { "/bin/zsh", "-l" } -- Linux
+    config.default_prog = { "/bin/zsh", "-l" }
     config.macos_window_background_blur = 26
     config.max_fps = 120
 else
-    config.font_size = 15
-    config.default_prog = { "/bin/bash" }
+    config.font_size = 18
+    config.default_prog = { "/bin/zsh" }
     config.front_end = "WebGpu"
     config.webgpu_power_preference = "HighPerformance"
     config.prefer_egl = true
