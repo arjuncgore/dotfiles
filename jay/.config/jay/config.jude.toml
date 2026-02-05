@@ -1,0 +1,188 @@
+#### Startup Actions
+on-graphics-initialized = [
+  { type = "exec", exec = "waybar" },
+
+  # Create + pin workspaces to outputs at startup
+  { type = "show-workspace", name = "1",  output.name = "left"  },
+  { type = "show-workspace", name = "2",  output.name = "left"  },
+  { type = "show-workspace", name = "3",  output.name = "left"  },
+  { type = "show-workspace", name = "4",  output.name = "left"  },
+  { type = "show-workspace", name = "5",  output.name = "left"  },
+  { type = "show-workspace", name = "6",  output.name = "right" },
+  { type = "show-workspace", name = "7",  output.name = "right" },
+  { type = "show-workspace", name = "8",  output.name = "right" },
+  { type = "show-workspace", name = "9",  output.name = "right" },
+  { type = "show-workspace", name = "10", output.name = "right" },
+]
+
+#### Visual Features
+show-bar = false
+# show-titles = false
+fallback-output-mode = "focus"
+workspace-display-order = "sorted"
+
+
+#### Keyboard Settings
+keymap = """
+xkb_keymap {
+  xkb_keycodes { include "evdev+aliases(qwerty)" };
+  xkb_types    { include "complete" };
+  xkb_compat   { include "complete" };
+  xkb_symbols  { include "pc+us+inet(evdev)+capslock(escape)+ctrl(swap_lalt_lctl)" };
+};
+"""
+
+repeat-rate = { rate = 20, delay = 200 }
+
+window-management-key   = "Super_L"
+
+
+#### Monitors
+[[outputs]]
+name = "left"
+match.connector = "DP-2"
+x = 0
+y = 0
+mode = { width = 2560, height = 1440, refresh-rate = 179.999 }
+
+[[outputs]]
+name = "right"
+match.connector = "HDMI-A-1"
+x = 2560
+y = 360
+mode = { width = 1920, height = 1080, refresh-rate = 100.000 }
+
+#### Shortcuts
+[shortcuts]
+
+## Workspaces
+logo-1          = { type = "show-workspace", name = "1",  output.name = "left"  }
+logo-2          = { type = "show-workspace", name = "2",  output.name = "left"  }
+logo-3          = { type = "show-workspace", name = "3",  output.name = "left"  }
+logo-4          = { type = "show-workspace", name = "4",  output.name = "left"  }
+logo-5          = { type = "show-workspace", name = "5",  output.name = "left"  }
+logo-6          = { type = "show-workspace", name = "6",  output.name = "right" }
+logo-7          = { type = "show-workspace", name = "7",  output.name = "right" }
+logo-8          = { type = "show-workspace", name = "8",  output.name = "right" }
+logo-9          = { type = "show-workspace", name = "9",  output.name = "right" }
+logo-0          = { type = "show-workspace", name = "10", output.name = "right" }
+
+# logo-shift-1    = { type = "move-to-workspace", name = "1" }
+# logo-shift-2    = { type = "move-to-workspace", name = "2" }
+# logo-shift-3    = { type = "move-to-workspace", name = "3" }
+# logo-shift-4    = { type = "move-to-workspace", name = "4" }
+# logo-shift-5    = { type = "move-to-workspace", name = "5" }
+# logo-shift-6    = { type = "move-to-workspace", name = "6" }
+# logo-shift-7    = { type = "move-to-workspace", name = "7" }
+# logo-shift-8    = { type = "move-to-workspace", name = "8" }
+# logo-shift-9    = { type = "move-to-workspace", name = "9" }
+# logo-shift-0    = { type = "move-to-workspace", name = "10" }
+
+ # Left monitor workspaces
+logo-shift-1 = [
+  { type = "move-to-workspace", name = "1" },
+  { type = "move-to-output", output.name = "left" },
+  { type = "show-workspace", name = "1" },
+]
+logo-shift-2 = [
+  { type = "move-to-workspace", name = "2" },
+  { type = "move-to-output", output.name = "left" },
+  { type = "show-workspace", name = "2" },
+]
+logo-shift-3 = [
+  { type = "move-to-workspace", name = "3" },
+  { type = "move-to-output", output.name = "left" },
+  { type = "show-workspace", name = "3" },
+]
+logo-shift-4 = [
+  { type = "move-to-workspace", name = "4" },
+  { type = "move-to-output", output.name = "left" },
+  { type = "show-workspace", name = "4" },
+]
+logo-shift-5 = [
+  { type = "move-to-workspace", name = "5" },
+  { type = "move-to-output", output.name = "left" },
+  { type = "show-workspace", name = "5" },
+]
+
+# Right monitor workspaces
+logo-shift-6 = [
+  { type = "move-to-workspace", name = "6" },
+  { type = "move-to-output", output.name = "right" },
+  { type = "show-workspace", name = "6" },
+]
+logo-shift-7 = [
+  { type = "move-to-workspace", name = "7" },
+  { type = "move-to-output", output.name = "right" },
+  { type = "show-workspace", name = "7" },
+]
+logo-shift-8 = [
+  { type = "move-to-workspace", name = "8" },
+  { type = "move-to-output", output.name = "right" },
+  { type = "show-workspace", name = "8" },
+]
+logo-shift-9 = [
+  { type = "move-to-workspace", name = "9" },
+  { type = "move-to-output", output.name = "right" },
+  { type = "show-workspace", name = "9" },
+]
+logo-shift-0 = [
+  { type = "move-to-workspace", name = "10" },
+  { type = "move-to-output", output.name = "right" },
+  { type = "show-workspace", name = "10" },
+]
+
+
+
+## Window Movement
+logo-Left               = "focus-left"
+logo-Right              = "focus-right"
+logo-Up                 = "focus-up"
+logo-Down               = "focus-down"
+
+logo-shift-Left         = "move-left"
+logo-shift-Right        = "move-right"
+logo-shift-Up           = "move-up"
+logo-shift-Down         = "move-down"
+
+logo-ctrl-h             = "split-horizontal"
+logo-ctrl-v             = "split-vertical"
+logo-e                  = "toggle-split"
+logo-shift-f            = "toggle-fullscreen"
+logo-shift-space        = "toggle-floating"
+
+## Launching Apps
+logo-Return             = { type = "exec", exec = "wezterm" }
+logo-p                  = { type = "exec", exec = ["wofi", "--show", "drun"] }
+logo-b                  = { type = "exec", exec = "zen-browser" }
+logo-shift-b            = { type = "exec", exec = "google-chrome-stable" }
+logo-f                  = { type = "exec", exec = "thunar" }
+logo-c                  = { type = "exec", exec = "code" }
+logo-s                  = { type = "exec", exec = "spotify" }
+logo-d                  = { type = "exec", exec = "discord" }
+
+
+## System Actions
+logo-q                  = "close"
+logo-shift-r            = "reload-config-toml"
+logo-shift-e            = { type = "exec", exec = { prog = "bash", args = ["-lc", "~/.config/jay/exit-menu.sh"] } }
+logo-shift-s            = { type = "exec", exec = { prog = "bash", args = ["-lc", "~/.config/jay/shutdown-menu.sh"] } }
+
+logo-shift-p            = { type = "exec", exec = { prog = "bash", args = ["-lc", 'wayfreeze & PID=$!; sleep 0.1; grim -g "$(slurp)" - | wl-copy; kill "$PID" 2>/dev/null'], privileged = true } }
+logo-shift-o            = { type = "exec", exec = { prog = "bash", args = ["-lc", 'wayfreeze & PID=$!; sleep 0.1; grim -g "$(slurp)" - | swappy -f -; kill "$PID" 2>/dev/null'], privileged = true } }
+
+
+
+#### Inputs
+[[inputs]]
+tag = "mice"
+match.is-pointer = true
+natural-scrolling = true
+accel-profile = "Flat"
+accel-speed = -0.875
+
+
+#### Theme
+[theme]
+border-width = 2
+border-color = "#00FFFF"
