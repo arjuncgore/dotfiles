@@ -11,6 +11,11 @@ clone() {
   git clone "git@github.com:arjuncgore/$1.git"
 }
 
+
+# Rust / Cargo binaries
+export PATH="$HOME/.cargo/bin:$PATH"
+
+
 # Yazi
 function y() {
 	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
