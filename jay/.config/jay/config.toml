@@ -1,15 +1,38 @@
 #### Startup Actions
-on-graphic-initialized = {
-    { type = "exec", exec = "waybar" }
-}
+on-graphics-initialized = [
+    { type = "move-to-output", workspace = "1",  output.name = "left"  },
+    { type = "move-to-output", workspace = "2",  output.name = "left"  },
+    { type = "move-to-output", workspace = "3",  output.name = "left"  },
+    { type = "move-to-output", workspace = "4",  output.name = "left"  },
+    { type = "move-to-output", workspace = "5",  output.name = "left"  },
+    { type = "move-to-output", workspace = "6",  output.name = "right" },
+    { type = "move-to-output", workspace = "7",  output.name = "right" },
+    { type = "move-to-output", workspace = "8",  output.name = "right" },
+    { type = "move-to-output", workspace = "9",  output.name = "right" },
+    { type = "move-to-output", workspace = "10", output.name = "right" },
+
+    { type = "exec", exec = "waybar" },
+]
+
+
+#### Virtual Features
+show-bar = false
+show-titles = false
 
 
 #### Keyboard Settings
-keymap =    """
-            xkb_options { include "caps:escape,ctrl:swap_lalt_lctl" }
-            """
+keymap = """
+xkb_keymap {
+  xkb_keycodes { include "evdev+aliases(qwerty)" };
+  xkb_types    { include "complete" };
+  xkb_compat   { include "complete" };
+  xkb_symbols  { include "pc+us+inet(evdev)+capslock(escape)+ctrl(swap_lalt_lctl)" };
+};
+"""
 
 repeat-rate = { rate = 20, delay = 200 }
+
+window-management-key   = "Super_L"
 
 
 #### Monitors
@@ -42,16 +65,16 @@ logo-8          = { type = "show-workspace", name = "8",  output.name = "right" 
 logo-9          = { type = "show-workspace", name = "9",  output.name = "right" }
 logo-10         = { type = "show-workspace", name = "10", output.name = "right" }
 
-logo-shift-1    = { type = "move-to-output", name = "1",  output.name = "left"  }
-logo-shift-2    = { type = "move-to-output", name = "2",  output.name = "left"  }
-logo-shift-3    = { type = "move-to-output", name = "3",  output.name = "left"  }
-logo-shift-4    = { type = "move-to-output", name = "4",  output.name = "left"  }
-logo-shift-5    = { type = "move-to-output", name = "5",  output.name = "left"  }
-logo-shift-6    = { type = "move-to-output", name = "6",  output.name = "right" }
-logo-shift-7    = { type = "move-to-output", name = "7",  output.name = "right" }
-logo-shift-8    = { type = "move-to-output", name = "8",  output.name = "right" }
-logo-shift-9    = { type = "move-to-output", name = "9",  output.name = "right" }
-logo-shift-10   = { type = "move-to-output", name = "10", output.name = "right" }
+logo-shift-1    = { type = "move-to-workspace", name = "1" }
+logo-shift-2    = { type = "move-to-workspace", name = "2" }
+logo-shift-3    = { type = "move-to-workspace", name = "3" }
+logo-shift-4    = { type = "move-to-workspace", name = "4" }
+logo-shift-5    = { type = "move-to-workspace", name = "5" }
+logo-shift-6    = { type = "move-to-workspace", name = "6" }
+logo-shift-7    = { type = "move-to-workspace", name = "7" }
+logo-shift-8    = { type = "move-to-workspace", name = "8" }
+logo-shift-9    = { type = "move-to-workspace", name = "9" }
+logo-shift-0    = { type = "move-to-workspace", name = "10" }
 
 ## Window Movement
 logo-Left               = "focus-left"
@@ -69,7 +92,6 @@ logo-ctrl-v             = "split-vertical"
 logo-e                  = "toggle-split"
 logo-shift-f            = "toggle-fullscreen"
 logo-shift-space        = "toggle-floating"
-window-management-key   = "Super_L"
 
 ## Launching Apps
 logo-Return             = { type = "exec", exec = "wezterm" }
@@ -80,13 +102,17 @@ logo-f                  = { type = "exec", exec = "thunar" }
 logo-c                  = { type = "exec", exec = "code" }
 logo-s                  = { type = "exec", exec = "spotify" }
 logo-d                  = { type = "exec", exec = "discord" }
-# logo-shift-p            = { type = "exec", exec = [] }
+
 
 ## System Actions
 logo-q                  = "close"
 logo-shift-r            = "reload-config-toml"
-logo+shift+e            = { type = "exec", exec = "~/.config/jay/exit-menu.sh" }
-logo+shift+s            = { type = "exec", exec = "~/.config/jay/shutdown-menu.sh" }
+logo-shift-e            = { type = "exec", exec = { prog = "bash", args = ["-lc", "~/.config/jay/exit-menu.sh"] } }
+logo-shift-s            = { type = "exec", exec = { prog = "bash", args = ["-lc", "~/.config/jay/shutdown-menu.sh"] } }
+
+logo-shift-p            = { type = "exec", exec = { prog = "bash", args = ["-lc", 'wayfreeze & PID=$!; sleep 0.1; grim -g "$(slurp)" - | wl-copy; kill "$PID" 2>/dev/null'], privileged = true } }
+logo-shift-o            = { type = "exec", exec = { prog = "bash", args = ["-lc", 'wayfreeze & PID=$!; sleep 0.1; grim -g "$(slurp)" - | swappy -f -; kill "$PID" 2>/dev/null'], privileged = true } }
+
 
 
 #### Inputs
@@ -94,6 +120,8 @@ logo+shift+s            = { type = "exec", exec = "~/.config/jay/shutdown-menu.s
 tag = "mice"
 match.is-pointer = true
 natural-scrolling = true
+accel-profile = "Flat"
+accel-speed = -0.875
 
 
 #### Theme
