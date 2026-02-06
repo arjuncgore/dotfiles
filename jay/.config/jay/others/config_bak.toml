@@ -1,25 +1,23 @@
 #### Startup Actions
 on-graphics-initialized = [
-  { type = "exec", exec = "waybar" },
+    { type = "move-to-output", workspace = "1",  output.name = "left"  },
+    { type = "move-to-output", workspace = "2",  output.name = "left"  },
+    { type = "move-to-output", workspace = "3",  output.name = "left"  },
+    { type = "move-to-output", workspace = "4",  output.name = "left"  },
+    { type = "move-to-output", workspace = "5",  output.name = "left"  },
+    { type = "move-to-output", workspace = "6",  output.name = "right" },
+    { type = "move-to-output", workspace = "7",  output.name = "right" },
+    { type = "move-to-output", workspace = "8",  output.name = "right" },
+    { type = "move-to-output", workspace = "9",  output.name = "right" },
+    { type = "move-to-output", workspace = "10", output.name = "right" },
 
-  # Create + pin workspaces to outputs at startup
-  { type = "show-workspace", name = "1",  output.name = "left"  },
-  { type = "show-workspace", name = "2",  output.name = "left"  },
-  { type = "show-workspace", name = "3",  output.name = "left"  },
-  { type = "show-workspace", name = "4",  output.name = "left"  },
-  { type = "show-workspace", name = "5",  output.name = "left"  },
-  { type = "show-workspace", name = "6",  output.name = "right" },
-  { type = "show-workspace", name = "7",  output.name = "right" },
-  { type = "show-workspace", name = "8",  output.name = "right" },
-  { type = "show-workspace", name = "9",  output.name = "right" },
-  { type = "show-workspace", name = "10", output.name = "right" },
+    { type = "exec", exec = "waybar" },
 ]
 
-#### Visual Features
+
+#### Virtual Features
 show-bar = false
-# show-titles = false
-fallback-output-mode = "focus"
-workspace-display-order = "sorted"
+show-titles = false
 
 
 #### Keyboard Settings
@@ -65,74 +63,18 @@ logo-6          = { type = "show-workspace", name = "6",  output.name = "right" 
 logo-7          = { type = "show-workspace", name = "7",  output.name = "right" }
 logo-8          = { type = "show-workspace", name = "8",  output.name = "right" }
 logo-9          = { type = "show-workspace", name = "9",  output.name = "right" }
-logo-0          = { type = "show-workspace", name = "10", output.name = "right" }
+logo-10         = { type = "show-workspace", name = "10", output.name = "right" }
 
-# logo-shift-1    = { type = "move-to-workspace", name = "1" }
-# logo-shift-2    = { type = "move-to-workspace", name = "2" }
-# logo-shift-3    = { type = "move-to-workspace", name = "3" }
-# logo-shift-4    = { type = "move-to-workspace", name = "4" }
-# logo-shift-5    = { type = "move-to-workspace", name = "5" }
-# logo-shift-6    = { type = "move-to-workspace", name = "6" }
-# logo-shift-7    = { type = "move-to-workspace", name = "7" }
-# logo-shift-8    = { type = "move-to-workspace", name = "8" }
-# logo-shift-9    = { type = "move-to-workspace", name = "9" }
-# logo-shift-0    = { type = "move-to-workspace", name = "10" }
-
- # Left monitor workspaces
-logo-shift-1 = [
-  { type = "move-to-workspace", name = "1" },
-  { type = "move-to-output", output.name = "left" },
-  { type = "show-workspace", name = "1" },
-]
-logo-shift-2 = [
-  { type = "move-to-workspace", name = "2" },
-  { type = "move-to-output", output.name = "left" },
-  { type = "show-workspace", name = "2" },
-]
-logo-shift-3 = [
-  { type = "move-to-workspace", name = "3" },
-  { type = "move-to-output", output.name = "left" },
-  { type = "show-workspace", name = "3" },
-]
-logo-shift-4 = [
-  { type = "move-to-workspace", name = "4" },
-  { type = "move-to-output", output.name = "left" },
-  { type = "show-workspace", name = "4" },
-]
-logo-shift-5 = [
-  { type = "move-to-workspace", name = "5" },
-  { type = "move-to-output", output.name = "left" },
-  { type = "show-workspace", name = "5" },
-]
-
-# Right monitor workspaces
-logo-shift-6 = [
-  { type = "move-to-workspace", name = "6" },
-  { type = "move-to-output", output.name = "right" },
-  { type = "show-workspace", name = "6" },
-]
-logo-shift-7 = [
-  { type = "move-to-workspace", name = "7" },
-  { type = "move-to-output", output.name = "right" },
-  { type = "show-workspace", name = "7" },
-]
-logo-shift-8 = [
-  { type = "move-to-workspace", name = "8" },
-  { type = "move-to-output", output.name = "right" },
-  { type = "show-workspace", name = "8" },
-]
-logo-shift-9 = [
-  { type = "move-to-workspace", name = "9" },
-  { type = "move-to-output", output.name = "right" },
-  { type = "show-workspace", name = "9" },
-]
-logo-shift-0 = [
-  { type = "move-to-workspace", name = "10" },
-  { type = "move-to-output", output.name = "right" },
-  { type = "show-workspace", name = "10" },
-]
-
-
+logo-shift-1    = { type = "move-to-workspace", name = "1" }
+logo-shift-2    = { type = "move-to-workspace", name = "2" }
+logo-shift-3    = { type = "move-to-workspace", name = "3" }
+logo-shift-4    = { type = "move-to-workspace", name = "4" }
+logo-shift-5    = { type = "move-to-workspace", name = "5" }
+logo-shift-6    = { type = "move-to-workspace", name = "6" }
+logo-shift-7    = { type = "move-to-workspace", name = "7" }
+logo-shift-8    = { type = "move-to-workspace", name = "8" }
+logo-shift-9    = { type = "move-to-workspace", name = "9" }
+logo-shift-0    = { type = "move-to-workspace", name = "10" }
 
 ## Window Movement
 logo-Left               = "focus-left"
