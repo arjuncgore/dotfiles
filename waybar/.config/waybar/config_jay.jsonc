@@ -1,0 +1,76 @@
+// Waybar (Jay) — minimal layout
+{
+  "height": 42,
+  "spacing": 4,
+
+  "modules-left": [
+    "ext/workspaces"
+  ],
+  "modules-center": [
+    "wlr/taskbar"
+  ],
+  "modules-right": [
+    "pulseaudio",
+    "network",
+    "cpu",
+    "memory",
+    "clock"
+  ],
+
+  "wlr/workspaces": {
+    "format": "{name}",
+    "format-icons": {
+      "default": "{name}"
+    },
+    "all-outputs": false,
+    "disable-scroll": true,
+    "sort-by-number": true,
+    "on-click": "activate"
+  },
+
+  "wlr/taskbar": {
+    "format": "{icon}",
+    "icon-size": 18,
+    "tooltip-format": "{title}",
+    "on-click": "activate",
+    "on-click-middle": "close",
+
+    "all-outputs": false,
+    "show-active-only": true,
+    "show-minimized": false
+  },
+
+  "pulseaudio": {
+    "format": "{volume}% {icon}",
+    "format-muted": "",
+    "format-icons": {
+      "headphone": "",
+      "default": ["", "", ""]
+    },
+    "on-click": "pavucontrol"
+  },
+
+  "network": {
+    "format-wifi": "({signalStrength}%) ",
+    "format-ethernet": "",
+    "format-disconnected": "Disconnected ⚠"
+  },
+
+  "cpu": {
+    "interval": 2,
+    "format": "{usage}% ",
+    "tooltip": false
+  },
+
+  "memory": {
+    "interval": 5,
+    "format": "{percentage}% "
+  },
+
+  "clock": {
+    "interval": 1,
+    "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+    "format": "  {:%a %b %d  %H:%M}",
+    "format-alt": "{:%Y-%m-%d}"
+  }
+}
