@@ -1,82 +1,79 @@
-#### Startup Actions
-on-graphics-initialized = [
-    { type = "move-to-output", workspace = "1",  output.name = "left"  },
-    { type = "move-to-output", workspace = "2",  output.name = "left"  },
-    { type = "move-to-output", workspace = "3",  output.name = "left"  },
-    { type = "move-to-output", workspace = "4",  output.name = "left"  },
-    { type = "move-to-output", workspace = "5",  output.name = "left"  },
-    { type = "move-to-output", workspace = "6",  output.name = "right" },
-    { type = "move-to-output", workspace = "7",  output.name = "right" },
-    { type = "move-to-output", workspace = "8",  output.name = "right" },
-    { type = "move-to-output", workspace = "9",  output.name = "right" },
-    { type = "move-to-output", workspace = "10", output.name = "right" },
+#### Keyboard Settings
+keymap = """
+    xkb_keymap {
+        xkb_keycodes { include "evdev+aliases(qwerty)" };
+        xkb_types    { include "complete"              };
+        xkb_compat   { include "complete"              };
+        xkb_symbols  { include "pc+us+inet(evdev)+capslock(escape)+ctrl(swap_lalt_lctl)" };
+    };
+    """
 
-    { type = "exec", exec = "waybar" },
-]
+repeat-rate = { rate = 20, delay = 200 }
 
 
-#### Virtual Features
+#### Visual Features
+workspace-display-order = "sorted"
+middle-click-paste = false
+focus-follows-mouse = false
+window-management-key = "Super_L"
 show-bar = false
 show-titles = false
 
 
-#### Keyboard Settings
-keymap = """
-xkb_keymap {
-  xkb_keycodes { include "evdev+aliases(qwerty)" };
-  xkb_types    { include "complete" };
-  xkb_compat   { include "complete" };
-  xkb_symbols  { include "pc+us+inet(evdev)+capslock(escape)+ctrl(swap_lalt_lctl)" };
-};
-"""
-
-repeat-rate = { rate = 20, delay = 200 }
-
-window-management-key   = "Super_L"
+#### Startup Actions
+on-graphics-initialized = [
+    { type = "exec", exec = {prog = "jay", args =["run-privileged", "waybar", "-c", "/home/arjungore/.config/waybar/config_jay.jsonc"] } },
+    { type = "exec", exec = "mako" },
+    { type = "exec", exec = { shell = "swaybg --output DP-2 -i ~/Pictures/wallpapers/jake.png -m fill --output HDMI-A-1 -i ~/Pictures/wallpapers/finn.png -m fill", privileged = true } }
+]
 
 
-#### Monitors
-[[outputs]]
-name = "left"
-match.connector = "DP-2"
-x = 0
-y = 0
-mode = { width = 2560, height = 1440, refresh-rate = 179.999 }
+#### Theme
+[theme]
+border-width = 2
+border-color = "#00FFFF"
 
-[[outputs]]
-name = "right"
-match.connector = "HDMI-A-1"
-x = 2560
-y = 360
-mode = { width = 1920, height = 1080, refresh-rate = 100.000 }
+# bar-bg-color = "#1f1d11"
+# bar-status-text-color = "#e6c99d"
+# captured-focused-title-bg-color = "#b97d3e"
+# captured-unfocused-title-bg-color = "#1f1d11"
+# focused-inactive-title-bg-color = "#1f1d11"
+# focused-inactive-title-text-color = "#e6c99d"
+# focused-title-bg-color = "#b97d3e"
+# focused-title-text-color = "#1f1d11"
+# separator-color = "#1f1d11"
+# unfocused-title-bg-color = "#1f1d11"
+# unfocused-title-text-color = "#e6c99d"
+# font = "cozette 11"
+
 
 #### Shortcuts
 [shortcuts]
 
-## Workspaces
-logo-1          = { type = "show-workspace", name = "1",  output.name = "left"  }
-logo-2          = { type = "show-workspace", name = "2",  output.name = "left"  }
-logo-3          = { type = "show-workspace", name = "3",  output.name = "left"  }
-logo-4          = { type = "show-workspace", name = "4",  output.name = "left"  }
-logo-5          = { type = "show-workspace", name = "5",  output.name = "left"  }
-logo-6          = { type = "show-workspace", name = "6",  output.name = "right" }
-logo-7          = { type = "show-workspace", name = "7",  output.name = "right" }
-logo-8          = { type = "show-workspace", name = "8",  output.name = "right" }
-logo-9          = { type = "show-workspace", name = "9",  output.name = "right" }
-logo-10         = { type = "show-workspace", name = "10", output.name = "right" }
+## Launching Apps
+logo-Return             = { type = "exec", exec = { prog = "wezterm", privileged = true} }
+logo-p                  = { type = "exec", exec = { prog = "wofi", args = ["--show", "drun"], privileged = true }}
+logo-b                  = { type = "exec", exec = "zen-browser" }
+logo-shift-b            = { type = "exec", exec = "google-chrome-stable" }
+logo-f                  = { type = "exec", exec = "thunar" }
+logo-c                  = { type = "exec", exec = "code" }
+logo-s                  = { type = "exec", exec = "spotify" }
+logo-d                  = { type = "exec", exec = "discord" }
 
-logo-shift-1    = { type = "move-to-workspace", name = "1" }
-logo-shift-2    = { type = "move-to-workspace", name = "2" }
-logo-shift-3    = { type = "move-to-workspace", name = "3" }
-logo-shift-4    = { type = "move-to-workspace", name = "4" }
-logo-shift-5    = { type = "move-to-workspace", name = "5" }
-logo-shift-6    = { type = "move-to-workspace", name = "6" }
-logo-shift-7    = { type = "move-to-workspace", name = "7" }
-logo-shift-8    = { type = "move-to-workspace", name = "8" }
-logo-shift-9    = { type = "move-to-workspace", name = "9" }
-logo-shift-0    = { type = "move-to-workspace", name = "10" }
+## System Actions
+logo-q                  = "close"
+logo-shift-r            = "reload-config-toml"
+logo-shift-e            = { type = "exec", exec = { prog = "bash", args = ["-lc", "~/.config/jay/exit-menu.sh"] } }
+logo-shift-s            = { type = "exec", exec = { prog = "bash", args = ["-lc", "~/.config/jay/shutdown-menu.sh"] } }
 
-## Window Movement
+logo-shift-p            = { type = "exec", exec = { prog = "bash", args = ["-lc", 'wayfreeze & PID=$!; sleep 0.1; grim -g "$(slurp)" - | wl-copy; kill "$PID" 2>/dev/null'], privileged = true } }
+logo-shift-o            = { type = "exec", exec = { prog = "bash", args = ["-lc", 'wayfreeze & PID=$!; sleep 0.1; grim -g "$(slurp)" - | swappy -f -; kill "$PID" 2>/dev/null'], privileged = true } }
+
+logo-F10                = { type = "exec", exec = { prog = "playerctl", args = ["-p", "spotify", "previous"], privileged = true }}
+logo-F11                = { type = "exec", exec = { prog = "playerctl", args = ["-p", "spotify", "play-pause"], privileged = true }}
+logo-F12                = { type = "exec", exec = { prog = "playerctl", args = ["-p", "spotify", "next"], privileged = true }}
+
+## Window Movement/Management
 logo-Left               = "focus-left"
 logo-Right              = "focus-right"
 logo-Up                 = "focus-up"
@@ -93,26 +90,28 @@ logo-e                  = "toggle-split"
 logo-shift-f            = "toggle-fullscreen"
 logo-shift-space        = "toggle-floating"
 
-## Launching Apps
-logo-Return             = { type = "exec", exec = "wezterm" }
-logo-p                  = { type = "exec", exec = ["wofi", "--show", "drun"] }
-logo-b                  = { type = "exec", exec = "zen-browser" }
-logo-shift-b            = { type = "exec", exec = "google-chrome-stable" }
-logo-f                  = { type = "exec", exec = "thunar" }
-logo-c                  = { type = "exec", exec = "code" }
-logo-s                  = { type = "exec", exec = "spotify" }
-logo-d                  = { type = "exec", exec = "discord" }
+## Workspaces
+logo-1          = { type = "show-workspace", name = "1",  output.name = "left"  }
+logo-2          = { type = "show-workspace", name = "2",  output.name = "left"  }
+logo-3          = { type = "show-workspace", name = "3",  output.name = "left"  }
+logo-4          = { type = "show-workspace", name = "4",  output.name = "left"  }
+logo-5          = { type = "show-workspace", name = "5",  output.name = "left"  }
+logo-6          = { type = "show-workspace", name = "6",  output.name = "right" }
+logo-7          = { type = "show-workspace", name = "7",  output.name = "right" }
+logo-8          = { type = "show-workspace", name = "8",  output.name = "right" }
+logo-9          = { type = "show-workspace", name = "9",  output.name = "right" }
+logo-0          = { type = "show-workspace", name = "10", output.name = "right" }
 
-
-## System Actions
-logo-q                  = "close"
-logo-shift-r            = "reload-config-toml"
-logo-shift-e            = { type = "exec", exec = { prog = "bash", args = ["-lc", "~/.config/jay/exit-menu.sh"] } }
-logo-shift-s            = { type = "exec", exec = { prog = "bash", args = ["-lc", "~/.config/jay/shutdown-menu.sh"] } }
-
-logo-shift-p            = { type = "exec", exec = { prog = "bash", args = ["-lc", 'wayfreeze & PID=$!; sleep 0.1; grim -g "$(slurp)" - | wl-copy; kill "$PID" 2>/dev/null'], privileged = true } }
-logo-shift-o            = { type = "exec", exec = { prog = "bash", args = ["-lc", 'wayfreeze & PID=$!; sleep 0.1; grim -g "$(slurp)" - | swappy -f -; kill "$PID" 2>/dev/null'], privileged = true } }
-
+logo-shift-1    = { type = "move-to-workspace", name = "1" }
+logo-shift-2    = { type = "move-to-workspace", name = "2" }
+logo-shift-3    = { type = "move-to-workspace", name = "3" }
+logo-shift-4    = { type = "move-to-workspace", name = "4" }
+logo-shift-5    = { type = "move-to-workspace", name = "5" }
+logo-shift-6    = { type = "move-to-workspace", name = "6" }
+logo-shift-7    = { type = "move-to-workspace", name = "7" }
+logo-shift-8    = { type = "move-to-workspace", name = "8" }
+logo-shift-9    = { type = "move-to-workspace", name = "9" }
+logo-shift-0    = { type = "move-to-workspace", name = "10" }
 
 
 #### Inputs
@@ -124,7 +123,17 @@ accel-profile = "Flat"
 accel-speed = -0.875
 
 
-#### Theme
-[theme]
-border-width = 2
-border-color = "#00FFFF"
+#### Monitors
+[[outputs]]
+name = "left"
+match.connector = "DP-2"
+x = 0
+y = 0
+mode = { width = 2560, height = 1440, refresh-rate = 179.999 }
+
+[[outputs]]
+name = "right"
+match.connector = "HDMI-A-1"
+x = 2560
+y = 360
+mode = { width = 1920, height = 1080, refresh-rate = 100.000 }

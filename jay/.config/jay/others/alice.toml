@@ -1,0 +1,136 @@
+keymap = """
+    xkb_keymap {
+        xkb_keycodes { include "evdev+aliases(qwerty)" };
+        xkb_types    { include "complete"              };
+        xkb_compat   { include "complete"              };
+        xkb_symbols  { include "pc+us+inet(evdev)"     };
+    };
+    """
+
+repeat-rate = { rate = 40, delay = 200 }
+workspace-display-order = "sorted"
+middle-click-paste = false
+focus-follows-mouse = false
+window-management-key = "Super_L"
+
+on-graphics-initialized = [
+    { type = "exec", exec = "mako" },
+    { type = "exec", exec = "wl-tray-bridge" },
+    { type = "exec", exec = { shell = "swaybg -i /home/notanyone/.config/sway/wallpaper3.jpg -m fill", privileged = true } }
+]
+
+[theme]
+bar-bg-color = "#1f1d11"
+bar-status-text-color = "#e6c99d"
+border-color = "#1f1d11"
+captured-focused-title-bg-color = "#b97d3e"
+captured-unfocused-title-bg-color = "#1f1d11"
+focused-inactive-title-bg-color = "#1f1d11"
+focused-inactive-title-text-color = "#e6c99d"
+focused-title-bg-color = "#b97d3e"
+focused-title-text-color = "#1f1d11"
+separator-color = "#1f1d11"
+unfocused-title-bg-color = "#1f1d11"
+unfocused-title-text-color = "#e6c99d"
+border-width = 2
+font = "cozette 11"
+
+[status]
+format = "i3bar"
+exec = "i3blocks"
+i3bar-separator = "|"
+
+[shortcuts]
+mod4-Return = { type = "exec", exec = { prog = "foot", privileged = true } }
+mod4-shift-Return = { type = "exec", exec = "foot" }
+mod4-shift-q = "close"
+mod4-shift-BackSpace = "quit"
+mod4-d = { type = "exec", exec = { prog = "tofi-drun", privileged = true} }
+mod4-shift-c = "reload-config-toml"
+
+mod4-h = "focus-left"
+mod4-j = "focus-down"
+mod4-k = "focus-up"
+mod4-l = "focus-right"
+
+mod4-shift-h = "move-left"
+mod4-shift-j = "move-down"
+mod4-shift-k = "move-up"
+mod4-shift-l = "move-right"
+
+mod4-1 = { type = "show-workspace", name = "1", output.name = "right" }
+mod4-2 = { type = "show-workspace", name = "2", output.name = "left" }
+mod4-3 = { type = "show-workspace", name = "3", output.name = "right" }
+mod4-4 = { type = "show-workspace", name = "4", output.name = "left" }
+mod4-5 = { type = "show-workspace", name = "5", output.name = "right" }
+mod4-6 = { type = "show-workspace", name = "6", output.name = "left" }
+mod4-7 = { type = "show-workspace", name = "7", output.name = "right" }
+mod4-8 = { type = "show-workspace", name = "8", output.name = "left" }
+mod4-9 = { type = "show-workspace", name = "9", output.name = "right" }
+mod4-0 = { type = "show-workspace", name = "10", output.name = "left" }
+
+mod4-shift-1 = { type = "move-to-workspace", name = "1" }
+mod4-shift-2 = { type = "move-to-workspace", name = "2" }
+mod4-shift-3 = { type = "move-to-workspace", name = "3" }
+mod4-shift-4 = { type = "move-to-workspace", name = "4" }
+mod4-shift-5 = { type = "move-to-workspace", name = "5" }
+mod4-shift-6 = { type = "move-to-workspace", name = "6" }
+mod4-shift-7 = { type = "move-to-workspace", name = "7" }
+mod4-shift-8 = { type = "move-to-workspace", name = "8" }
+mod4-shift-9 = { type = "move-to-workspace", name = "9" }
+mod4-shift-0 = { type = "move-to-workspace", name = "10" }
+
+mod4-b = "split-horizontal"
+mod4-v = "split-vertical"
+
+mod4-e = "toggle-split"
+mod4-w = "toggle-mono"
+mod4-f = "toggle-fullscreen"
+
+mod4-shift-space = "toggle-floating"
+mod4-a = "focus-parent"
+
+mod4-p = { type = "exec", exec = { shell = "wayfreeze --after-freeze-cmd 'grim -g \"$(slurp)\" - | wl-copy ; killall wayfreeze'", privileged = true } }
+mod4-shift-p = { type = "exec", exec = { shell = "grim -o eDP-1 - | wl-copy", privileged = true } }
+
+mod4-m = { type = "exec", exec = ["mpc", "toggle"] }
+mod4-comma = { type = "exec", exec = ["mpc", "prev"] }
+mod4-period = { type = "exec", exec = ["mpc", "next"] }
+
+
+ctrl-alt-F1 = { type = "switch-to-vt", num = 1 }
+ctrl-alt-F2 = { type = "switch-to-vt", num = 2 }
+ctrl-alt-F3 = { type = "switch-to-vt", num = 3 }
+ctrl-alt-F4 = { type = "switch-to-vt", num = 4 }
+ctrl-alt-F5 = { type = "switch-to-vt", num = 5 }
+ctrl-alt-F6 = { type = "switch-to-vt", num = 6 }
+ctrl-alt-F7 = { type = "switch-to-vt", num = 7 }
+ctrl-alt-F8 = { type = "switch-to-vt", num = 8 }
+ctrl-alt-F9 = { type = "switch-to-vt", num = 9 }
+ctrl-alt-F10 = { type = "switch-to-vt", num = 10 }
+ctrl-alt-F11 = { type = "switch-to-vt", num = 11 }
+ctrl-alt-F12 = { type = "switch-to-vt", num = 12 }
+
+[[inputs]]
+match.is-pointer = true
+accel-profile = "Flat"
+accel-speed = -0.6
+
+[[outputs]]
+name = "left"
+match.serial-number = "0"
+x = 0
+y = 0
+
+[[outputs]]
+name = "right"
+match.serial-number = "144306C403W01"
+tearing.mode = "always"
+mode = { width = 1920, height = 1080, refresh-rate = 120 }
+x = 1920
+y = 0
+
+[[windows]]
+name = "discord"
+match.app-id = "vesktop"
+action = { type = "move-to-workspace", name = "4" }
