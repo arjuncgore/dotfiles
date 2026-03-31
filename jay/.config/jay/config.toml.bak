@@ -21,7 +21,7 @@ middle-click-paste = false
 focus-follows-mouse = true
 window-management-key = "Super_L"
 pointer-revert-key = "NoSymbol"
-unstable-mouse-follows-focus = true
+# mouse-follows-focus = true
 
 #### Startup Actions
 on-graphics-initialized = [
@@ -119,36 +119,36 @@ logo-F12                = { type = "exec", exec = { prog = "playerctl", args = [
 
 ## Window Movement/Management
 logo-Left               = [
-    "focus-left"
-    # "warp-mouse-to-focus"
+    "focus-left",
+    "warp-mouse-to-focus"
 ]
 logo-Right              = [
-    "focus-right"
-    # "warp-mouse-to-focus"
+    "focus-right",
+    "warp-mouse-to-focus"
 ]
 logo-Up                 = [
-    "focus-up"
-    # "warp-mouse-to-focus"
+    "focus-up",
+    "warp-mouse-to-focus"
 ]
 logo-Down               = [
-    "focus-down"
-    # "warp-mouse-to-focus"
+    "focus-down",
+    "warp-mouse-to-focus"
 ]
 
 logo-shift-Left         = [
-    "move-left"
-    # "warp-mouse-to-focus"
+    "move-left",
+    "warp-mouse-to-focus"
 ]
 logo-shift-Right        = [
-    "move-right"
-    # "warp-mouse-to-focus"
+    "move-right",
+    "warp-mouse-to-focus"
 ]
 logo-shift-Up           = [
-    "move-up"
-    # "warp-mouse-to-focus"
+    "move-up",
+    "warp-mouse-to-focus"
 ]
 logo-shift-Down         = [
-    "move-down"
+    "move-down",
     # "warp-mouse-to-focus"
 ]
 
@@ -160,94 +160,94 @@ logo-shift-space        = "toggle-floating"
 
 ## Workspaces
 logo-1          = [ 
-    { type = "show-workspace", name = "1",  output.name = "left"  }
-    # "warp-mouse-to-focus"
+    { type = "show-workspace", name = "1",  output.name = "left"  },
+    "warp-mouse-to-focus"
 ]
 logo-2          = [ 
-    { type = "show-workspace", name = "2",  output.name = "left"  }
-    # "warp-mouse-to-focus"
+    { type = "show-workspace", name = "2",  output.name = "left"  },
+    "warp-mouse-to-focus"
 ]
 logo-3          = [ 
-    { type = "show-workspace", name = "3",  output.name = "left"  }
-    # "warp-mouse-to-focus"
+    { type = "show-workspace", name = "3",  output.name = "left"  },
+    "warp-mouse-to-focus"
 ]
 logo-4          = [ 
-    { type = "show-workspace", name = "4",  output.name = "left"  }
-    # "warp-mouse-to-focus"
+    { type = "show-workspace", name = "4",  output.name = "left"  },
+    "warp-mouse-to-focus"
 ]
 logo-5          = [ 
-    { type = "show-workspace", name = "5",  output.name = "left"  }
-    # "warp-mouse-to-focus"
+    { type = "show-workspace", name = "5",  output.name = "left"  },
+    "warp-mouse-to-focus"
 ]
 logo-6          = [ 
-    { type = "show-workspace", name = "6",  output.name = "right" }
-    # "warp-mouse-to-focus"
+    { type = "show-workspace", name = "6",  output.name = "right" },
+    "warp-mouse-to-focus"
 ]
 logo-7          = [ 
-    { type = "show-workspace", name = "7",  output.name = "right" }
-    # "warp-mouse-to-focus"
+    { type = "show-workspace", name = "7",  output.name = "right" },
+    "warp-mouse-to-focus"
 ]
 logo-8          = [ 
-    { type = "show-workspace", name = "8",  output.name = "right" }
-    # "warp-mouse-to-focus"
+    { type = "show-workspace", name = "8",  output.name = "right" },
+    "warp-mouse-to-focus"
 ]
 logo-9          = [
-    { type = "show-workspace", name = "9",  output.name = "right" }
-    # "warp-mouse-to-focus"
+    { type = "show-workspace", name = "9",  output.name = "right" },
+    "warp-mouse-to-focus"
 ]
-logo-0          = [ { type = "show-workspace", name = "10", output.name = "right" }
-    # "warp-mouse-to-focus"
+logo-0          = [ { type = "show-workspace", name = "10", output.name = "right" },
+    "warp-mouse-to-focus"
 ]
 
 logo-shift-1    = [ 
     { type = "move-to-workspace", name = "1" }, 
-    { type = "move-to-output", workspace = "1", output.name = "left" }
-    # "warp-mouse-to-focus"
+    { type = "move-to-output", workspace = "1", output.name = "left" },
+    "warp-mouse-to-focus"
 ]
 logo-shift-2    = [ 
     { type = "move-to-workspace", name = "2" }, 
-    { type = "move-to-output", workspace = "2", output.name = "left" }
-    # "warp-mouse-to-focus"
+    { type = "move-to-output", workspace = "2", output.name = "left" },
+    "warp-mouse-to-focus"
 ]
 logo-shift-3    = [ 
     { type = "move-to-workspace", name = "3" }, 
-    { type = "move-to-output", workspace = "3", output.name = "left" }
-    # "warp-mouse-to-focus"
+    { type = "move-to-output", workspace = "3", output.name = "left" },
+    "warp-mouse-to-focus"
 ]
 logo-shift-4    = [ 
     { type = "move-to-workspace", name = "4" }, 
-    { type = "move-to-output", workspace = "4", output.name = "left" }
-    # "warp-mouse-to-focus"
+    { type = "move-to-output", workspace = "4", output.name = "left" },
+    "warp-mouse-to-focus"
 ]
 logo-shift-5    = [ 
     { type = "move-to-workspace", name = "5" }, 
-    { type = "move-to-output", workspace = "5", output.name = "left" }
-    # "warp-mouse-to-focus"
+    { type = "move-to-output", workspace = "5", output.name = "left" },
+    "warp-mouse-to-focus"
 ]
 logo-shift-6    = [ 
     { type = "move-to-workspace", name = "6" }, 
-    { type = "move-to-output", workspace = "6", output.name = "right" }
-    # "warp-mouse-to-focus"
+    { type = "move-to-output", workspace = "6", output.name = "right" },
+    "warp-mouse-to-focus"
 ]
 logo-shift-7    = [ 
     { type = "move-to-workspace", name = "7" }, 
-    { type = "move-to-output", workspace = "7", output.name = "right" }
-    # "warp-mouse-to-focus"
+    { type = "move-to-output", workspace = "7", output.name = "right" },
+    "warp-mouse-to-focus"
 ]
 logo-shift-8    = [ 
     { type = "move-to-workspace", name = "8" }, 
-    { type = "move-to-output", workspace = "8", output.name = "right" }
-    # "warp-mouse-to-focus"
+    { type = "move-to-output", workspace = "8", output.name = "right" },
+    "warp-mouse-to-focus"
 ]
 logo-shift-9    = [ 
     { type = "move-to-workspace", name = "9" }, 
-    { type = "move-to-output", workspace = "9", output.name = "right" }
-    # "warp-mouse-to-focus"
+    { type = "move-to-output", workspace = "9", output.name = "right" },
+    "warp-mouse-to-focus"
 ]
 logo-shift-0    = [ 
     { type = "move-to-workspace", name = "10" },
-    { type = "move-to-output", workspace = "10", output.name = "right" }
-    # "warp-mouse-to-focus"
+    { type = "move-to-output", workspace = "10", output.name = "right" },
+    "warp-mouse-to-focus"
 ]
 
 
