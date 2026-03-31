@@ -1,0 +1,53 @@
+@import "./rose-pine.css";
+
+/* Base */
+* {
+  font-family: "MesloLGS Nerd Font Mono Bold";
+  font-size: 20px;
+  border-radius: 5px;
+}
+
+window#waybar {
+  background: alpha(@surface, 1);
+  color: @text;
+  border-bottom: 2px solid alpha(@highlightHigh, 0.6);
+  transition: background-color .3s ease;
+  border-radius: 0px;
+}
+
+window#waybar.hidden { opacity: 1; }
+
+/* Shared module look */
+#workspaces button,
+#window,
+#pulseaudio,
+#network,
+#cpu,
+#memory,
+#temperature,
+#clock {
+  padding: 0 10px;
+  color: @text;
+}
+
+/* Workspaces (numbers on the left) */
+#workspaces { margin: 0 6px; }
+#workspaces button {
+  background: transparent;
+  border: none;
+  border-radius: 6px;
+  padding: 0 .45em;
+}
+#workspaces button:hover { background: alpha(@overlay, 0.35); }
+#workspaces button.active{
+  background: @highlightMed;
+  box-shadow: inset 0 -3px @foam;
+}
+#workspaces button.urgent { background: @love; color: @base; }
+
+/* Window title (center) */
+#window {
+  margin: 0 6px;
+}
+#window.empty { background: transparent; }
+

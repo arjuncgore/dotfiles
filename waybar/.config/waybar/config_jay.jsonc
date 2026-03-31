@@ -1,76 +1,82 @@
 // Waybar (Jay) — minimal layout
 {
-  "height": 42,
-  "spacing": 4,
+    "height": 42,
+    "spacing": 4,
 
-  "modules-left": [
-    "ext/workspaces"
-  ],
-  "modules-center": [
-    "wlr/taskbar"
-  ],
-  "modules-right": [
-    "pulseaudio",
-    "network",
-    "cpu",
-    "memory",
-    "clock"
-  ],
-
-  "wlr/workspaces": {
-    "format": "{name}",
-    "format-icons": {
-      "default": "{name}"
+    "modules-left": [
+        "ext/workspaces"
+    ],
+    "persistent-workspaces": {
+        "DP-2": [1, 2, 3, 4, 5],
+        "HDMI-A-1": [6, 7, 8, 9, 10]
     },
-    "all-outputs": false,
-    "disable-scroll": true,
-    "sort-by-number": true,
-    "on-click": "activate"
-  },
+    "modules-center": [
+        "wlr/taskbar"
+    ],
+    "modules-right": [
+        "pulseaudio",
+        "network",
+        "cpu",
+        "memory",
+        "clock"
+    ],
 
-  "wlr/taskbar": {
-    "format": "{icon}",
-    "icon-size": 18,
-    "tooltip-format": "{title}",
-    "on-click": "activate",
-    "on-click-middle": "close",
+    "ext/workspaces": {
+        "format": "{name}",
+        "all-outputs": false,
+        "active-only": false,
+        "ignore-hidden": false,
 
-    "all-outputs": false,
-    "show-active-only": true,
-    "show-minimized": false
-  },
+        "sort-by-name": true,
 
-  "pulseaudio": {
-    "format": "{volume}% {icon}",
-    "format-muted": "",
-    "format-icons": {
-      "headphone": "",
-      "default": ["", "", ""]
+        "on-click": "activate",
+        "disable-scroll": true
+
     },
-    "on-click": "pavucontrol"
-  },
 
-  "network": {
-    "format-wifi": "({signalStrength}%) ",
-    "format-ethernet": "",
-    "format-disconnected": "Disconnected ⚠"
-  },
+    "wlr/taskbar": {
+        "format": "{icon}",
+        "icon-size": 18,
+        "tooltip-format": "{title}",
+        "on-click": "activate",
+        "on-click-middle": "close",
 
-  "cpu": {
-    "interval": 2,
-    "format": "{usage}% ",
-    "tooltip": false
-  },
+        "all-outputs": false,
+        "show-active-only": true,
+        "show-minimized": false
+    },
 
-  "memory": {
-    "interval": 5,
-    "format": "{percentage}% "
-  },
+    "pulseaudio": {
+        "format": "{volume}% {icon}",
+        "format-muted": "",
+        "format-icons": {
+            "headphone": "",
+            "default": ["", "", ""]
+        },
+        "on-click": "pavucontrol"
+    },
 
-  "clock": {
-    "interval": 1,
-    "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
-    "format": "  {:%a %b %d  %H:%M}",
-    "format-alt": "{:%Y-%m-%d}"
-  }
+    "network": {
+        "format-wifi": "({signalStrength}%) ",
+        "format-ethernet": "",
+        "format-disconnected": "Disconnected ⚠"
+    },
+
+    "cpu": {
+        "interval": 2,
+        "format": "{usage}% ",
+        "tooltip": false
+    },
+
+    "memory": {
+        "interval": 5,
+        "format": "{percentage}% "
+    },
+
+    "clock": {
+        "interval": 1,
+        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+        "format": "  {:%a %b %d  %H:%M}",
+        "format-alt": "{:%Y-%m-%d}"
+    }
 }
