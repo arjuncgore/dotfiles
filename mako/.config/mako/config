@@ -1,6 +1,6 @@
 font=Meslo LGS Nerd Font 14
 sort=-time
-layer=overlay
+layer=top
 anchor=top-right
 background-color=#191624
 width=400
