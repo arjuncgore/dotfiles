@@ -25,21 +25,21 @@ unstable-mouse-follows-focus = true
 
 #### Startup Actions
 on-graphics-initialized = [
-{ type = "exec", exec = { prog = "jay", args = ["run-privileged", "waybar", "-c", "/home/arjungore/.config/waybar/config_jay.jsonc", "-s", "/home/arjungore/.config/waybar/style_jay.css"] } },
-{ type = "exec", exec = "mako" },
-{ type = "exec", exec = { shell = "swaybg --output DP-2 -i ~/Pictures/wallpapers/jake.png -m fill --output HDMI-A-1 -i ~/Pictures/wallpapers/finn.png -m fill", privileged = true } },
-
-{ type = "show-workspace", name = "1",  output.name = "left"  },
-{ type = "show-workspace", name = "2",  output.name = "left"  },
-{ type = "show-workspace", name = "3",  output.name = "left"  },
-{ type = "show-workspace", name = "4",  output.name = "left"  },
-{ type = "show-workspace", name = "5",  output.name = "left"  },
-
-{ type = "show-workspace", name = "6",  output.name = "right" },
-{ type = "show-workspace", name = "7",  output.name = "right" },
-{ type = "show-workspace", name = "8",  output.name = "right" },
-{ type = "show-workspace", name = "9",  output.name = "right" },
-{ type = "show-workspace", name = "10", output.name = "right" }
+    { type = "exec", exec = { prog = "jay", args = ["run-privileged", "waybar", "-c", "/home/arjungore/.config/waybar/config_jay.jsonc", "-s", "/home/arjungore/.config/waybar/style_jay.css"] } },
+    { type = "exec", exec = "mako" },
+    { type = "exec", exec = { shell = "swaybg --output DP-2 -i ~/Pictures/wallpapers/jake.png -m fill --output HDMI-A-1 -i ~/Pictures/wallpapers/finn.png -m fill", privileged = true } },
+    
+    { type = "show-workspace", name = "1",  output.name = "left"  },
+    { type = "show-workspace", name = "2",  output.name = "left"  },
+    { type = "show-workspace", name = "3",  output.name = "left"  },
+    { type = "show-workspace", name = "4",  output.name = "left"  },
+    { type = "show-workspace", name = "5",  output.name = "left"  },
+    
+    { type = "show-workspace", name = "6",  output.name = "right" },
+    { type = "show-workspace", name = "7",  output.name = "right" },
+    { type = "show-workspace", name = "8",  output.name = "right" },
+    { type = "show-workspace", name = "9",  output.name = "right" },
+    { type = "show-workspace", name = "10", output.name = "right" }
 
 ]
 
@@ -93,14 +93,14 @@ logo-u                  = "warp-mouse-to-focus"
 
 # logo-s                  = { type = "exec", exec = "spotify" }
 logo-s                  = [
-{ type = "show-workspace", name = "10", output.name = "right" },
-{ type = "exec", exec = "spotify" }
+    # { type = "show-workspace", name = "10", output.name = "right" },
+    { type = "exec", exec = "spotify" }
 ]
 
 # logo-d                  = { type = "exec", exec = "discord" }
 logo-d                  = [
-{ type = "show-workspace", name = "7", output.name = "right" },
-{ type = "exec", exec = "discord" }
+    # { type = "show-workspace", name = "7", output.name = "right" },
+    { type = "exec", exec = "discord" }
 ]
 
 
@@ -119,37 +119,37 @@ logo-F12                = { type = "exec", exec = { prog = "playerctl", args = [
 
 ## Window Movement/Management
 logo-Left               = [
+    # "warp-mouse-to-focus",
     "focus-left"
-    # "warp-mouse-to-focus"
 ]
 logo-Right              = [
+    # "warp-mouse-to-focus",
     "focus-right"
-    # "warp-mouse-to-focus"
 ]
 logo-Up                 = [
+    # "warp-mouse-to-focus",
     "focus-up"
-    # "warp-mouse-to-focus"
 ]
 logo-Down               = [
+    # "warp-mouse-to-focus",
     "focus-down"
-    # "warp-mouse-to-focus"
 ]
 
 logo-shift-Left         = [
+    # "warp-mouse-to-focus",
     "move-left"
-    # "warp-mouse-to-focus"
 ]
 logo-shift-Right        = [
+    # "warp-mouse-to-focus",
     "move-right"
-    # "warp-mouse-to-focus"
 ]
 logo-shift-Up           = [
+    # "warp-mouse-to-focus",
     "move-up"
-    # "warp-mouse-to-focus"
 ]
 logo-shift-Down         = [
+    # "warp-mouse-to-focus",
     "move-down"
-    # "warp-mouse-to-focus"
 ]
 
 logo-ctrl-h             = "split-horizontal"
@@ -160,94 +160,95 @@ logo-shift-space        = "toggle-floating"
 
 ## Workspaces
 logo-1          = [ 
+    # "warp-mouse-to-focus",
     { type = "show-workspace", name = "1",  output.name = "left"  }
-    # "warp-mouse-to-focus"
 ]
 logo-2          = [ 
+    # "warp-mouse-to-focus",
     { type = "show-workspace", name = "2",  output.name = "left"  }
-    # "warp-mouse-to-focus"
 ]
 logo-3          = [ 
+    # "warp-mouse-to-focus",
     { type = "show-workspace", name = "3",  output.name = "left"  }
-    # "warp-mouse-to-focus"
 ]
 logo-4          = [ 
+    # "warp-mouse-to-focus",
     { type = "show-workspace", name = "4",  output.name = "left"  }
-    # "warp-mouse-to-focus"
 ]
 logo-5          = [ 
+    # "warp-mouse-to-focus",
     { type = "show-workspace", name = "5",  output.name = "left"  }
-    # "warp-mouse-to-focus"
 ]
 logo-6          = [ 
+    # "warp-mouse-to-focus",
     { type = "show-workspace", name = "6",  output.name = "right" }
-    # "warp-mouse-to-focus"
 ]
 logo-7          = [ 
+    # "warp-mouse-to-focus",
     { type = "show-workspace", name = "7",  output.name = "right" }
-    # "warp-mouse-to-focus"
 ]
 logo-8          = [ 
+    # "warp-mouse-to-focus",
     { type = "show-workspace", name = "8",  output.name = "right" }
-    # "warp-mouse-to-focus"
 ]
 logo-9          = [
+    # "warp-mouse-to-focus",
     { type = "show-workspace", name = "9",  output.name = "right" }
-    # "warp-mouse-to-focus"
 ]
-logo-0          = [ { type = "show-workspace", name = "10", output.name = "right" }
-    # "warp-mouse-to-focus"
+logo-0          = [
+    # "warp-mouse-to-focus",
+    { type = "show-workspace", name = "10", output.name = "right" }
 ]
 
 logo-shift-1    = [ 
+    # "warp-mouse-to-focus",
     { type = "move-to-workspace", name = "1" }, 
     { type = "move-to-output", workspace = "1", output.name = "left" }
-    # "warp-mouse-to-focus"
 ]
 logo-shift-2    = [ 
+    # "warp-mouse-to-focus",
     { type = "move-to-workspace", name = "2" }, 
     { type = "move-to-output", workspace = "2", output.name = "left" }
-    # "warp-mouse-to-focus"
 ]
 logo-shift-3    = [ 
+    # "warp-mouse-to-focus",
     { type = "move-to-workspace", name = "3" }, 
     { type = "move-to-output", workspace = "3", output.name = "left" }
-    # "warp-mouse-to-focus"
 ]
 logo-shift-4    = [ 
+    # "warp-mouse-to-focus",
     { type = "move-to-workspace", name = "4" }, 
     { type = "move-to-output", workspace = "4", output.name = "left" }
-    # "warp-mouse-to-focus"
 ]
 logo-shift-5    = [ 
+    # "warp-mouse-to-focus",
     { type = "move-to-workspace", name = "5" }, 
     { type = "move-to-output", workspace = "5", output.name = "left" }
-    # "warp-mouse-to-focus"
 ]
 logo-shift-6    = [ 
+    # "warp-mouse-to-focus",
     { type = "move-to-workspace", name = "6" }, 
     { type = "move-to-output", workspace = "6", output.name = "right" }
-    # "warp-mouse-to-focus"
 ]
 logo-shift-7    = [ 
+    # "warp-mouse-to-focus",
     { type = "move-to-workspace", name = "7" }, 
     { type = "move-to-output", workspace = "7", output.name = "right" }
-    # "warp-mouse-to-focus"
 ]
 logo-shift-8    = [ 
+    # "warp-mouse-to-focus",
     { type = "move-to-workspace", name = "8" }, 
     { type = "move-to-output", workspace = "8", output.name = "right" }
-    # "warp-mouse-to-focus"
 ]
 logo-shift-9    = [ 
+    # "warp-mouse-to-focus",
     { type = "move-to-workspace", name = "9" }, 
     { type = "move-to-output", workspace = "9", output.name = "right" }
-    # "warp-mouse-to-focus"
 ]
 logo-shift-0    = [ 
+    # "warp-mouse-to-focus",
     { type = "move-to-workspace", name = "10" },
     { type = "move-to-output", workspace = "10", output.name = "right" }
-    # "warp-mouse-to-focus"
 ]
 
 
@@ -280,21 +281,30 @@ mode = { width = 1920, height = 1080, refresh-rate = 100.000 }
 #### Window Rules
 [[windows]]
 name = "discord"
-match.title-regex = "Discord"
-action = [ { type = "move-to-workspace", name = "7" }, { type = "move-to-output", workspace = "7", output.name = "right" } ]
+match.x-class = "discord"
+action = [
+    { type = "move-to-workspace", name = "7" },
+    { type = "move-to-output", workspace = "7", output.name = "right" },
+    { type = "set-repeat-rate", rate = { rate = 20, delay = 200 } }
+]
 
 [[windows]]
 name = "spotify"
-match.title-regex = "Spotify"
-action = [ { type = "move-to-workspace", name = "10" }, { type = "move-to-output", workspace = "10", output.name = "right" } ]
+match.app-id = "spotify"
+action = [
+    { type = "move-to-workspace", name = "10" },
+    { type = "move-to-output", workspace = "10", output.name = "right" },
+    { type = "set-repeat-rate", rate = { rate = 20, delay = 200 } }
+]
 
 [[windows]]
 name = "waywall"
-match.title-regex = "waywall"
-action = [ { type = "move-to-workspace", name = "1" }, { type = "move-to-output", workspace = "1", output.name = "left" },
+match.app-id = "waywall"
+action = [
+    { type = "move-to-workspace", name = "1" },
+    { type = "move-to-output", workspace = "1", output.name = "left" },
     { type = "set-repeat-rate", rate = { rate = 60, delay = 200} }
 ]
-
 
 [[windows]]
 name = "default"
