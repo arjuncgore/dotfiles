@@ -35,15 +35,11 @@
     },
 
     "wlr/taskbar": {
-        "format": "{icon}",
-        "icon-size": 18,
-        "tooltip-format": "{title}",
-        "on-click": "activate",
-        "on-click-middle": "close",
-
-        "all-outputs": false,
-        "show-active-only": true,
-        "show-minimized": false
+            "format": "{name}",
+    "icon-size": 0,
+    "tooltip": false,
+    "active-first": true,
+    "on-click": "activate"
     },
 
     "pulseaudio": {
