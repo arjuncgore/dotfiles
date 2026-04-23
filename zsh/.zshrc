@@ -63,4 +63,14 @@ function y() {
 alias connect='ssh -i ~/key hacker@pwn.college'
 alias n='nvim'
 
+# close from personal github
+clone() {
+  if [ -z "$1" ]; then
+    echo "Usage: clone <repo-name>"
+    return 1
+  fi
+  git clone "git@github.com:arjuncgore/$1.git"
+}
+
+
 export PATH="/usr/local/texlive/2025basic/bin/universal-darwin:$PATH"
