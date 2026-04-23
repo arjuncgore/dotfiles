@@ -28,3 +28,7 @@ end, { desc = "Run: Reload Waybar" })
 vim.keymap.set("n", "<leader>cm", function()
     vim.cmd("!makoctl reload")
 end, { desc = "Run: Reload Mako" })
+
+-- ==== Copy Paste ====
+vim.keymap.set({ "n", "v" }, "<leader>y", '"+y', { desc = "Copy to clipboard" })
+vim.keymap.set({ "n", "v" }, "<leader>p", '"+p', { desc = "Paste from clipboard" })
