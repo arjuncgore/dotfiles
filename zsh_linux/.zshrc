@@ -2,7 +2,7 @@
 alias n='nvim'
 alias mongo_start='mongod --dbpath ~/.local/share/mongodb/ --bind_ip 127.0.0.1 --port 27017'
 
-# close from personal github
+# clone from personal github
 clone() {
   if [ -z "$1" ]; then
     echo "Usage: clone <repo-name>"
@@ -11,6 +11,14 @@ clone() {
   git clone "git@github.com:arjuncgore/$1.git"
 }
 
+# grep from history
+hist() {
+  if [ -z "$1" ]; then
+    echo "Usage: hist <key-word>"
+    return 1
+  fi
+  grep $1 ~/.zsh_history
+}
 
 # Rust / Cargo binaries
 export PATH="$HOME/.cargo/bin:$PATH"
@@ -140,3 +148,4 @@ source ~/powerlevel10k/powerlevel10k.zsh-theme
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+export YDOTOOL_SOCKET=/tmp/.ydotool_socket
