@@ -16,6 +16,7 @@ workspace-display-order = "sorted"
 show-bar = false
 show-titles = false
 
+
 #### Behavior Features
 middle-click-paste = false
 focus-follows-mouse = true
@@ -23,13 +24,15 @@ window-management-key = "Super_L"
 pointer-revert-key = "NoSymbol"
 unstable-mouse-follows-focus = true
 fallback-output-mode = "focus"
+use-hardware-cursor = false
+
 
 #### Startup Actions
 on-graphics-initialized = [
 { type = "exec", exec = { prog = "jay", args = ["run-privileged", "waybar", "-c", "/home/arjungore/.config/waybar/config_jay.jsonc", "-s", "/home/arjungore/.config/waybar/style_jay.css"] } },
 { type = "exec", exec = "mako" },
 { type = "exec", exec = { prog = "swaybg", args = ["--output", "DP-2", "-i", "/home/arjungore/Pictures/wallpapers/jake.png", "-m", "fill", "--output", "HDMI-A-1", "-i", "/home/arjungore/Pictures/wallpapers/finn.png", "-m", "fill"], privileged = true } },
-{ type = "exec", exec = { prog = "swayidle", args = ["-w", "timeout", "300", "swaylock -f", "before-sleep", "swaylock -f"], privileged = true } },
+{ type = "exec", exec = { prog = "swayidle", args = ["-w", "timeout", "600", "swaylock -f", "before-sleep", "swaylock -f"], privileged = true } },
 
 { type = "show-workspace", name = "1",  output.name = "left"  },
 { type = "show-workspace", name = "2",  output.name = "left"  },
@@ -42,8 +45,8 @@ on-graphics-initialized = [
 { type = "show-workspace", name = "8",  output.name = "right" },
 { type = "show-workspace", name = "9",  output.name = "right" },
 { type = "show-workspace", name = "10", output.name = "right" }
-
 ]
+
 
 #### Idle Actions
 idle = {
@@ -57,6 +60,29 @@ on-idle = {
         privileged = true,
     },
 }
+
+
+#### GPU
+render-device = {
+    pci-vendor = 0x1002,
+    pci-model = 0x7480,
+}
+
+[[drm-devices]]
+name = "dedicated"
+match = {
+    pci-vendor = 0x1002,
+    pci-model = 0x7480,
+}
+gfx-api = "Vulkan"
+
+[[drm-devices]]
+name = "integrated"
+match = {
+    pci-vendor = 0x1002,
+    pci-model = 0x164e,
+}
+gfx-api = "Vulkan"
 
 
 #### Theme
@@ -114,6 +140,10 @@ logo-shift-o            = { type = "exec", exec = { prog = "bash", args = ["-lc"
 logo-F10                = { type = "exec", exec = { prog = "playerctl", args = ["-p", "spotify", "previous"], privileged = true }}
 logo-F11                = { type = "exec", exec = { prog = "playerctl", args = ["-p", "spotify", "play-pause"], privileged = true }}
 logo-F12                = { type = "exec", exec = { prog = "playerctl", args = ["-p", "spotify", "next"], privileged = true }}
+
+XF86AudioRaiseVolume  = { type = "exec", exec = ["wpctl", "set-volume", "@DEFAULT_AUDIO_SINK@", "0.05+"] }
+XF86AudioLowerVolume  = { type = "exec", exec = ["wpctl", "set-volume", "@DEFAULT_AUDIO_SINK@", "0.05-"] }
+XF86AudioMute         = { type = "exec", exec = ["wpctl", "set-mute", "@DEFAULT_AUDIO_SINK@", "toggle"] }
 
 
 ## Window Movement/Management
@@ -260,6 +290,7 @@ logo-shift-0    = [
 { type = "show-workspace", name = "10", output.name = "right" }
 ]
 
+
 #### Resize Mode
 [shortcuts.logo-r]
 type = "multi"
@@ -298,6 +329,7 @@ type = "multi"
 cmd = "pop-mode"
 type = "simple"
 
+
 #### Inputs
 [[inputs]]
 tag = "mice"
@@ -314,7 +346,8 @@ match.connector = "DP-2"
 x = 0
 y = 0
 mode = { width = 2560, height = 1440, refresh-rate = 179.999 }
-tearing.mode = "always"
+tearing.mode = "variant1"
+vrr.mode = "never"
 
 [[outputs]]
 name = "right"
@@ -322,7 +355,8 @@ match.connector = "HDMI-A-1"
 x = 2560
 y = 360
 mode = { width = 1920, height = 1080, refresh-rate = 100.000 }
-tearing.mode = "always"
+tearing.mode = "never"
+vrr.mode = "never"
 
 
 #### Window Rules

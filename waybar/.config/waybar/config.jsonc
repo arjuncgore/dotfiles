@@ -37,7 +37,7 @@
   "pulseaudio": {
     // "scroll-step": 1,
     "format": "{volume}% {icon}",
-    "format-muted": "",
+    "format-muted": "󰝟",
     "format-icons": {
         "headphone": "",
         "default": ["", "", ""]
