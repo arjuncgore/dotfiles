@@ -13,7 +13,7 @@ repeat-rate = { rate = 20, delay = 200 }
 
 #### Visual Features
 workspace-display-order = "sorted"
-show-bar = false
+show-bar = true
 show-titles = false
 
 
@@ -29,7 +29,7 @@ use-hardware-cursor = false
 
 #### Startup Actions
 on-graphics-initialized = [
-{ type = "exec", exec = { prog = "jay", args = ["run-privileged", "waybar", "-c", "/home/arjungore/.config/waybar/config_jay.jsonc", "-s", "/home/arjungore/.config/waybar/style_jay.css"] } },
+# { type = "exec", exec = { prog = "jay", args = ["run-privileged", "waybar", "-c", "/home/arjungore/.config/waybar/config_jay.jsonc", "-s", "/home/arjungore/.config/waybar/style_jay.css"] } },
 { type = "exec", exec = "mako" },
 { type = "exec", exec = { prog = "swaybg", args = ["--output", "DP-2", "-i", "/home/arjungore/Pictures/wallpapers/jake.png", "-m", "fill", "--output", "HDMI-A-1", "-i", "/home/arjungore/Pictures/wallpapers/finn.png", "-m", "fill"], privileged = true } },
 { type = "exec", exec = { prog = "swayidle", args = ["-w", "timeout", "600", "swaylock -f", "before-sleep", "swaylock -f"], privileged = true } },
@@ -87,21 +87,28 @@ gfx-api = "Vulkan"
 
 #### Theme
 [theme]
-# border-width = 2
-# border-color = "#00FFFF"
+border-color = "#524f67"
+border-width = 2
 
-# bar-bg-color = "#1f1d11"
-# bar-status-text-color = "#e6c99d"
-# captured-focused-title-bg-color = "#b97d3e"
-# captured-unfocused-title-bg-color = "#1f1d11"
-# focused-inactive-title-bg-color = "#1f1d11"
-# focused-inactive-title-text-color = "#e6c99d"
-# focused-title-bg-color = "#b97d3e"
-# focused-title-text-color = "#1f1d11"
-# separator-color = "#1f1d11"
-# unfocused-title-bg-color = "#1f1d11"
-# unfocused-title-text-color = "#e6c99d"
-# font = "cozette 11"
+bar-height = 35
+bar-bg-color = "#1f1d2e"
+bar-status-text-color = "#e0def4"
+focused-title-bg-color = "#403d52"
+focused-title-text-color = "#e0def4"
+captured-focused-title-bg-color = "#403d52"
+captured-unfocused-title-bg-color = "#1f1d2e"
+focused-inactive-title-bg-color = "#1f1d2e"
+focused-inactive-title-text-color = "#6e6a86"
+unfocused-title-bg-color = "#1f1d2e"
+unfocused-title-text-color = "#6e6a86"
+separator-color = "#1f1d2e"
+font = "MesloLGS Nerd Font Mono Bold 15"
+
+[status]
+format = "i3bar"
+exec = { prog = "i3status-rs", args = ["/home/arjungore/.config/i3status-rust/config.toml"], privileged = true }
+# exec = "i3status-rs"
+i3bar-separator = " "
 
 
 #### Shortcuts
@@ -124,7 +131,7 @@ logo-s                  = [
 ]
 
 logo-d                  = [
-{ type = "exec", exec = "discord" },
+{ type = "exec", exec = "equibop" },
 { type = "show-workspace", name = "7",  output.name = "right" }
 ]
 

@@ -1,0 +1,65 @@
+[theme]
+theme = "plain"
+
+[theme.overrides]
+idle_bg = "#1f1d2e"
+idle_fg = "#e0def4"
+info_bg = "#1f1d2e"
+info_fg = "#e0def4"
+good_bg = "#1f1d2e"
+good_fg = "#e0def4"
+warning_bg = "#1f1d2e"
+warning_fg = "#f6c177"
+critical_bg = "#1f1d2e"
+critical_fg = "#eb6f92"
+separator = ""
+separator_bg = "#1f1d2e"
+separator_fg = "#524f67"
+
+# [icons]
+# icons = "awesome6"
+[icons]
+icons = "material-nf"
+
+[[block]]
+block = "focused_window"
+driver = "wlr_toplevel_management"
+[block.format]
+full = " $title.str(max_w:50)  |"
+[block.theme_overrides]
+idle_fg = "#908caa"
+
+[[block]]
+block = "sound"
+driver = "auto"
+format = "{$volume $icon|󰝟}"
+
+[[block]]
+block = "net"
+interval = 5
+format = "$icon"
+# format = "{$signal_strength} $icon"
+inactive_format = "$icon Down"
+
+[[block]]
+block = "cpu"
+format = "$utilization 󰻠"
+interval = 2
+
+[[block]]
+block = "memory"
+format = "$mem_used_percents $icon"
+interval = 5
+
+[[block]]
+block = "time"
+interval = 1
+[block.format]
+full = "$timestamp.datetime(f:'%a %b %d %H:%M') $icon"
+
+[[block]]
+block = "custom"
+command = "echo '᷾'"
+interval = 3600
+[block.theme_overrides]
+idle_fg = "#1f1d2e"
