@@ -151,3 +151,4 @@ source ~/powerlevel10k/powerlevel10k.zsh-theme
 export YDOTOOL_SOCKET=/tmp/.ydotool_socket
 export JAVA_HOME=/opt/temurin-21
 export PATH=$JAVA_HOME/bin:$PATH
+alias code='flatpak run com.vscodium.codium'
