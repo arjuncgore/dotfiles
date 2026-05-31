@@ -31,6 +31,7 @@ return {
                 "css",
                 "json",
                 "glimmer",
+                "rust",
             },
             auto_install = false,
         })
