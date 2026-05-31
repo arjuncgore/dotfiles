@@ -13,7 +13,7 @@ return {
                 detach = "<leader>rd"
             },
             -- List of directories to source your projects from. Eg: ~/dev, ~/work, etc.
-            project_sources = { "~/college" },
+            project_sources = { "~/college", "~/projects" },
             -- Each project runs as a separate nvim server whose pipe is stored in this directory
             session_dir = "/tmp",
             -- Pre and Post-Hooks for the :connect and :detach actions
